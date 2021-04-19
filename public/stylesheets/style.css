@@ -1,8 +1,65 @@
+html{
+  box-sizing: border-box ;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 2rem Helvetica ;
+    height: 200vh ;
+    margin: 0 ;
 }
 
 a {
-  color: #00B7FF;
+  color: black;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-areas: 
+  "header"  
+  "main"
+  "footer"  ;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem 1fr 5rem;
+  height: 100%;
+}
+
+.header{
+  grid-area: header;
+  background-color: darkorange;
+  color: black ;
+  display: flex;
+  justify-content: space-between;
+}
+
+.main {
+  grid-area: main;
+}
+
+.main a:hover{
+  color: blue;
+}
+
+.footer{
+  grid-area: footer;
+  background-color: darkorange;
+  color: black;
+  text-align: center;
+  position: fixed ;
+  bottom: 0; width: 100; left: 0; right: 0; 
+}
+
+.brand {
+  font-size: 200% ;
+  text-align: center;
+  margin-top: 1.5%;
+}
+
+.Homefeature {
+  margin-top: 3%;
+  font-size: 110%;
+  margin-right: 0.5%;
+}
+
+.Homefeature a:hover{
+  color: blue;
 }
