@@ -1,4 +1,3 @@
-
 let express = require('express');
 let router = express.Router();
 let dbConn = require('../lib/db');
