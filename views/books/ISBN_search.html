@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Book search</title>
+    </head>
+    <body>
+       <div>
+            <input id="input" type="text">
+            <button onclick="getBooks()">Submit</button>
+       </div> <br>
+
+       <div id="output">
+
+       </div>
+
+        <script>
+            /* 9780886825010,   9780136019701,  9780152465032 for Data test or anything */
+            function getBooks(){
+                document.getElementById('output').innerHTML = "" ;
+                fetch("https://openlibrary.org/search.json?q=" + document.getElementById("input").value)
+                .then(a => a.json())
+                .then(response =>{
+                    for(var i = 0 ; i < response.docs.length ; i++){
+                        document.getElementById("output").innerHTML+="<h2>" + response.docs[i].title + "</h2>" + response.docs[i].author_name[0]+
+                        "<br> <img src='http://covers.openlibrary.org/b/isbn/" + response.docs[i].isbn[0]+ "-M.jpg'> <br>" ;
+                    }
+                }
+                ) ;
+            }
+        </script>
+    </body>
+</html>
