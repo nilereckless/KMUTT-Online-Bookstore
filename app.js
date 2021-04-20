@@ -9,7 +9,7 @@ let session = require('express-session');
 let mysql = require('mysql');
 let connection = require('./lib/db');
 
-var searchRouter = require('./routes/search') ;
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var booksRouter = require('./routes/books');
@@ -39,7 +39,6 @@ app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
-app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
