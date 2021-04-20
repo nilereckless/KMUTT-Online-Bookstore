@@ -30,9 +30,10 @@ router.post('/add', (req,res,next) => {
     let author = req.body.author;
     let price = req.body.price;
     let catagory = req.body.catagory;
+    let imageUrl = req.body.imageUrl ;
 
     let errors = false;
-    if(name.length === 0 || author.length === 0 || price.length === 0 || catagory.length === 0){
+    if(name.length === 0 || author.length === 0 || price.length === 0 || catagory.length === 0 || imageUrl.length === 0){
         errors = true;
         //set flash message
         req.flash('error', 'Please enter all book information');
@@ -41,9 +42,9 @@ router.post('/add', (req,res,next) => {
             name: name,
             author: author,
             price: price,
-            catagory: catagory
+            catagory: catagory,
+            imageUrl: imageUrl
         })
-
     }
 
     //if no error
@@ -52,7 +53,8 @@ router.post('/add', (req,res,next) => {
             name: name,
             author: author,
             price: price,
-            catagory: catagory
+            catagory: catagory,
+            imageUrl: imageUrl
         }
         //Insert query
         dbConn.query('INSERT INTO books SET ?', form_data, (err,result) => {
