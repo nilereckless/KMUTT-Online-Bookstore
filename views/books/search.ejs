@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +36,7 @@
             );
 
         function getBookInfo(bookName, author, year, imageUrl) {
+            var savedImgUrl = `http://covers.openlibrary.org/b/isbn/${imageUrl}-M.jpg`;
             Swal.mixin({
                 confirmButtonText: 'Next &rarr;',
                 showCancelButton: true,
@@ -46,14 +48,34 @@
                 },
                 'Confirm'
             ]).then((result) => {
-                if (result.value) {
-                    Swal.fire(
-                        'Done',
-                        '', 'success'
-                    )
-                }
+                addBook(bookName, author, "Education", savedImgUrl);
             })
+        }
+        function addBook(name, author, category, imageUrl) {
+            var settings = {
+                "url": "http://localhost:3000/books/add",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                "data": {
+                    "name": name,
+                    "author": author,
+                    "price": "10",
+                    "catagory": category,
+                    "imageUrl": imageUrl
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                Swal.fire(
+                    'Done',
+                    '', 'success')
+            });
+
         }
     }
 </script>
+
 </html>
