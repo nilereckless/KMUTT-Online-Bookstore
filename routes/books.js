@@ -7,6 +7,7 @@ router.get('/', (req, res, next) => {
     dbConn.query('SELECT * FROM books ORDER BY id ASC', (err,rows) => {
         if(err){
             req.flash('error', err);
+            console.log(err);
             res.render('books', {data: ''}); // render to views/books/index.ejs
         } else {
             res.render('books', {data:rows});
