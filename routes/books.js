@@ -34,7 +34,7 @@ router.post('/add', (req,res,next) => {
     let imageUrl = req.body.imageUrl ;
 
     let errors = false;
-    if(name.length === 0 || author.length === 0 || price.length === 0 || catagory.length === 0 || imageUrl.length === 0){
+    if(name.length === 0 || author.length === 0 || price.length === 0 || catagory.length === 0){
         errors = true;
         //set flash message
         req.flash('error', 'Please enter all book information');
