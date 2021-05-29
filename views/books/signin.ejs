@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="google-signin-client_id"
+        content="891811003581-5f6nrvf033tg9ic6u2nl83n0m0d0m05g.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="script.js"> </script>
+</head>
+<a href="/">Home Page</a> <br>
+
+<body>
+    <div class="g-signin2" data-onsuccess="onSignIn"> 
+    </div>
+    <div class="data">
+      Your name :
+       <p id="g-name"> </p>  <br>
+          <img id="pic"/> <br>
+      E-mail : 
+       <p id="e-mail"> </p>
+
+    </div>
+    <button onclick="signOut()">Sign out</button>
+</body>
+
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        $(".g-signin2").css("display", "none") ;
+        $(".data").css("display", "block") ;
+        $("#pic").attr('src', profile.getImageUrl()) ;
+        $("#e-mail").text(profile.getEmail()) ;
+        $('#g-name').text(profile.getName()) ;
+
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            alert("You have been sign out") ;
+            console.log('User signed out.');
+            $(".g-signin2").css("display", "block") ;
+            $(".data").css("display", "none") ;
+        });
+    }
+</script>
+
+</html>
