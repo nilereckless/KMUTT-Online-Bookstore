@@ -22,11 +22,11 @@ async function searchAdmin(req, res, next) {
     }
     console.log(catagory);
     if (searchTerm != '' && catagory != '') {
-        query = `SELECT * FROM books WHERE catagory LIKE '%` + catagory + `%' AND (name LIKE '%` + searchTerm + `%' OR author LIKE '%` + searchTerm + `%') LIMIT 5`;
+        query = `SELECT * FROM books WHERE catagory LIKE '%` + catagory + `%' AND (name LIKE '%` + searchTerm + `%' OR author LIKE '%` + searchTerm + `%' OR author LIKE '%` + searchTerm + `%' OR isbn LIKE '%` + searchTerm + `%') LIMIT 5`;
         totalPagination = await searchLib.countAllSearch(catagory, searchTerm);
     }
     else if (searchTerm != '' && catagory == '') {
-        query = `SELECT * FROM books WHERE name LIKE '%` + searchTerm + `%' OR author LIKE '%` + searchTerm + `%' LIMIT 5`;
+        query = `SELECT * FROM books WHERE name LIKE '%` + searchTerm + `%' OR author LIKE '%` + searchTerm + `%' OR isbn LIKE '%` + searchTerm + `%' LIMIT 5`;
         totalPagination = await searchLib.countSearchTerm(searchTerm);
     }
     else if (searchTerm == '' && catagory != '') {
@@ -392,8 +392,10 @@ router.post('/filter', search, (req, res) => {
 //Autocomplete in search
 router.post('/autocom', (req, res) => {
     var listBooks = [];
-    dbConn.query('SELECT DISTINCT name, author FROM books', (err, result) => {
+    dbConn.query('SELECT DISTINCT name, author, isbn FROM books', (err, result) => {
         for (var i = 0; i < result.length; i++) {
+            var Textisbn = result[i].isbn.toString();
+            listBooks.push(Textisbn);
             listBooks.push(result[i].name);
             listBooks.push(result[i].author);
             console.log(result[i].name);
