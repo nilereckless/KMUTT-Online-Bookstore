@@ -389,6 +389,7 @@ router.post('/filter', search, (req, res) => {
     });
 })
 
+//Autocomplete in search
 router.post('/autocom', (req, res) => {
     var listBooks = [];
     dbConn.query('SELECT DISTINCT name, author FROM books', (err, result) => {
@@ -401,6 +402,7 @@ router.post('/autocom', (req, res) => {
     });
 })
 
+//Validate addbook Author name by Suggest
 router.post('/author/suggest', (req, res) => {
     var authorList = [];
     dbConn.query('SELECT DISTINCT author FROM books', (err, result) => {
