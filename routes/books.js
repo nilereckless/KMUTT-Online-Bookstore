@@ -395,7 +395,7 @@ router.post('/autocom', (req, res) => {
     dbConn.query('SELECT DISTINCT name, author, isbn FROM books', (err, result) => {
         for (var i = 0; i < result.length; i++) {
            // var Textisbn = result[i].isbn.toString();
-            listBooks.push(Textisbn);
+            //listBooks.push(Textisbn);
             listBooks.push(result[i].name);
             listBooks.push(result[i].author);
             console.log(result[i].name);
