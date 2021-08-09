@@ -85,6 +85,7 @@ app.get('/auth/google/callback',
     var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
     if (!allowedEmail.includes(req.user.emails[0].value.split("@")[1])) {
+      req.flash('error', 'Please use KMUTT Account');
       req.logout();
       return res.redirect('/');
     }

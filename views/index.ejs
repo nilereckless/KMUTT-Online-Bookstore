@@ -5,12 +5,19 @@
    
   </head>
   <% include layouts/header.ejs %>
+
   <body>
     <div class="container">
       <div class="jumbotron">
         <h1 class="display-4">King Mongkut's University of Technology Thonburi</h1>
         <p>KMUTT Online Bookstore</p>
+
       </div>
+      <% if(messages.error) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= messages.error %>
+        </div>
+        <% } %>
       <% if (user) { %>
         <img src="<%= user._json.picture %> " alt="<%= user.displayName %>">
         <h2>Hello, <%= user.displayName %>.</h2>
