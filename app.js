@@ -36,16 +36,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// session related task & passport intiallization...
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(session({
   cookie: { maxAge: 60000 },
   saveUninitialized: true,
   resave: false,
   secret: 'secret'
 }))
+
+// session related task & passport intiallization...
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 app.use(flash());
 
