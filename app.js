@@ -15,24 +15,7 @@ let connection = require('./lib/db');
 
 
 
-// Passport session setup.
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
 
-passport.deserializeUser(function (obj, done) {
-  done(null, obj);
-});
-
-passport.use(new GoogleStrategy({
-  clientID: "315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com",
-  clientSecret: "RQTQczWyU3mkerQ4lcZ7dSLM",
-  callbackURL: "https://kmuttonlinebookstore.me/auth/google/callback"
-},
-  function (accessToken, refreshToken, profile, done) {
-    return done(null, profile);
-  }
-));
 
 
 var indexRouter = require('./routes/index');
@@ -71,6 +54,24 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
 
+// Passport session setup.
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
+});
+
+passport.use(new GoogleStrategy({
+  clientID: "315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com",
+  clientSecret: "RQTQczWyU3mkerQ4lcZ7dSLM",
+  callbackURL: "https://kmuttonlinebookstore.me/auth/google/callback"
+},
+  function (accessToken, refreshToken, profile, done) {
+    return done(null, profile);
+  }
+));
 // Using FacebookStrategy within Passport here to perform the actual task...
 /* GOOGLE ROUTER */
 app.get('/auth/google',
