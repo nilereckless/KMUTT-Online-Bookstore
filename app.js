@@ -4,11 +4,35 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fileUpload = require('express-fileupload');
+var util = require('util');
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 let flash = require('express-flash');
 let session = require('express-session');
 let mysql = require('mysql');
 let connection = require('./lib/db');
+
+
+
+// Passport session setup.
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
+});
+
+passport.use(new GoogleStrategy({
+  clientID: "315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com",
+  clientSecret: "RQTQczWyU3mkerQ4lcZ7dSLM",
+  callbackURL: "https://kmuttonlinebookstore.me/auth/google/callback"
+},
+  function (accessToken, refreshToken, profile, done) {
+    return done(null, profile);
+  }
+));
 
 
 var indexRouter = require('./routes/index');
@@ -29,8 +53,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// session related task & passport intiallization...
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(session({
-  cookie: {maxAge: 60000},
+  cookie: { maxAge: 60000 },
   store: new session.MemoryStore,
   saveUninitialized: true,
   resave: 'true',
@@ -43,13 +71,39 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
 
+// Using FacebookStrategy within Passport here to perform the actual task...
+/* GOOGLE ROUTER */
+app.get('/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function (req, res) {
+    res.redirect('/');
+  });
+
+app.get('/', function (req, res) {
+  res.render('index', { user: req.user });
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login')
+}
+
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
