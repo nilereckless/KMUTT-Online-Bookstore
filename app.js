@@ -84,7 +84,7 @@ app.get('/auth/google/callback',
   function (req, res) {
     var allowedEmail = ["@mail.kmutt.ac.th", "@kmutt.ac.th"]
   
-    if(!allowedEmail.includes(profile.emails[0].value.split("@")[1])) {
+    if(!allowedEmail.includes(req.user.emails[0].value.split("@")[1])) {
         req.logout();
         res.json(500);
     }
