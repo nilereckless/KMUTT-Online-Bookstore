@@ -25,10 +25,11 @@
         <img src="<%= user._json.picture %> " alt="<%= user.displayName %>">
         <h2>Hello, <%= user.displayName %>.</h2>
       <% } %>
-      <a href="/books">Admin Organization</a> <br> <br>
+      
       <% if (user) { %>
       <a href="/logout">logout</a>
       <% } else { %>
+        <a href="/books">Admin Organization</a> <br> <br>
         <a href="/auth/google">Signin</a>
          <% } %>  
     </div>
