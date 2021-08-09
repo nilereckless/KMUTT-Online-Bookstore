@@ -79,7 +79,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function (req, res) {
-    console.log(req);
+    console.log(req.user._json.email);
     res.redirect('/');
   });
 
