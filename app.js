@@ -86,7 +86,7 @@ app.get('/auth/google/callback',
   
     if(!allowedEmail.includes(req.user.emails[0].value.split("@")[1])) {
         req.logout();
-        res.json(500);
+       return res.redirect('/');
     }
     console.log(req.user._json.email);
     res.redirect('/');
