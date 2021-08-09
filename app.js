@@ -42,9 +42,8 @@ app.use(passport.session());
 
 app.use(session({
   cookie: { maxAge: 60000 },
-  store: new session.MemoryStore,
   saveUninitialized: true,
-  resave: 'true',
+  resave: false,
   secret: 'secret'
 }))
 
