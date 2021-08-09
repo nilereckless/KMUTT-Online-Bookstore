@@ -69,12 +69,8 @@ passport.use(new GoogleStrategy({
   clientSecret: "RQTQczWyU3mkerQ4lcZ7dSLM",
   callbackURL: "https://kmuttonlinebookstore.me/auth/google/callback"
 },
-  function (res, accessToken, refreshToken, profile, done) {
-    var allowedEmail = ["@mail.kmutt.ac.th", "@kmutt.ac.th"]
+  function (accessToken, refreshToken, profile, done) {
     
-    if(!allowedEmail.includes(profile.emails[0].value.split("@")[1])) {
-      res.json(500);
-    }
     return done(null, profile);
   }
 ));
@@ -86,6 +82,12 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function (req, res) {
+    var allowedEmail = ["@mail.kmutt.ac.th", "@kmutt.ac.th"]
+  
+    if(!allowedEmail.includes(profile.emails[0].value.split("@")[1])) {
+        req.logout();
+        res.json(500);
+    }
     console.log(req.user._json.email);
     res.redirect('/');
   });
