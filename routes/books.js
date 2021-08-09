@@ -8,7 +8,10 @@ let bookLib = require('../lib/checkBookCond');
 let helpers = require('../lib/helpers');
 const CryptoJS = require("crypto-js");
 
-
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login')
+  }
 //admin search
 async function searchAdmin(req, res, next) {
     let query = 'SELECT * FROM books';
@@ -53,7 +56,7 @@ async function searchAdmin(req, res, next) {
 }
 
 //display book page
-router.get('/', searchAdmin, (req, res, next) => {
+router.get('/', ensureAuthenticated, searchAdmin, (req, res, next) => {
     if (req.query.search || req.query.catagory) {
         res.render('books', { data: req.books, pageInfo: req.pagination });
     } else {
