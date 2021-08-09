@@ -329,6 +329,7 @@ router.get('/delete/(:id)', (req, res, next) => {
 
 //Google sign-in
 router.get('/signin', function (req, res, next) {
+    console.log(req.user);
     res.render('books/signin', { user: req.user });
 });
 
