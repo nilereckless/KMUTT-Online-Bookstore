@@ -83,9 +83,7 @@ app.get('/auth/google/callback',
     res.redirect('/');
   });
 
-app.get('/', function (req, res) {
-  res.render('index', { user: req.user });
-});
+
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }

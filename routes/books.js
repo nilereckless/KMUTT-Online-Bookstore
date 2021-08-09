@@ -329,7 +329,7 @@ router.get('/delete/(:id)', (req, res, next) => {
 
 //Google sign-in
 router.get('/signin', function (req, res, next) {
-    res.render('books/signin', { title: 'Express' });
+    res.render('books/signin', { user: req.user });
 });
 
 //ISBN
