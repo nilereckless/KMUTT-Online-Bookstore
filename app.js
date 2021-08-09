@@ -74,7 +74,7 @@ app.use('/books', booksRouter);
 // Using FacebookStrategy within Passport here to perform the actual task...
 /* GOOGLE ROUTER */
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'] }));
 
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
