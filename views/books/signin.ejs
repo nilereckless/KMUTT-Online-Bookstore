@@ -5,7 +5,10 @@
 <a href="/">Home Page</a> <br>
 <a href="/auth/google">Sign In</a> <br>
 <body>
-    <h2>Hello, <%= user.displayName %>.</h2>
+    <% if (!user) { %>
+        <h2>Hello, <%= user.displayName %>.</h2>
+        <% } %>
+    
     <button onclick="signOut()">Sign out</button>
 </body>
 <% include ../layouts/footer.ejs %>

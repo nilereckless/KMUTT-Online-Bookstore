@@ -69,7 +69,12 @@ passport.use(new GoogleStrategy({
   clientSecret: "RQTQczWyU3mkerQ4lcZ7dSLM",
   callbackURL: "https://kmuttonlinebookstore.me/auth/google/callback"
 },
-  function (accessToken, refreshToken, profile, done) {
+  function (res, accessToken, refreshToken, profile, done) {
+    var allowedEmail = ["@mail.kmutt.ac.th", "@kmutt.ac.th"]
+    
+    if(!allowedEmail.includes(profile.emails[0].value.split("@")[1])) {
+      res.json(500);
+    }
     return done(null, profile);
   }
 ));
