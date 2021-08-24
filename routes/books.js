@@ -13,51 +13,11 @@ function ensureAuthenticated(req, res, next) {
     req.flash('error', 'Please Login !');
     res.redirect('/');
   }
-//admin search
-async function searchAdmin(req, res, next) {
-    let query = 'SELECT * FROM books';
-    let searchTerm = req.query.search;
-    let catagory = req.query.catagory;
-    let page = req.query.page;
-    var totalPagination = 0;
 
-    if (!page) {
-        page = 1
-    }
-    console.log(catagory);
-    if (searchTerm != '' && catagory != '') {
-        query = `SELECT * FROM books WHERE catagory LIKE '%` + catagory + `%' AND (name LIKE '%` + searchTerm + `%' OR author LIKE '%` + searchTerm + `%' OR author LIKE '%` + searchTerm + `%' OR isbn LIKE '%` + searchTerm + `%') LIMIT 5`;
-        totalPagination = await searchLib.countAllSearch(catagory, searchTerm);
-    }
-    else if (searchTerm != '' && catagory == '') {
-        query = `SELECT * FROM books WHERE name LIKE '%` + searchTerm + `%' OR author LIKE '%` + searchTerm + `%' OR isbn LIKE '%` + searchTerm + `%' LIMIT 5`;
-        totalPagination = await searchLib.countSearchTerm(searchTerm);
-    }
-    else if (searchTerm == '' && catagory != '') {
-        query = `SELECT * FROM books WHERE catagory = '` + catagory + `' LIMIT 5`;
-        totalPagination = await searchLib.countSearchCatagory(catagory);
-    }
-    var data = searchLib.findOffSet(req.query.page, query);
-    dbConn.query(data.query, (err, rows) => {
-        if (err) {
-            req.flash('error', err);
-            console.log(err);
-            res.render('books', { data: '' }); // render to views/books/index.ejs
-        }
-        console.log(totalPagination);
-        var totalRows = searchLib.getPagination(totalPagination);
-        var pageInfo = {
-            currentPage: data.currentPage,
-            totalPage: totalRows
-        }
-        req.books = rows;
-        req.pagination = pageInfo;
-        next();
-    })
-}
+
 
 //display book page
-router.get('/', ensureAuthenticated, searchAdmin, (req, res, next) => {
+router.get('/', ensureAuthenticated, searchLib.searchAdmin, (req, res, next) => {
     if (req.query.search || req.query.catagory) {
         res.render('books', { data: req.books, pageInfo: req.pagination });
     } else {
@@ -83,6 +43,8 @@ router.get('/', ensureAuthenticated, searchAdmin, (req, res, next) => {
     }
 
 })
+
+
 
 //display add book page
 router.get('/add', (req, res, next) => {
@@ -331,8 +293,6 @@ router.get('/delete/(:id)', (req, res, next) => {
     })
 })
 
-
-
 //ISBN
 router.get('/search', function (req, res, next) {
     res.render('books/search', { title: 'Express' });
@@ -420,8 +380,10 @@ router.post('/author/suggest', (req, res) => {
 
 //upload img
 router.post('/image/upload', (req, res) => {
-
 })
+
+
+
 
 module.exports = router;
 
