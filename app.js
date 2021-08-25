@@ -54,7 +54,7 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/books', authentication.isAuthenticated, booksRouter);
+app.use('/books', authentication.isAuthenticated, authentication.checkAdmin, booksRouter);
 
 // Passport session setup.
 passport.serializeUser(function (user, done) {
