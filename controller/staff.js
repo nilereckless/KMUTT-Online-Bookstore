@@ -2,7 +2,7 @@ let dbConn = require('../lib/db');
 
 exports.getStaff = (email) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT * FROM staff WHERE staffEmail = ${email}`;
+        var query = `SELECT * FROM staff WHERE staffEmail = '${email}'`;
         dbConn.query(query, (err, rows) => {
             if (err) {
                 reject(err);
