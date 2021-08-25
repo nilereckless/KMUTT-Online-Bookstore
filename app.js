@@ -12,6 +12,7 @@ let flash = require('express-flash');
 let session = require('express-session');
 let mysql = require('mysql');
 let connection = require('./lib/db');
+let authentication = require('./middleware/authentication');
 
 
 
@@ -53,7 +54,7 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/books', booksRouter);
+app.use('/books', authentication.isAuthenticated, booksRouter);
 
 // Passport session setup.
 passport.serializeUser(function (user, done) {

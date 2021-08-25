@@ -8,6 +8,7 @@ let bookLib = require('../lib/checkBookCond');
 let helpers = require('../lib/helpers');
 const CryptoJS = require("crypto-js");
 
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     req.flash('error', 'Please Login !');
