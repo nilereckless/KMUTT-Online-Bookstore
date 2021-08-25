@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
-let searchLib = require('../lib/search');
-let dbConn = require('../lib/db');
 let viewbook = require('../lib/viewbook');
 let moment = require('moment');
+let authentication = require('../middleware/authentication');
 
 
-router.get('/', async (req, res, next) => {
+router.get('/', authentication.checkAdmin, async (req, res, next) => {
   var date = await viewbook.getDateNewestBook();
   var data = await viewbook.getNewestBook(moment(date).format('YYYY-MM-DD'), 3, 3);
   console.log(req.user);
