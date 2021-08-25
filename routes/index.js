@@ -9,8 +9,9 @@ let moment = require('moment');
 router.get('/', async (req, res, next) => {
   var date = await viewbook.getDateNewestBook();
   var data = await viewbook.getNewestBook(moment(date).format('YYYY-MM-DD'), 3, 3);
+  console.log(req.user);
 
-  res.render('index', { data: data, user: null });
+  res.render('index', { data: data, user: req.user});
 })
 
 router.get('/newbook', async (req, res, next) => {

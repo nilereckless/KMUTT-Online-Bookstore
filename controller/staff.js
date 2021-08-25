@@ -1,4 +1,4 @@
-/*let dbConn = require('../lib/db');
+let dbConn = require('../lib/db');
 
 exports.getStaff = (email) => {
     return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ exports.getStaff = (email) => {
 
 exports.addStaff = (staff) => {
     return new Promise((resolve, reject) => {
-        var query = `INSERT INTO staff `;
+        var query = `INSERT INTO staff (staffEmail) VALUES (${staff.email})`;
         dbConn.query(query, (err, rows) => {
             if (err) {
                 reject(err);
@@ -22,4 +22,4 @@ exports.addStaff = (staff) => {
             resolve(rows);
         })
     })
-}*/
+}

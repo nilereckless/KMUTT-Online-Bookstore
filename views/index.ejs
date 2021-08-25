@@ -24,7 +24,7 @@
               </button>
           </div>
           <% } %>
-            <% if (user) { %>
+            <% if (user!=undefined) { %>
               <img src="<%= user._json.picture %> " alt="<%= user.displayName %>">
               <h2>Hello, <%= user.displayName %>.</h2>
               <% } %>
