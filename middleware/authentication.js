@@ -17,7 +17,7 @@ exports.isAuthenticated = async (req, res, next) => {
 
     if (!req.user) {
         res.redirect('/');
-    } 
+    }
     next()
 
 
@@ -25,9 +25,11 @@ exports.isAuthenticated = async (req, res, next) => {
 
 exports.isStaffAuthenticated = async (req, res, next) => {
 
-    if (!req.user && req?.staff.length === 0) {
+    if (!req.user) {
         res.redirect('/');
-    } 
+    } else {
+        console.log(req.user);
+    }
     next()
 
 
