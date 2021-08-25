@@ -28,7 +28,10 @@ exports.isStaffAuthenticated = async (req, res, next) => {
     if (!req.user) {
         res.redirect('/');
     } else {
-        console.log(req.user);
+        var staffInfo = await staff.getStaff(req.user.emails[0].value)
+        if (staffInfo.length === 0) {
+            res.redirect('/');
+        }
     }
     next()
 
