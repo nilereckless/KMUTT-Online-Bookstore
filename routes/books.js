@@ -7,7 +7,7 @@ let searchLib = require('../lib/search');
 let bookLib = require('../lib/checkBookCond');
 let helpers = require('../lib/helpers');
 const CryptoJS = require("crypto-js");
-const pageAmount = 5;
+const pageAmount = 10;
 
 
 function ensureAuthenticated(req, res, next) {
