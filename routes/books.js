@@ -7,6 +7,7 @@ let searchLib = require('../lib/search');
 let bookLib = require('../lib/checkBookCond');
 let helpers = require('../lib/helpers');
 const CryptoJS = require("crypto-js");
+const pageAmount = 5;
 
 
 function ensureAuthenticated(req, res, next) {
@@ -22,7 +23,7 @@ router.get('/', ensureAuthenticated, searchLib.searchAdmin, (req, res, next) => 
     if (req.query.search || req.query.catagory) {
         res.render('books', { data: req.books, pageInfo: req.pagination });
     } else {
-        var data = searchLib.findOffSet(req.query.page, 'SELECT * FROM books ORDER BY id ASC LIMIT 5');
+        var data = searchLib.findOffSet(req.query.page, `SELECT * FROM books ORDER BY id ASC LIMIT ${pageAmount}`);
         dbConn.query(data.query, (err, rows) => {
             if (err) {
                 req.flash('error', err);
@@ -30,7 +31,7 @@ router.get('/', ensureAuthenticated, searchLib.searchAdmin, (req, res, next) => 
                 res.render('books', { data: '' }); // render to views/books/index.ejs
             } else {
                 dbConn.query('SELECT * FROM books ORDER BY id ASC', (err, result) => {
-                    var totalRows = searchLib.getPagination(result.length);
+                    var totalRows = searchLib.getPagination(pageAmount, result.length);
                     console.log('totalRows', totalRows)
                     var pageInfo = {
                         currentPage: data.currentPage,
