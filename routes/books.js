@@ -14,7 +14,7 @@ function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     req.flash('error', 'Please Login !');
     res.redirect('/');
-  }
+}
 
 
 
@@ -44,6 +44,30 @@ router.get('/', ensureAuthenticated, searchLib.searchAdmin, (req, res, next) => 
         })
     }
 
+})
+
+//view detail book 
+router.get('/viewDetail/(:id)', function (req, res, next) {
+    let id = req.params.id;
+
+    dbConn.query('SELECT * FROM books WHERE id = ' + id, (err, rows, fields) => {
+        if(rows.length <=0){
+            req.flash('error', 'Book not found with id = ' + id)
+            res.redirect('/books');
+        } else {
+            res.render('books/viewDetail', {
+                title: 'Book detail',
+                id: rows[0].id,
+                name: rows[0].name,
+                author: rows[0].author,
+                price: rows[0].price,
+                stock: rows[0].stock,
+                imageUrl: rows[0].imageUrl,
+                catagory: rows[0].catagory,
+                isbn: rows[0].isbn
+            })
+        }
+    });
 })
 
 
@@ -82,9 +106,9 @@ router.post('/add', async (req, res, next) => {
         return;
     }
     let errors = false;
-    if(isbn.trim().length === 0) {
+    if (isbn.trim().length === 0) {
         isbn = null
-    } else if(isbn.trim().length !== 13 && isbn.trim().length !== 10 && isbn.trim().length !== 0){
+    } else if (isbn.trim().length !== 13 && isbn.trim().length !== 10 && isbn.trim().length !== 0) {
         req.flash('error', 'ISBN Should 10 or 13 number');
         res.render('books/add', {
             name: name,
@@ -96,7 +120,7 @@ router.post('/add', async (req, res, next) => {
             stock: stock
         })
         return;
-    } 
+    }
     if (name.length === 0 || author.length === 0 || price.length === 0 || catagory.length === 0) {
         errors = true;
         //set flash message
@@ -138,7 +162,7 @@ router.post('/add', async (req, res, next) => {
                 }
             });
         }
-        
+
         let form_data = {
             name: name,
             author: author,
@@ -215,26 +239,26 @@ router.post('/update/:id', (req, res, next) => {
         path = `upload/image/${trimmedString}.${helpers.getExtension(bookimg.name)}`;
         if (!helpers.imageFilter(bookimg.name)) {
             req.flash('error', 'Upload image is invalid!');
-            res.redirect('/books/edit/'+id);
+            res.redirect('/books/edit/' + id);
             return;
         }
         bookimg.mv('public/' + path, function (err) {
             if (err) {
                 req.flash('error', 'Book Successfully Updated!');
-                res.redirect('/books/edit/'+id);
+                res.redirect('/books/edit/' + id);
             }
         });
-    } 
+    }
     let errors = false;
-    
-    if(isbn.trim().length === 0) {
+
+    if (isbn.trim().length === 0) {
         isbn = null
-    } else if(isbn.trim().length !== 13 && isbn.trim().length !== 10 && isbn.trim().length !== 0){
+    } else if (isbn.trim().length !== 13 && isbn.trim().length !== 10 && isbn.trim().length !== 0) {
         req.flash('error', 'ISBN Should 10 or 13 number');
-        res.redirect('/books/edit/'+id);
+        res.redirect('/books/edit/' + id);
         return;
     }
-    if (name.length === 0 || author.length === 0 || price.length === 0 || catagory.length === 0 || stock.length === 0 ) {
+    if (name.length === 0 || author.length === 0 || price.length === 0 || catagory.length === 0 || stock.length === 0) {
         errors = true;
         req.flash('errors', 'Please enter all book information');
         res.render('books/edit', {
@@ -357,10 +381,10 @@ router.post('/autocom', (req, res) => {
     var listBooks = [];
     dbConn.query('SELECT DISTINCT name, author, isbn FROM books', (err, result) => {
         for (var i = 0; i < result.length; i++) {
-        if(result[i].isbn !== null){
-            var Textisbn = result[i].isbn.toString();
-            listBooks.push(Textisbn);
-        }
+            if (result[i].isbn !== null) {
+                var Textisbn = result[i].isbn.toString();
+                listBooks.push(Textisbn);
+            }
             listBooks.push(result[i].name);
             listBooks.push(result[i].author);
             console.log(result[i].name);

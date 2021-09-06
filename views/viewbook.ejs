@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>KMUTT Online Bookstore</title>
+<title>KMUTT Online Bookstore</title>
+
 <head>
     <style>
         .slick-well {
@@ -20,7 +21,7 @@
             position: relative;
         }
     </style>
-  
+
 </head>
 <% include layouts/header.ejs %>
 
@@ -65,7 +66,7 @@
                                         </div>
                                         <div>
                                             <button class="btn btn-primary">add to cart</button><br>
-                                            <button class="btn btn-secondary">read more</button>
+                                            <a href="../books/viewDetail/<%= data[i].id %>" class="btn btn-secondary">read more</a>
                                         </div>
                                     </div>
 
