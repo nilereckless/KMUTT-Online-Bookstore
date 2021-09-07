@@ -10,6 +10,23 @@
 
   <body>
     <% include layouts/navbar.ejs %>
+    <form action="/books/search" method="post">
+      <div class="input-group mb-3">
+          <input type="text" name="search" id="search" class="form-control"
+              placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"
+              autocomplete="off">
+          <select class="custom-select mr-sm-2" name="catagory">
+              <option value="" selected>All Catagory</option>
+              <option value="Education">Education</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Other...">Other...</option>
+          </select>
+          <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit">Search</button>
+          </div>
+      </div>
+  </form>
       <div class="container">
         <div class="jumbotron">
           <h1 class="display-4">King Mongkut's University of Technology Thonburi</h1>
@@ -137,7 +154,7 @@
                       </div>
                       <div>
                         <button class="btn btn-primary">add to cart</button><br>
-                        <a href="../books/viewDetail/<%= data[i].id %>" class="btn btn-secondary">read more</a>
+                        <a href="/books/viewDetail/<%= data[i].id %>" class="btn btn-secondary">read more</a>
                       </div>
                     </div>
 

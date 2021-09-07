@@ -7,7 +7,9 @@ let searchLib = require('../lib/search');
 let bookLib = require('../lib/checkBookCond');
 let helpers = require('../lib/helpers');
 const CryptoJS = require("crypto-js");
+const { isStaffAuthenticated } = require('../middleware/authentication');
 const pageAmount = 10;
+
 
 
 function ensureAuthenticated(req, res, next) {
@@ -73,7 +75,7 @@ router.get('/viewDetail/(:id)', function (req, res, next) {
 
 
 //display add book page
-router.get('/add', (req, res, next) => {
+router.get('/add', isStaffAuthenticated, (req, res, next) => {
     res.render('books/add', {
         name: '',
         author: '',
@@ -85,7 +87,7 @@ router.get('/add', (req, res, next) => {
 })
 
 //add book 
-router.post('/add', async (req, res, next) => {
+router.post('/add', isStaffAuthenticated,async (req, res, next) => {
     let name = req.body.name;
     let author = req.body.author;
     let price = req.body.price;
@@ -149,7 +151,7 @@ router.post('/add', async (req, res, next) => {
             bookimg = req.files.book_pic;
             let filename = CryptoJS.MD5(Math.floor(Date.now() / 1000) + bookimg.name).toString();
             var trimmedString = filename.substring(0, 12);
-            path = `upload/image/${trimmedString}.${helpers.getExtension(bookimg.name)}`;
+            path = `/upload/image/${trimmedString}.${helpers.getExtension(bookimg.name)}`;
             if (!helpers.imageFilter(bookimg.name)) {
                 req.flash('error', 'Upload image is invalid!');
                 res.redirect('/books/add');
@@ -197,7 +199,7 @@ router.post('/add', async (req, res, next) => {
 })
 
 //Display edit book page
-router.get('/edit/(:id)', (req, res, next) => {
+router.get('/edit/(:id)', isStaffAuthenticated,(req, res, next) => {
     let id = req.params.id;
 
     dbConn.query('SELECT * FROM books WHERE id = ' + id, (err, rows, fields) => {
@@ -221,7 +223,7 @@ router.get('/edit/(:id)', (req, res, next) => {
 })
 
 //Update book page
-router.post('/update/:id', (req, res, next) => {
+router.post('/update/:id', isStaffAuthenticated, (req, res, next) => {
     let id = req.params.id;
     let name = req.body.name;
     let author = req.body.author;
@@ -305,7 +307,7 @@ router.post('/update/:id', (req, res, next) => {
 })
 
 //Delete book
-router.get('/delete/(:id)', (req, res, next) => {
+router.get('/delete/(:id)',isStaffAuthenticated, (req, res, next) => {
     let id = req.params.id;
 
     dbConn.query('DELETE FROM books WHERE id = ' + id, (err, result) => {
@@ -319,10 +321,6 @@ router.get('/delete/(:id)', (req, res, next) => {
     })
 })
 
-//ISBN
-router.get('/search', function (req, res, next) {
-    res.render('books/search', { title: 'Express' });
-});
 
 //Filter aka search
 function search(req, res, next) {
@@ -356,6 +354,13 @@ function search(req, res, next) {
     });
 }
 
+//ISBN
+router.post('/search', search, function (req, res, next) {
+    var searchResult = req.searchResult;
+    console.log(searchResult);
+    res.render('productfilter', { title: 'Express', data: searchResult });
+});
+
 router.get('/filter', (req, res) => {
     var searchResult = req.searchResult;
     res.render('books/filter', {
@@ -375,6 +380,8 @@ router.post('/filter', search, (req, res) => {
         catagory: req.catagory
     });
 })
+
+
 
 //Autocomplete in search
 router.post('/autocom', (req, res) => {
