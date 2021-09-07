@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
     if (cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(1, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
     }
     cartStorage[req.user.id] = cart;
     var cartInfo = [];
