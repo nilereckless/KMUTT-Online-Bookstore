@@ -40,9 +40,9 @@ exports.isStaffAuthenticated = async (req, res, next) => {
 
 exports.isAuthenticatedCart = async (req, res, next) => {
 
-  /*  if (!req.user) {
+   if (!req.user) {
         res.json('Unauthorized') ;
-    } */
+    } 
     // จะลองLogin Cartค่อยเปิด
     next()
 

@@ -8,12 +8,12 @@ const middleWare = require('../middleware/authentication') ;
 router.get('/', async (req, res, next) => {
     var cart = null;
     //   console.log(cartStorage[1]) ;
-    if (cartStorage[1] === undefined) {
-        cart = new Cart(1);
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(1, cartStorage[1].cart);
+        cart = new Cart(1, cartStorage[req.user.id].cart);
     }
-    cartStorage[1] = cart;
+    cartStorage[req.user.id] = cart;
     var cartInfo = [];
     var total = 0 ;
     const ids = cart.getCart().map(o => o.id)
@@ -46,58 +46,58 @@ router.get('/add/:id',middleWare.isAuthenticatedCart, async (req, res, next) => 
         cart = new Cart(1, cartStorage[1].cart);
         cart.addCart({ id: bookID });
     }
-    cartStorage[1] = cart;
+    cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
 router.get('/remove/:id',middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
-    if (cartStorage[1] === undefined) {
-        cart = new Cart(1);
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(1, cartStorage[1].cart);
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
         cart.removeCartByBookID(bookID);
     }
-    cartStorage[1] = cart;
+    cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
 router.get('/clear',middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
-    if (cartStorage[1] === undefined) {
-        cart = new Cart(1);
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(1, cartStorage[1].cart);
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
         cart.removeAllCart();
     }
-    cartStorage[1] = cart;
+    cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
 router.get('/clear/:id',middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
-    if (cartStorage[1] === undefined) {
-        cart = new Cart(1);
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(1, cartStorage[1].cart);
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
         cart.removeAllCartByBookID(bookID);
     }
-    cartStorage[1] = cart;
+    cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
 router.get('/count',middleWare.isAuthenticatedCart, async (req, res, next) => {
     var cart = null;
     //   console.log(cartStorage[1]) ;
-    if (cartStorage[1] === undefined) {
-        cart = new Cart(1);
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(1, cartStorage[1].cart);
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
     }
-    cartStorage[1] = cart;
+    cartStorage[req.user.id] = cart;
     res.json({ count: cart.getTotalCart() }) ;
 })
 
