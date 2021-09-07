@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+        <style>
+            #image1 {
+                padding: 30px;
+                padding-left: 60px;
+                padding-right: 60px;
+                background-color: white;
+            }
+
+            #bookStore {
+                font-family: LucidaHandwriting;
+            }
+
+            #priceDetail {
+                font-size: 30px;
+            }
+
+            .tag {
+                display: inline-block;
+
+                width: auto;
+                height: 38px;
+
+                background-color: lightsalmon;
+                -webkit-border-radius: 3px 4px 4px 3px;
+                -moz-border-radius: 3px 4px 4px 3px;
+                border-radius: 3px 4px 4px 3px;
+
+                border-left: 1px solid lightsalmon;
+
+
+                margin-left: 19px;
+
+                position: relative;
+
+                color: white;
+                font-weight: 300;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 22px;
+                line-height: 38px;
+
+                padding: 0 10px 0 10px;
+            }
+
+            .tag:before {
+                content: "";
+                position: absolute;
+                display: block;
+                left: -19px;
+                width: 0;
+                height: 0;
+                border-top: 19px solid transparent;
+                border-bottom: 19px solid transparent;
+                border-right: 19px solid lightsalmon;
+            }
+
+            .tag:after {
+                content: "";
+                background-color: white;
+                border-radius: 50%;
+                width: 4px;
+                height: 4px;
+                display: block;
+                position: absolute;
+                left: -9px;
+                top: 17px;
+            }
+
+            form {
+                width: 500px;
+                margin: 0 auto;
+                text-align: left;
+            }
+
+            .value-button {
+                display: inline-block;
+                border: 1px solid #ddd;
+                margin: 0px;
+                width: 40px;
+                height: 40px;
+                text-align: center;
+                vertical-align: middle;
+                padding: 5px 0;
+                background: #eee;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            .value-button:hover {
+                cursor: pointer;
+            }
+
+            form #decrease {
+                margin-right: -4px;
+                border-radius: 10px 0 0 10px;
+            }
+
+            form #increase {
+                margin-left: -4px;
+                border-radius: 0 8px 8px 0;
+            }
+
+            input#number {
+                text-align: center;
+                border: none;
+                border-top: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+                margin: 0px;
+                width: 40px;
+                height: 40px;
+            }
+
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            #stock {
+                color: red
+            }
+
+            .arrow {
+                border: solid lightsalmon;
+                border-width: 0 3px 3px 0;
+                display: inline-block;
+                padding: 3px;
+            }
+
+            .right {
+                transform: rotate(-45deg);
+                -webkit-transform: rotate(-45deg);
+            }
+
+            .Book-info {
+                padding: 10px;
+            }
+        </style>
+</head>
+<% include ../layouts/header.ejs %>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightsalmon;">
+        <a href="/" id="bookStore" class="navbar-brand">KMUTT ONLINE BOOKSTORE</a>
+        <button class="navbar-toggler" type="button" data-toggler="collapse" data-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Pay-In Slip</a>
+                </li>
+                <li class="nav-item">
+                    <a href="http://www.google.com" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown">
+                        More
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Promotions</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">News and Activities</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-heart fa-2x" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- breadcrumb -->
+    <div class="main-layout" style="background-color: rgb(242, 242, 242);">
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-12">
+                    <span class="fa-pull-left">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active"><%=catagory %></a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><%=name %>
+                                </li>
+                            </ol>
+                        </nav>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <br>
+            <div class="row mx-0 justify-content-xl center">
+                <div class="col-lg-10 col-md-12 px-0">
+                    <div class="row">
+                        <!-- book img -->
+                        <div class="col-xl-5 col-md-5">
+                            <img src="<%= imageUrl %>" id="image1" height="360" width="320" class="rounded">
+                        </div>
+
+                        <!-- space -->
+                        <div class="col-xl-1 col-lg-1 d-md-none d-lg-block"></div>
+
+                        <!-- book brief description -->
+                        <div class="col-lg-6 col-md-7">
+                            <h3>
+                                <%= name %>
+                            </h3>
+                            <p>Author : <%= author %>
+                            </p>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            &nbsp;&nbsp;<a href="#">Read Review</a>
+                            <br>
+                            <br>
+
+                            <p class="tag" id="priceDetail">฿ <%= price %>
+                            </p>
+
+                            <!-- purchase form -->
+                            <form>
+                                <div class="value-button" id="decrease" onclick="decreaseValue()"
+                                    value="Decrease Value">
+                                    -
+                                </div>
+
+                                <input type="number" id="number" value="1" />
+
+                                <div class="value-button" id="increase" onclick="increaseValue()"
+                                    value="Increase Value">
+                                    +
+                                </div>
+                                &nbsp;&nbsp;piece
+                                <p id=stock>Have only <%= stock %> pieces</p>
+
+                                <button class="btn btn-primary" type="submit" value="add to cart">add to cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-lg-left mx-0 mt-4">
+                <div class="col-xl-10 col-md-12 px-0">
+                    <div class="bg-white br-8">
+                        <div class="row py-lg-0 py-2">
+                            <div class="col-xl-4 col-md-5 pr-md-0">
+                                <div class="Book-info">
+                                    <h5 class="pb-3">Book Info</h5>
+                                    <p><i class="arrow right"></i> &nbsp;&nbsp;&nbsp;Barcode : <%= isbn %>
+                                    </p>
+                                    <p><i class="arrow right"></i> &nbsp;&nbsp;&nbsp;ISBN : <%= isbn %>
+                                    </p>
+                                    <p><i class="arrow right"></i> &nbsp;&nbsp;&nbsp;Category : <%= catagory %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<% include ../layouts/footer.ejs %>
+<script>
+    function increaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('number').value = value;
+    }
+
+    function decreaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 2 ? value = 2 : '';
+        value--;
+        document.getElementById('number').value = value;
+    }
+</script>
+
+
+</html>
