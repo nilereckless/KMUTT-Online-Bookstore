@@ -23,6 +23,7 @@ let authentication = require('./middleware/authentication');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var booksRouter = require('./routes/books');
+var cartRouter = require('./routes/cart') ;
 
 var app = express();
 
@@ -55,7 +56,8 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/books', booksRouter);
+app.use('/books',/* authentication.isStaffAuthenticated,*/ booksRouter); // แล้วแต่ว่าจะใช้มั้ย
+app.use('/cart', cartRouter) ;
 
 // Passport session setup.
 passport.serializeUser(function (user, done) {

@@ -15,9 +15,9 @@ exports.checkAdmin = async (req, res, next) => {
 
 exports.isAuthenticated = async (req, res, next) => {
 
-    if (!req.user) {
+   if (!req.user) {
         res.redirect('/');
-    }
+    } 
     next()
 
 
@@ -27,13 +27,24 @@ exports.isStaffAuthenticated = async (req, res, next) => {
 
     if (!req.user) {
         res.redirect('/');
-    }
-    staff.getStaff(req.user.emails[0].value).then((staffInfo) => {
+    } else {
+        var staffInfo = await staff.getStaff(req.user.emails[0].value)
         if (staffInfo.length === 0) {
             res.redirect('/');
         }
-        next()
-    })
+    }
+    next()
+
+
+}
+
+exports.isAuthenticatedCart = async (req, res, next) => {
+
+  /*  if (!req.user) {
+        res.json('Unauthorized') ;
+    } */
+    // จะลองLogin Cartค่อยเปิด
+    next()
 
 
 }

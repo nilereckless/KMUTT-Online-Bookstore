@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include layouts/header.ejs %>
+        <title>Shopping Cart</title>
+        <style>
+            .shopping-cart {
+                width: 600px;
+                height: 550px;
+                margin: 80px auto;
+                background: seashell;
+                box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
+                border-radius: 6px;
+
+                display: flex;
+                flex-direction: column;
+            }
+
+            .title {
+                height: 60px;
+                border-bottom: 1px solid #E1E8EE;
+                padding: 20px 30px;
+                color: #5E6977;
+                font-size: 18px;
+                font-weight: 400;
+            }
+
+            .item {
+                padding: 20px 30px;
+                height: 120px;
+                display: flex;
+            }
+
+            .item:nth-child(3) {
+                border-top: 1px solid #E1E8EE;
+                border-bottom: 1px solid #E1E8EE;
+            }
+
+            .buttons {
+                position: relative;
+                padding-top: 30px;
+                margin-right: 60px;
+            }
+
+            .delete-btn,
+            .like-btn {
+                display: inline-block;
+                Cursor: pointer;
+            }
+
+            .delete-btn {
+                width: 18px;
+                height: 17px;
+            }
+
+            .like-btn {
+                position: absolute;
+                top: 9px;
+                left: 15px;
+                width: 60px;
+                height: 60px;
+                background-size: 2900%;
+                background-repeat: no-repeat;
+            }
+
+            .description span {
+                display: block;
+                font-size: 14px;
+                color: #43484D;
+                font-weight: 400;
+            }
+
+            .description span:first-child {
+                margin-bottom: 5px;
+            }
+
+            .description span:last-child {
+                font-weight: 300;
+                margin-top: 8px;
+                color: #86939E;
+            }
+
+            .quantity {
+                padding-top: 20px;
+                margin-right: 60px;
+            }
+
+            .quantity input {
+                -webkit-appearance: none;
+                border: none;
+                text-align: center;
+                width: 32px;
+                font-size: 16px;
+                color: #43484D;
+                font-weight: 300;
+            }
+
+            button[class*=btn] {
+                width: 30px;
+                height: 30px;
+                background-color: #E1E8EE;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .minus-btn img {
+                margin-bottom: 3px;
+            }
+
+            .plus-btn img {
+                margin-top: 2px;
+            }
+
+            button:focus,
+            input:focus {
+                outline: 0;
+            }
+
+            .total-price {
+                width: 83px;
+                padding-top: 27px;
+                text-align: center;
+                font-size: 16px;
+                color: #43484D;
+                font-weight: 300;
+            }
+        </style>
+</head>
+
+<body>
+    <% include layouts/navbar.ejs %>
+    <h3 style="text-align: center;">Shopping Cart</h3>
+        <% if(cart.length> 0){ %>
+            <%for(var i=0; i<cart.length; i++) {%>
+                <div class="shopping-cart">
+                    <!--Title-->
+                    <div class="title">
+                        <%= cart[i].bookName %>
+                    </div>
+                    
+                    <!--Product-->
+                    <div class="item">
+                        <div class="buttons delete-btn" data-id="<%=cart[i].id%>"> 
+                            <i class="far fa-times-circle"></i>
+                            <span class="like-btn"></span>
+                        </div>
+                    </div>
+
+                    <div class="image">
+                        <img src="<%= cart[i].img %>" alt="" class="rounded" width="160" height="220">
+                    </div>
+
+                    <div class="description">
+                        <span> Author : <%= cart[i].author %> </span>
+                    </div>
+
+                    <div class="quantity">
+                        <button class="minus-btn" type="button" name="button">
+                            <i class="fas fa-minus" id="minusIt-<%=cart[i].id%>"></i>
+                        </button>
+                        <input type="text" name="name" value="<%=cart[i].quantity%>">
+                        <button class="plus-btn" type="button" name="button">
+                            <i class="fas fa-plus" id="plusIt-<%=cart[i].id%>"></i>
+                        </button>
+                    </div>
+
+                    <div class="total-price">price : <%=cart[i].quantity*cart[i].price%>
+                    </div>
+                </div>
+                <% } %>
+                    <p>You have total book <%=totalCart%>
+                    </p>
+                    <p> Total Price : <%=sumPrice%> </p>
+                    <button class="btn" id="clearCart" style="background-color: darkorchid; width: 120px;">Clear All Cart</button>
+                    <button class="btn" style="background-color: lightcoral; width: 100px;">Checkout</button>
+                    <% } else{ %>
+                        <p>You haven't book <%=totalCart%>
+                        </p>
+                        <% } %>
+
+</body>
+<% include layouts/footer.ejs %>
+    <script>
+
+        $('[id^=minusIt-]').click(function (e) {
+            e.preventDefault();
+            var minusId = e.target.id;
+            var minusItem = minusId.split("-")[1];
+            $.ajax({
+                type: "GET",
+                url: "/cart/remove/" + minusItem,
+                success: function (data) {
+                    console.log("success");
+                    window.location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("fail");
+                },
+            });
+        });
+
+        $('[id^=plusIt-]').click(function (e) {
+            e.preventDefault();
+            var plusId = e.target.id;
+            var plusItem = plusId.split("-")[1];
+            $.ajax({
+                type: "GET",
+                url: "/cart/add/" + plusItem,
+                success: function (data) {
+                    console.log("success");
+                    window.location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("fail");
+                },
+            });
+        });
+    </script>
+
+    <script>
+        $('.delete-btn').click(function(e){
+            e.preventDefault() ;
+           var bookId = $(this).attr('data-id') ;
+           $.ajax({
+                type: "GET",
+                url: "/cart/clear/" + bookId,
+                success: function (data) {
+                    console.log("success");
+                    window.location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("fail");
+                },
+            });
+        }) ;
+    </script>
+
+    <script>
+         $('#clearCart').click(function(e){
+              e.preventDefault() ;
+              $.ajax({
+                type: "GET",
+                url: "/cart/clear" ,
+                success: function (data) {
+                    console.log("success");
+                    window.location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("fail");
+                },
+            });
+         })
+    </script>
+</html>

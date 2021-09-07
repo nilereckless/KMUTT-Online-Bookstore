@@ -8,7 +8,7 @@ let authentication = require('../middleware/authentication');
 router.get('/', authentication.checkAdmin, async (req, res, next) => {
   var date = await viewbook.getDateNewestBook();
   var data = await viewbook.getNewestBook(moment(date).format('YYYY-MM-DD'), 3, 3);
-  console.log(req.staff);
+ // console.log(req.staff);
 
   res.render('index', { data: data, user: req.user, staff: req.staff});
 })
@@ -16,7 +16,7 @@ router.get('/', authentication.checkAdmin, async (req, res, next) => {
 router.get('/newbook', async (req, res, next) => {
   var date = await viewbook.getDateNewestBook();
   var data = await viewbook.getNewestBook(moment(date).format('YYYY-MM-DD'), 3);
-  console.log(data);
+ // console.log(data);
 
   res.render('viewbook', { data: data });
 })

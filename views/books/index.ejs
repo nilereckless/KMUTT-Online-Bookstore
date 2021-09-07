@@ -144,15 +144,14 @@
                                                                                     <h5 class="pb-3">Book detail</h5>
                                                                                     <p>&nbsp;<i
                                                                                             class="arrow right"></i>&nbsp;&nbsp;ISBN
-                                                                                        : <%= data[i].isbn %> %> </p>
+                                                                                        : <%= data[i].isbn %>   %> </p>
                                                                                     <p>&nbsp;<i
                                                                                             class="arrow right"></i>&nbsp;&nbsp;Author
                                                                                         : <%= data[i].author %>
                                                                                     </p>
                                                                                     <p>&nbsp;<i
                                                                                             class="arrow right"></i>&nbsp;&nbsp;Stock
-                                                                                        : <%= data[i].stock %>
-                                                                                    </p>
+                                                                                        : <%= data[i].stock %> </p>
                                                                                     <p>&nbsp;<i
                                                                                             class="arrow right"></i>&nbsp;&nbsp;Price
                                                                                         : <%= data[i].price %> ฿ </p>
@@ -287,10 +286,10 @@
                     url: "/books/autocom",
                     success: function (response) {
                         for (var i = 0; i < response.length; i++) {
-                            if (listBooks.lastIndexOf(response[i]) === -1) {
+                            if(listBooks.lastIndexOf(response[i])=== -1){
                                 listBooks.push(response[i]);
                             }
-
+                            
                         }
                         console.log(response);
                     },
@@ -310,7 +309,6 @@
             });
 
         </script>
-
         <script type="text/javascript">
             $('#myModal').on('shown.bs.modal', function () {
                 $('#myInput').trigger('focus')
