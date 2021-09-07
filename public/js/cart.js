@@ -6,7 +6,7 @@ $( document ).ready(function() {
        var request = $.get(url) ;
         request.done(function(e) {
           if(e === "Unauthorized"){
-            window.location.href = '/login?next=cart' ; //หน้าLogin แล้วเสร็จปุ๊บค่อยไปหน้าCart
+          //  window.location.href = '/login?next=cart' ; //หน้าLogin แล้วเสร็จปุ๊บค่อยไปหน้าCart
           } else {
           if($("#cartCount").attr("data-count") > 0){
             $("#cartCount").attr("data-count", parseInt($("#cartCount").attr("data-count"))+parseInt(1)) ;
