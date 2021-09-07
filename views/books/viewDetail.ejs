@@ -208,11 +208,11 @@
                                     <!-- purchase form -->
                                     <form>
                                         <button class="minus-btn" type="button" name="button">
-                                            <i class="fas fa-minus" id="minusIt-<%=cart[i].id%>"></i>
+                                            <i class="fas fa-minus" id="minusIt-<%= id%>"></i>
                                         </button>
-                                        <input type="text" name="name" value="<%=cart[i].quantity%>">
+                                        <input type="text" name="name" value="<%= quantity%>">
                                         <button class="plus-btn" type="button" name="button">
-                                            <i class="fas fa-plus" id="plusIt-<%=cart[i].id%>"></i>
+                                            <i class="fas fa-plus" id="plusIt-<%= id%>"></i>
                                         </button>
                                         &nbsp;&nbsp;piece
                                         <p id=stock>Have only <%= stock %> pieces</p>
