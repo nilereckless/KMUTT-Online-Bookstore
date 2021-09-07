@@ -37,13 +37,13 @@ router.get('/', async (req, res, next) => {
 router.get('/add/:id',middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
-    if (cartStorage[1] === undefined) {
-        cart = new Cart(1);
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
         //  console.log("Create new cart = " ,cart.getCart()) ;
         cart.addCart({ id: bookID });
     } else {
         //   console.log("Receive " , cartStorage[1]) ;
-        cart = new Cart(1, cartStorage[1].cart);
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
         cart.addCart({ id: bookID });
     }
     cartStorage[req.user.id] = cart;
