@@ -206,19 +206,29 @@
                                     </p>
 
                                     <!-- purchase form -->
-                                    <form>
-                                        <button class="minus-btn" type="button" name="button">
-                                            <i class="fas fa-minus" id="minusIt-<%= id%>"></i>
-                                        </button>
-                                        <input type="text" name="name" value="1">
-                                        <button class="plus-btn" type="button" name="button">
-                                            <i class="fas fa-plus" id="plusIt-<%= id%>"></i>
-                                        </button>
+                                    <f>
+                                        <form>
+                                            <div class="value-button" id="decrease" onclick="decreaseValue()"
+                                                value="Decrease Value">
+                                                -
+                                            </div>
+            
+                                            <input type="number" id="number" value="1" />
+            
+                                            <div class="value-button" id="increase" onclick="increaseValue()"
+                                                value="Increase Value">
+                                                +
+                                            </div>
+                                            &nbsp;&nbsp;piece
+                                            <p id=stock>Have only <%= stock %> pieces</p>
+            
+                                            <button class="btn btn-primary addCart" data-id="<%=id%>">add to cart</button>
+                                        </form>
                                         &nbsp;&nbsp;piece
                                         <p id=stock>Have only <%= stock %> pieces</p>
 
                                         <button class="btn btn-primary addCart" data-id="<%=id%>">add to cart</button>
-                                    </form>
+                                    </f>
                                 </div>
                             </div>
                         </div>
@@ -246,42 +256,23 @@
             </div>
     </body>
     <% include ../layouts/footer.ejs %>
-        <script>
-
-            $('[id^=minusIt-]').click(function (e) {
-                e.preventDefault();
-                var minusId = e.target.id;
-                var minusItem = minusId.split("-")[1];
-                $.ajax({
-                    type: "GET",
-                    url: "/cart/remove/" + minusItem,
-                    success: function (data) {
-                        console.log("success");
-                        window.location.reload();
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("fail");
-                    },
-                });
-            });
-
-            $('[id^=plusIt-]').click(function (e) {
-                e.preventDefault();
-                var plusId = e.target.id;
-                var plusItem = plusId.split("-")[1];
-                $.ajax({
-                    type: "GET",
-                    url: "/cart/add/" + plusItem,
-                    success: function (data) {
-                        console.log("success");
-                        window.location.reload();
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("fail");
-                    },
-                });
-            });
-        </script>
+    <script>
+        function increaseValue() {
+            var value = parseInt(document.getElementById('number').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('number').value = value;
+        }
+    
+        function decreaseValue() {
+            var value = parseInt(document.getElementById('number').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value < 2 ? value = 2 : '';
+            value--;
+            document.getElementById('number').value = value;
+        }
+    </script>
+    
 
 
         <script type="text/javascript" src="/js/cart.js">
