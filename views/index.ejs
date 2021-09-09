@@ -51,7 +51,7 @@
                     <% } %>
                       <a href="/logout">logout</a>
                       <% } else { %>
-                        <a href="/auth/google">Signin</a>
+                        <a href="/auth/google" data-redirecturi="https://www.example.com/redirect_uri">Signin</a>
                         <% } %>
       </div>
       <!-- promotion -->
@@ -152,7 +152,7 @@
                         </div>
                       </div>
                       <div>
-                        
+
                         <button class="btn btn-primary addCart" data-id="<%=data[i].id%>">add to cart</button><br>
                         <a href="/books/viewDetail/<%= data[i].id %>" class="btn btn-secondary">read more</a>
                       </div>
