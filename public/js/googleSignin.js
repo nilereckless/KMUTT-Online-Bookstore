@@ -9,7 +9,8 @@ function onSignIn(googleUser) {
           console.log(e);
           alert("loginSuccess");
         })
-        request.fail(function() {
+        request.fail(function(e) {
+            console.log(e)
           alert( "error" );
         })
   }
