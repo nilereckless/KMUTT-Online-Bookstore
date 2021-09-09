@@ -4,16 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fileUpload = require('express-fileupload');
-var util = require('util');
-var passport = require('passport');
 
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+
+
 
 let flash = require('express-flash');
 let session = require('express-session');
-let mysql = require('mysql');
-let connection = require('./lib/db');
-let authentication = require('./middleware/authentication');
+
 
 
 
@@ -46,10 +44,6 @@ app.use(session({
   secret: 'secret'
 }))
 
-// session related task & passport intiallization...
-app.use(passport.initialize());
-app.use(passport.session());
-
 
 
 app.use(flash());
@@ -59,42 +53,22 @@ app.use('/users', usersRouter);
 app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // แล้วแต่ว่าจะใช้มั้ย
 app.use('/cart', cartRouter);
 
-// Passport session setup.
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
 
-passport.deserializeUser(function (obj, done) {
-  done(null, obj);
-});
 
-passport.use(new GoogleStrategy({
-  clientID: "315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com",
-  clientSecret: "RQTQczWyU3mkerQ4lcZ7dSLM",
-  callbackURL: "https://kmuttonlinebookstore.me/auth/google/callback"
-},
-  function (accessToken, refreshToken, profile, done) {
 
-    return done(null, profile);
-  }
-));
-// Using FacebookStrategy within Passport here to perform the actual task...
-/* GOOGLE ROUTER */
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'] }));
 
-app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function (req, res) {
-    var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
+app.post('/auth/google/callback',
+console.log(req.body);
+  // function (req, res) {
+  //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
-    if (!allowedEmail.includes(req.user.emails[0].value.split("@")[1])) {
-      req.flash('error', 'Please use KMUTT Account');
-      req.logout();
-      return res.redirect('/');
-    }
-    console.log(req.user._json.email);
-    res.redirect('/');
+  //   if (!allowedEmail.includes(req.user.emails[0].value.split("@")[1])) {
+  //     req.flash('error', 'Please use KMUTT Account');
+  //     req.logout();
+  //     return res.redirect('/');
+  //   }
+  //   console.log(req.user._json.email);
+  //   res.redirect('/');
   });
 
 
