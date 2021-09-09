@@ -6,8 +6,7 @@ var logger = require('morgan');
 const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
-var passport = require('passport');
-const passportCustom = require('passport-custom');
+const passport = require('passport-custom');
 const CustomStrategy = passportCustom.Strategy;
 
 
@@ -43,6 +42,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
+  cookie: { maxAge: 60000 },
+  saveUninitialized: true,
+  resave: false,
   secret: 'secret'
 }))
 
