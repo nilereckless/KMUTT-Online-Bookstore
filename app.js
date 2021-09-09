@@ -64,12 +64,9 @@ app.use('/cart', cartRouter);
 
 
 passport.use('google-authenticate', new CustomStrategy(
-  async function(req, callback) {
-    
-    // Do your custom user finding logic here, or set to false based on req object
-    console.log(req.body)
-    callback(null, user = {
-      id: 1
+    function(req, done) {
+    verify().then((e) => {
+      done(err, e);
     })
   }
 ));
