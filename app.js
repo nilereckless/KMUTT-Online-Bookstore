@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fileUpload = require('express-fileupload');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
 
 
 
@@ -21,7 +23,7 @@ let session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var booksRouter = require('./routes/books');
-var cartRouter = require('./routes/cart') ;
+var cartRouter = require('./routes/cart');
 
 var app = express();
 
@@ -57,8 +59,23 @@ app.use('/cart', cartRouter);
 
 
 
-app.post('/auth/google/callback', (req,res) => { 
-console.log(req.body);
+app.post('/auth/google/callback', (req, res) => {
+
+  async function verify() {
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.id_token,
+      audience: "315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
+      // Or, if multiple clients access the backend:
+      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+    });
+    const payload = ticket.getPayload();
+    const userid = payload['sub'];
+    // If request specified a G Suite domain:
+    // const domain = payload['hd'];
+  }
+  verify().then((e) => {
+    console.log(e)
+  }).catch(console.error);
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
@@ -69,7 +86,7 @@ console.log(req.body);
   //   }
   //   console.log(req.user._json.email);
   //   res.redirect('/');
-  });
+});
 
 
 
