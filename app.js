@@ -57,7 +57,7 @@ app.use('/cart', cartRouter);
 
 
 
-app.post('/auth/google/callback',
+app.post('/auth/google/callback', (req,res) => { 
 console.log(req.body);
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
