@@ -65,6 +65,7 @@ app.use('/cart', cartRouter);
 
 passport.use('strategy-name', new CustomStrategy(
   function(req, callback) {
+    console.log("test")
     // Do your custom user finding logic here, or set to false based on req object
     callback(null, user);
   }
@@ -73,7 +74,7 @@ passport.use('strategy-name', new CustomStrategy(
 passport.use(new CustomStrategy(
     function(req, done) {
     verify(req.body.id_token).then((e)=> {
-      done( {} , e)
+      console.log(e)
     })
     // done(null, user);
   }
