@@ -51,7 +51,7 @@
                     <% } %>
                       <a href="/logout">logout</a>
                       <% } else { %>
-                        <a href="/auth/google" data-redirecturi="https://www.example.com/redirect_uri">Signin</a>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <% } %>
       </div>
       <!-- promotion -->
