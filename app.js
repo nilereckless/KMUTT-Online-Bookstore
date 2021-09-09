@@ -108,7 +108,7 @@ async function verify(token) {
   });
   const payload = ticket.getPayload();
   return {
-    id: payload.id,
+    id: payload.sub,
     name: payload.name,
     email: payload.email,
     img: payload.picture,
