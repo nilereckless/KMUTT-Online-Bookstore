@@ -7,7 +7,7 @@ const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
 const passport = require('passport-custom');
-const CustomStrategy = passportCustom.Strategy;
+const CustomStrategy = passport.Strategy;
 
 
 
