@@ -50,7 +50,7 @@ app.use(session({
 }))
 
 passport.serializeUser(function(user, done) {
-  console.log(user)
+  console.log("serialize")
   done(null, user.id);
 });
 
