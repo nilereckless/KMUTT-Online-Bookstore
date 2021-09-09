@@ -49,15 +49,7 @@ app.use(session({
   secret: 'secret'
 }))
 
-passport.serializeUser(function(user, done) {
-  console.log("serialize", user)
-  done(null, user.id);
-});
 
-passport.deserializeUser(function(user, done) {
-  console.log(user)
-  done(null, user.id);
-});
 
 
 passport.use('google-authenticate', new CustomStrategy(
