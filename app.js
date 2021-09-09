@@ -71,7 +71,7 @@ passport.serializeUser(function (user, done) {
   });
 
 
-app.post('/auth/google/callback', async (req, res) => {
+app.post('/auth/google/callback', async (req, res, next) => {
     var test = await verify(req.body.id_token)
     console.log(test)
     passport.authenticate('local', function(err, user, info) {
