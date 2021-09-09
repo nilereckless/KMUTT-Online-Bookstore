@@ -1,5 +1,5 @@
 <style>
-  .Shopcart[data-count]{
+  .Shopcart[data-count] {
     position: relative;
   }
 
@@ -54,9 +54,9 @@
         </a>
       </li>
       <li>
-        <a href="/cart" class="nav-link">
+        <div id="cart" class="nav-link">
           <i class="fa fa-shopping-cart fa-2x Shopcart" aria-hidden="true" id="cartCount"></i>
-        </a>
+        </div>
       </li>
       <li>
         <a href="#" class="nav-link">
@@ -84,23 +84,41 @@
   </div>
 </div>
 <br>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script>
-  $( document ).ready(function(){
-    var url = "/cart/count" ;
-    var request = $.get(url) ;
-        request.done(function(e) {
-          if(e !== "Unauthorized"){
-            
-          } 
-          
-          var count = $("#cartCount").attr("data-count", e.count) ;
-          if($("#cartCount").attr("data-count") <= 0){
-            $("#cartCount").removeAttr("data-count") ;
-          }
-        })
-        request.fail(function() {
-          alert( "error" );
-        })
-  }) ; 
+  $(document).ready(function () {
+    var url = "/cart/count";
+    var request = $.get(url);
+    request.done(function (e) {
+      if (e !== "Unauthorized") {
+
+      }
+
+      var count = $("#cartCount").attr("data-count", e.count);
+      if ($("#cartCount").attr("data-count") <= 0) {
+        $("#cartCount").removeAttr("data-count");
+      }
+    })
+    request.fail(function () {
+      alert("error");
+    })
+    $('#cart').on('click', function (e) {
+      e.preventDefault()
+      var url = "/cart";
+      var request = $.get(url);
+      request.done(function (e) {
+        if (e !== "Unauthorized") {
+          window.location.href='/cart'
+        } else {
+          $('#loginmodal').modal('toggle')
+        }
+      })
+      request.fail(function () {
+        alert("error");
+      })
+
+    })
+   
+  });
 </script>
