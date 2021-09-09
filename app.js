@@ -73,10 +73,13 @@ passport.use('custom', new CustomStrategy(
 
 passport.use(new CustomStrategy(
     function(req, done) {
+      
     // verify(req.body.id_token).then((e)=> {
     //   done(e);
     // })
-    done(null, null);
+    done(null, {
+      id: 1
+    });
   }
 ));
 
