@@ -6,8 +6,9 @@ var logger = require('morgan');
 const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
-const passport = require('passport-custom');
-const CustomStrategy = passport.Strategy;
+var passport = require('passport');
+const passportCustom = require('passport-custom');
+const CustomStrategy = passportCustom.Strategy;
 
 
 
@@ -53,10 +54,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
+  console.log(user)
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
+  console.log(user)
   done(null, user);
 });
 
