@@ -71,7 +71,7 @@ passport.use('authenticated', new CustomStrategy(
 ));
 
 passport.use(new CustomStrategy(
-  function(req, done) {
+  async function(req, done) {
     var test = await verify(req.body.id_token)
     console.log(test)
   }
