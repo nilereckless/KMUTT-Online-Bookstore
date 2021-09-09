@@ -75,7 +75,7 @@ passport.use('google-authenticate', new CustomStrategy(
 
 
 app.post('/auth/google/callback', passport.authenticate('google-authenticate', { failureRedirect: "/" }), async (req, res, next) => {
-   
+    console.log(req.user)
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
