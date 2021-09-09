@@ -6,13 +6,9 @@ var cartStorage = [];
 const middleWare = require('../middleware/authentication') ;
 
 
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    req.flash('error', 'Please Login !');
-    res.redirect('/');
-}
+
 //middleware.isAuthenticated(), วางไว้หน้า async
-router.get('/', ensureAuthenticated, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     var cart = null;
     //   console.log(cartStorage[1]) ;
     if (cartStorage[req.user.id] === undefined) {
@@ -41,7 +37,7 @@ router.get('/', ensureAuthenticated, async (req, res, next) => {
     res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart() , sumPrice : total});
 })
 
-router.get('/add/:id',ensureAuthenticated, middleWare.isAuthenticatedCart, async (req, res, next) => {
+router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
     if (cartStorage[req.user.id] === undefined) {
