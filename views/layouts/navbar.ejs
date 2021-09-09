@@ -108,11 +108,12 @@
       var url = "/cart";
       var request = $.get(url);
       request.done(function (e) {
-        if (e !== "Unauthorized") {
-          window.location.href='/cart'
-        } else {
-          $('#loginmodal').modal('toggle')
-        }
+        // if (e !== "Unauthorized") {
+        //   window.location.href='/cart'
+        // } else {
+        //   $('#loginmodal').modal('toggle')
+        // }
+        console.log(e);
       })
       request.fail(function () {
         alert("error");
