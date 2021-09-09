@@ -68,7 +68,9 @@ passport.use('google-authenticate', new CustomStrategy(
     
     // Do your custom user finding logic here, or set to false based on req object
     console.log(req.body)
-    console.log(callback)
+    callback(null,{
+      id: 1
+    })
   }
 ));
 
