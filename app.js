@@ -7,6 +7,8 @@ const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
 var passport = require('passport');
+const passportCustom = require('passport-custom');
+const CustomStrategy = passportCustom.Strategy;
 
 
 
@@ -61,39 +63,22 @@ app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // à¹à¸
 app.use('/cart', cartRouter);
 
 
-// Passport session setup.
-passport.use(createStrategy());
-passport.serializeUser(function (user, done) {
-    done(null, user);
-  });
-  
-  passport.deserializeUser(function (obj, done) {
-    done(null, obj);
-  });
-    passport.use(new LocalStrategy(
-    // function of username, password, done(callback)
-    function(username, password, done) {
-      // look for the user data
-      User.findOne({ username: username }, function (err, user) {
-        // if there is an error
-        if (err) { return done(err); }
-        // if user doesn't exist
-        if (!user) { return done(null, false, { message: 'User not found.' }); }
-        // if the password isn't correct
-        if (!user.verifyPassword(password)) { return done(null, false, {   
-        message: 'Invalid password.' }); }
-        // if the user is properly authenticated
-        return done(null, user);
-      });
-    }
-  ));
+passport.use('authenticated', new CustomStrategy(
+  function(req, callback) {
+    // Do your custom user finding logic here, or set to false based on req object
+    callback(null, user);
+  }
+));
 
-app.post('/auth/google/callback', async (req, res, next) => {
+passport.use(new CustomStrategy(
+  function(req, done) {
     var test = await verify(req.body.id_token)
     console.log(test)
-    passport.authenticate('local', function(err, user, info) {
-        console.log("test", user)
-    })
+  }
+));
+
+app.post('/auth/google/callback', passport.authenticate('authenticated', { failureRedirect: "/" }), async (req, res, next) => {
+   
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
