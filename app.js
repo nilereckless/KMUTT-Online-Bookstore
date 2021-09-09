@@ -43,13 +43,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  cookie: { maxAge: 60000 },
-  saveUninitialized: true,
-  resave: false,
   secret: 'secret'
 }))
 
-// session related task & passport intiallization...
+
 app.use(passport.initialize());
 app.use(passport.session());
 
