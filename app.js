@@ -75,7 +75,7 @@ app.post('/auth/google/callback', async (req, res, next) => {
     var test = await verify(req.body.id_token)
     console.log(test)
     passport.authenticate('local', function(err, user, info) {
-        console.log(user)
+        console.log("test", user)
     })
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
