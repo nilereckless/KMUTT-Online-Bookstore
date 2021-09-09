@@ -59,23 +59,9 @@ app.use('/cart', cartRouter);
 
 
 
-app.post('/auth/google/callback', (req, res) => {
+app.post('/auth/google/callback',  (req, res) => {
 
-  async function verify() {
-    const ticket = await client.verifyIdToken({
-      idToken: req.body.id_token,
-      audience: "315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
-      // Or, if multiple clients access the backend:
-      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-    });
-    const payload = ticket.getPayload();
-    const userid = payload['sub'];
-    // If request specified a G Suite domain:
-    // const domain = payload['hd'];
-  }
-  verify().then((e) => {
-    console.log(e)
-  }).catch(console.error);
+    console.log(verify(req.body.id_token))
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
@@ -113,6 +99,20 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-
+async function verify(token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: "315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
+    // Or, if multiple clients access the backend:
+    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+  });
+  const payload = ticket.getPayload();
+  return {
+    nombre: payload.name,
+    email: payload.email,
+    img: payload.picture,
+    google: true,
+  }
+}
 
 module.exports = app;
