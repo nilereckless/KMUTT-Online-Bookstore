@@ -49,10 +49,6 @@ app.use(session({
   secret: 'secret'
 }))
 
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 passport.serializeUser(function(user, done) {
   console.log(user)
   done(null, user.id);
@@ -71,6 +67,11 @@ passport.use('google-authenticate', new CustomStrategy(
   })
 }
 ));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 app.use(flash());
 
