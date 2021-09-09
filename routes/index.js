@@ -6,7 +6,7 @@ let authentication = require('../middleware/authentication');
 
 
 router.get('/', authentication.checkAdmin, async (req, res, next) => {
-  console.log(req.user)
+  console.log("test",req.user)
   var date = await viewbook.getDateNewestBook();
   var data = await viewbook.getNewestBook(moment(date).format('YYYY-MM-DD'), 3, 3);
  // console.log(req.staff);
