@@ -66,7 +66,7 @@ app.use('/cart', cartRouter);
 passport.use('google-authenticate', new CustomStrategy(
     function(req, done) {
     verify(req.body.id_token).then((e) => {
-      done(err, e);
+      done(null, e);
     })
   }
 ));
