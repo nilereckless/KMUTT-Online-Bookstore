@@ -69,7 +69,14 @@ passport.serializeUser(function (user, done) {
   passport.deserializeUser(function (obj, done) {
     done(null, obj);
   });
-
+    passport.use(new LocalStrategy(
+    // function of username, password, done(callback)
+    function(data, done) {
+      console.log(data)
+        return done(null, user);
+     
+    }
+  ));
 
 app.post('/auth/google/callback', async (req, res, next) => {
     var test = await verify(req.body.id_token)
