@@ -84,7 +84,7 @@ app.use('/cart', cartRouter);
 
 
 app.post('/auth/google/callback', passport.authenticate('google-authenticate', { failureRedirect: "/" }), async (req, res, next) => {
-    console.log(req.user)
+    console.log("nilenilenilenilenile",req.user)
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
