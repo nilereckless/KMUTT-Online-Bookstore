@@ -63,7 +63,7 @@ app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // à¹à¸
 app.use('/cart', cartRouter);
 
 
-passport.use('authenticated', new CustomStrategy(
+passport.use('strategy-name', new CustomStrategy(
   function(req, callback) {
     // Do your custom user finding logic here, or set to false based on req object
     callback(null, user);
@@ -77,7 +77,7 @@ passport.use(new CustomStrategy(
   }
 ));
 
-app.post('/auth/google/callback', passport.authenticate('authenticated', { failureRedirect: "/" }), async (req, res, next) => {
+app.post('/auth/google/callback', passport.authenticate('custom', { failureRedirect: "/" }), async (req, res, next) => {
    
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
