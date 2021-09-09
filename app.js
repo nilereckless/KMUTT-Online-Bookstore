@@ -67,6 +67,7 @@ passport.use('google-authenticate', new CustomStrategy(
   async function(req, callback) {
     console.log("test")
     var user = await verify(req.body.id_token)
+    console.log(user)
     // Do your custom user finding logic here, or set to false based on req object
     callback(null, user);
   }
