@@ -62,7 +62,7 @@ app.use('/cart', cartRouter);
 
 
 // Passport session setup.
-passport.use(verify.createStrategy());
+passport.use(createStrategy());
 passport.serializeUser(function (user, done) {
     done(null, user);
   });
