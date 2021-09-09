@@ -72,8 +72,8 @@ passport.use('strategy-name', new CustomStrategy(
 
 passport.use(new CustomStrategy(
   async function(req, done) {
-    var test = await verify(req.body.id_token)
-    console.log(test)
+    var user = await verify(req.body.id_token)
+    done(null, user);
   }
 ));
 
