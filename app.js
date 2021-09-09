@@ -7,7 +7,6 @@ const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
 var passport = require('passport');
-var LocalStratgy = require('passport-local').Strategy;
 
 
 
@@ -72,10 +71,19 @@ passport.serializeUser(function (user, done) {
   });
     passport.use(new LocalStrategy(
     // function of username, password, done(callback)
-    function(data, done) {
-      console.log(data)
+    function(username, password, done) {
+      // look for the user data
+      User.findOne({ username: username }, function (err, user) {
+        // if there is an error
+        if (err) { return done(err); }
+        // if user doesn't exist
+        if (!user) { return done(null, false, { message: 'User not found.' }); }
+        // if the password isn't correct
+        if (!user.verifyPassword(password)) { return done(null, false, {   
+        message: 'Invalid password.' }); }
+        // if the user is properly authenticated
         return done(null, user);
-     
+      });
     }
   ));
 
