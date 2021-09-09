@@ -62,6 +62,14 @@ passport.deserializeUser(function(user, done) {
 });
 
 
+passport.use('google-authenticate', new CustomStrategy(
+  function(req, done) {
+  verify(req.body.id_token).then((e) => {
+    done(null, e);
+  })
+}
+));
+
 app.use(flash());
 
 app.use('/', indexRouter);
@@ -70,13 +78,6 @@ app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // à¹à¸
 app.use('/cart', cartRouter);
 
 
-passport.use('google-authenticate', new CustomStrategy(
-    function(req, done) {
-    verify(req.body.id_token).then((e) => {
-      done(null, e);
-    })
-  }
-));
 
 
 
