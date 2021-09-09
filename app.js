@@ -6,6 +6,7 @@ var logger = require('morgan');
 const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
+var passport = require('passport');
 
 
 
@@ -46,6 +47,10 @@ app.use(session({
   secret: 'secret'
 }))
 
+// session related task & passport intiallization...
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 app.use(flash());
@@ -56,12 +61,22 @@ app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // à¹à¸
 app.use('/cart', cartRouter);
 
 
-
+// Passport session setup.
+passport.serializeUser(function (user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function (obj, done) {
+    done(null, obj);
+  });
 
 
 app.post('/auth/google/callback', async (req, res) => {
     var test = await verify(req.body.id_token)
     console.log(test)
+    passport.authenticate('local', function(err, user, info) {
+        console.log(user)
+    })(req, res, next);
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
