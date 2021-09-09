@@ -63,9 +63,10 @@ app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // à¹à¸
 app.use('/cart', cartRouter);
 
 
-passport.use('custom', new CustomStrategy(
-  function(req, callback) {
+passport.use('google-authenticate', new CustomStrategy(
+  async function(req, callback) {
     console.log("test")
+    user = await verify(req.body.id_token)
     // Do your custom user finding logic here, or set to false based on req object
     callback(null, user);
   }
@@ -73,7 +74,7 @@ passport.use('custom', new CustomStrategy(
 
 
 
-app.post('/auth/google/callback', passport.authenticate('custom', { failureRedirect: "/" }), async (req, res, next) => {
+app.post('/auth/google/callback', passport.authenticate('google-authenticate', { failureRedirect: "/" }), async (req, res, next) => {
    
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
