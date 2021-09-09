@@ -12,7 +12,7 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/');
 }
 //middleware.isAuthenticated(), วางไว้หน้า async
-router.get('/', async (req, res, next) => {
+router.get('/', ensureAuthenticated, async (req, res, next) => {
     var cart = null;
     //   console.log(cartStorage[1]) ;
     if (cartStorage[req.user.id] === undefined) {
