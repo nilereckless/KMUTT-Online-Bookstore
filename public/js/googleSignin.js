@@ -17,12 +17,14 @@ function onSignIn(googleUser) {
 }
 
 function login() {
-    auth2 = gapi.auth2.init({
-    client_id: '315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com',
-    cookiepolicy: 'single_host_origin', /** Default value **/
-    scope: 'profile' });                /** Base scope **/
+  var myParams = {
+    clientid: '315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com',
+    cookiepolicy: 'single_host_origin',
+    callback: 'onSignIn',
+    approvalprompt: 'force'
+  };
 
-  gapi.auth.signIn(auth2);
+  gapi.auth.signIn(myParams);
 }
 
  $("#googlelogin").on("click", function (e) {
