@@ -57,12 +57,12 @@ app.use(express.urlencoded({ extended: false }));
 
 passport.serializeUser(function(user, done) {
   console.log("serialize", user)
-  done(null, user.id);
+  done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
   console.log(user)
-  done(null, user.id);
+  done(null, user);
 });
 
 
