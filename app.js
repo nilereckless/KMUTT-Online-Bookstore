@@ -87,7 +87,6 @@ app.use('/cart', cartRouter);
 
 app.post('/auth/google/callback', passport.authenticate('google-authenticate', { failureRedirect: "/" }), async (req, res, next) => {
   console.log("nilenilenilenilenile",req.user)
-  req.session.user = req.user;
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
@@ -103,7 +102,7 @@ app.post('/auth/google/callback', passport.authenticate('google-authenticate', {
 
 
 app.get('/test', passport.authenticate('google-authenticate', { failureRedirect: "/" }), function (req,res) {
-  console.log("nilenilenilenilenile",req.session.user)
+  console.log("nilenilenilenilenile",req.user)
 })
 
 app.get('/logout', function (req, res) {
