@@ -40,7 +40,7 @@ function onSignIn(googleUser) {
     console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
-          console.log(googleUser)
+          onSignIn(googleUser)
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
