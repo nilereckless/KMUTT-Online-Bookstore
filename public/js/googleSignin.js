@@ -21,7 +21,7 @@ function login() {
     'cookiepolicy': 'single_host_origin',
     'callback': 'onSignIn',
     'approvalprompt': 'force',
-    'scope': ''
+    'scope': 'profile email openid'
   };
 
   gapi.auth.signIn(myParams);
