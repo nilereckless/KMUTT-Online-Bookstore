@@ -33,8 +33,7 @@ function onSignIn(googleUser) {
     console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
-          document.getElementById('name').innerText = "Signed in: " +
-              googleUser.getBasicProfile().getName();
+          console.log(googleUser);
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
