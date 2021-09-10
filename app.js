@@ -46,7 +46,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(app.router);
 app.use(logger('dev'));
 
 app.use(fileUpload());
