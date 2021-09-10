@@ -34,21 +34,26 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(fileUpload());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(session({
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.session({
   cookie: { maxAge: 60000 },
   saveUninitialized: true,
   resave: false,
   store: '',
   secret: 'secret'
-}))
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
+app.use(logger('dev'));
+
+app.use(fileUpload());
+app.use(express.urlencoded({ extended: false }));
+
+
+
 
 passport.serializeUser(function(user, done) {
   console.log("serialize", user)
@@ -69,8 +74,7 @@ passport.use('google-authenticate', new CustomStrategy(
 }
 ));
 
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 
 
