@@ -62,13 +62,10 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(new LocalStrategy(
-  function (req, done) {
-    verify(req.body.id_token).then((e) => {
-      done(null, e);
-    })
-    console.log('local strategy called with: %s', req);
-    return done(null, req);
-  }));
+  function(req, done) {
+    console.log("winnnnnn",req)
+    done(null, null);
+  }))
 
 
 
