@@ -54,12 +54,10 @@ app.use(express.urlencoded({ extended: false }));
 
 
 passport.serializeUser(function(user, done) {
-  console.log("serialize", user)
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-  console.log(user)
   done(null, user);
 });
 
@@ -90,7 +88,6 @@ app.post('/auth/google/callback', passport.authenticate('custom', { failureRedir
   req.session.save(function(){
     res.redirect('/');
   });
-  console.log("test1",req.user)
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
