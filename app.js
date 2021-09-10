@@ -49,7 +49,15 @@ app.use(session({
   secret: 'secret'
 }))
 
+passport.serializeUser(function(user, done) {
+  console.log("serialize", user)
+  done(null, user.id);
+});
 
+passport.deserializeUser(function(user, done) {
+  console.log(user)
+  done(null, user.id);
+});
 
 
 passport.use('google-authenticate', new CustomStrategy(
@@ -67,10 +75,6 @@ app.use(passport.session());
 
 app.use(flash());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // แล้วแต่ว่าจะใช้มั้ย
-app.use('/cart', cartRouter);
 
 
 
@@ -90,6 +94,10 @@ app.post('/auth/google/callback', passport.authenticate('google-authenticate', {
   //   res.redirect('/');
 });
 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // แล้วแต่ว่าจะใช้มั้ย
+app.use('/cart', cartRouter);
 
 
 
