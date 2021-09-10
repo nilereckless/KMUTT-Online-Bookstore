@@ -7,7 +7,9 @@ const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
 var passport = require('passport');
-const SamlStrategy = require('passport-saml').Strategy;
+const passportCustom = require('passport-custom');
+const CustomStrategy = passportCustom.Strategy;
+
 
 
 
@@ -37,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(express.json());
 app.use(session({
-  secret: 'abcdefg',
+  secret: 'secret',
   resave: true,
   saveUninitialized: true,
 }));
@@ -61,21 +63,14 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.use(new SamlStrategy(
-  {
-    path: '/auth/google/callback',
-    entryPoint: 'https://kmuttonlinebookstore.me',
-    issuer: 'passport-saml',
-    cert: 'fake cert', // cert must be provided
-  },
+
+passport.use('custom', new CustomStrategy(
   function(req, done) {
-    verify(req.body.id_token).then((e) => {
-      done(null, e);
-    })
+  verify(req.body.id_token).then((e) => {
+    done(null, e);
   })
-);
-
-
+}
+));
 
 
 
@@ -91,8 +86,11 @@ app.use('/cart', cartRouter);
 
 
 
-app.post('/auth/google/callback', passport.authenticate('saml', { failureRedirect: "/" }), async (req, res, next) => {
-  console.log("nilenilenilenilenile",req.user)
+app.post('/auth/google/callback', passport.authenticate('custom', { failureRedirect: "/" }), async (req, res, next) => {
+  req.session.save(function(){
+    res.redirect('/');
+  });
+  console.log("test1",req.user)
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
