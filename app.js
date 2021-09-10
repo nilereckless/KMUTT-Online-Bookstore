@@ -110,6 +110,8 @@ app.get('/test', function (req,res) {
 })
 
 app.get('/logout', function (req, res) {
+  req.session.destroy(null);
+  res.clearCookie(this.cookie, { path: '/' });
   req.logout();
   res.redirect('/');
 });
