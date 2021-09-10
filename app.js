@@ -38,11 +38,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(express.json());
 app.use(session({
-  cookie: { maxAge: 60000 },
-  saveUninitialized: true,
-  resave: false,
-  store: '',
-  secret: 'secret'
+  secret: 'abcdefg',
+  resave: true,
+  saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
