@@ -7,8 +7,7 @@ const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
 var passport = require('passport');
-const passportCustom = require('passport-custom');
-const CustomStrategy = passportCustom.Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 
 
 
@@ -40,7 +39,7 @@ app.use(express.json());
 app.use(session({
   secret: 'abcdefg',
   resave: true,
-  saveUninitialized: false,
+  saveUninitialized: true,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -52,24 +51,27 @@ app.use(express.urlencoded({ extended: false }));
 
 
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   console.log("serialize", user)
   done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function (user, done) {
   console.log(user)
   done(null, user);
 });
 
+passport.use(new LocalStrategy(
+  function (req, done) {
+    verify(req.body.id_token).then((e) => {
+      done(null, e);
+    })
+    console.log('local strategy called with: %s', req);
+    return done(null, req);
+  }));
 
-passport.use('google-authenticate', new CustomStrategy(
-  function(req, done) {
-  verify(req.body.id_token).then((e) => {
-    done(null, e);
-  })
-}
-));
+
+
 
 
 
@@ -85,8 +87,8 @@ app.use('/cart', cartRouter);
 
 
 
-app.post('/auth/google/callback', passport.authenticate('google-authenticate', { failureRedirect: "/" }), async (req, res, next) => {
-  console.log("nilenilenilenilenile",req.user)
+app.post('/auth/google/callback', passport.authenticate('local', { failureRedirect: "/" }), async (req, res, next) => {
+  console.log("nilenilenilenilenile", req.user)
   console.log(req.session.passport.user)
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
@@ -102,8 +104,8 @@ app.post('/auth/google/callback', passport.authenticate('google-authenticate', {
 
 
 
-app.get('/test', function (req,res) {
-  console.log("nilenilenilenilenile",req.user)
+app.get('/test', function (req, res) {
+  console.log("nilenilenilenilenile", req.user)
   console.log(req.session.passport.user)
 })
 
