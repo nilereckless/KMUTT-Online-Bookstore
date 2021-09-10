@@ -39,9 +39,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(session({
   secret: 'abcdefg',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  resave: true,
+  saveUninitialized: false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -88,6 +87,7 @@ app.use('/cart', cartRouter);
 
 app.post('/auth/google/callback', passport.authenticate('google-authenticate', { failureRedirect: "/" }), async (req, res, next) => {
   console.log("nilenilenilenilenile",req.user)
+  console.log(req.session.passport.user)
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
@@ -104,6 +104,7 @@ app.post('/auth/google/callback', passport.authenticate('google-authenticate', {
 
 app.get('/test', function (req,res) {
   console.log("nilenilenilenilenile",req.user)
+  console.log(req.session.passport.user)
 })
 
 app.get('/logout', function (req, res) {
