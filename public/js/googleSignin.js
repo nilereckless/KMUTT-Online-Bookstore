@@ -32,7 +32,7 @@ function onSignIn(googleUser) {
         // Request scopes in addition to 'profile' and 'email'
         scope: 'profile email'
       });
-      attachSignin(document.getElementById('customBtn'));
+      attachSignin(document.getElementById('googlesignin'));
     });
   };
 
