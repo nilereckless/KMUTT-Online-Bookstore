@@ -39,8 +39,9 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(session({
   secret: 'abcdefg',
-  resave: true,
-  saveUninitialized: false
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
