@@ -18,11 +18,11 @@ function onSignIn(googleUser) {
 
 function login() {
   var myParams = {
-    'clientid': '315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com',
-    'cookiepolicy': 'single_host_origin',
-    'callback': 'onSignIn',
-    'approvalprompt': 'force',
-    'scope': 'email profile openid '
+    clientid: '315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com',
+    cookiepolicy: 'single_host_origin',
+    callback: 'onSignIn',
+    approvalprompt: 'force',
+    scope: 'email profile openid '
   };
 
   gapi.auth.signIn(myParams);
