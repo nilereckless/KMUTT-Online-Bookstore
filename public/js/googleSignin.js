@@ -22,7 +22,7 @@ function login() {
     'cookiepolicy': 'single_host_origin',
     'callback': 'onSignIn',
     'approvalprompt': 'force',
-    'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read https://www.googleapis.com/auth/userinfo.profile'
+    'scope': 'email profile https://www.googleapis.com/auth/profile.emails.read openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
   };
 
   gapi.auth.signIn(myParams);
