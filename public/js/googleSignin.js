@@ -1,5 +1,6 @@
 
 function onSignIn(googleUser) {
+  console.log(googleUser);
   var id_token = googleUser.id_token;
   var url = '/auth/google/callback';
   var request = $.post(url, {
@@ -21,7 +22,7 @@ function login() {
     'cookiepolicy': 'single_host_origin',
     'callback': 'onSignIn',
     'approvalprompt': 'force',
-    'scope': 'profile email openid'
+    'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read https://www.googleapis.com/auth/userinfo.profile'
   };
 
   gapi.auth.signIn(myParams);
