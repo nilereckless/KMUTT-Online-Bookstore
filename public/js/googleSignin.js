@@ -1,6 +1,18 @@
 
 function onSignIn(googleUser) {
-  console.log(googleUser);
+  var id_token = googleUser.id_token;
+  var url = '/auth/google/callback';
+  var request = $.post(url, {
+    id_token: id_token,
+  });
+  request.done(function (e) {
+    console.log(e);
+    alert("loginSuccess");
+  })
+  request.fail(function (e) {
+    console.log(e)
+    alert("error");
+  })
 }
 
 function login() {
