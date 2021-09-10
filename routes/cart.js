@@ -9,6 +9,7 @@ const middleWare = require('../middleware/authentication') ;
 
 //middleware.isAuthenticated(), วางไว้หน้า async
 router.get('/', middleWare.isAuthenticatedCart, async (req, res, next) => {
+    console.log("sessioncome",req.user)
     var cart = null;
     //   console.log(cartStorage[1]) ;
     if (cartStorage[req.user.id] === undefined) {
