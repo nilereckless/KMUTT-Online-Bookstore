@@ -64,6 +64,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new SamlStrategy(
   {
     path: '/auth/google/callback',
+    entryPoint: 'https://kmuttonlinebookstore.me',
     issuer: 'passport-saml',
     cert: 'fake cert', // cert must be provided
   },
