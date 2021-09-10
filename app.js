@@ -102,7 +102,7 @@ app.post('/auth/google/callback', passport.authenticate('google-authenticate', {
 
 
 
-app.get('/test', function (req,res) {
+app.get('/test', passport.authenticate('google-authenticate', { failureRedirect: "/" }), function (req,res) {
   console.log("nilenilenilenilenile",req.session.user)
 })
 
