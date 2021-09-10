@@ -75,13 +75,16 @@ app.use(passport.session());
 
 app.use(flash());
 
-
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // แล้วแต่ว่าจะใช้มั้ย
+app.use('/cart', cartRouter);
 
 
 
 
 app.post('/auth/google/callback', passport.authenticate('google-authenticate', { failureRedirect: "/" }), async (req, res, next) => {
-    console.log("nilenilenilenilenile",req.user)
+  console.log("nilenilenilenilenile",req.user)
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
@@ -94,12 +97,11 @@ app.post('/auth/google/callback', passport.authenticate('google-authenticate', {
   //   res.redirect('/');
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // แล้วแต่ว่าจะใช้มั้ย
-app.use('/cart', cartRouter);
 
 
+app.get('/test', function (req,res) {
+  console.log("nilenilenilenilenile",req.user)
+})
 
 app.get('/logout', function (req, res) {
   req.logout();
