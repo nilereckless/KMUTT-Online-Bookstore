@@ -106,7 +106,7 @@ app.post('/auth/google/callback', passport.authenticate('custom', { failureRedir
 
 
 app.get('/test', function (req,res) {
-  console.log("nilenilenilenilenile",req.user)
+  console.log("abcdefgh",req.user)
 })
 
 app.get('/logout', function (req, res) {
