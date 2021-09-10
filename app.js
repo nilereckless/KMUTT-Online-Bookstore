@@ -7,8 +7,7 @@ const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.apps.googleusercontent.com");
 var passport = require('passport');
-const passportCustom = require('passport-custom');
-const CustomStrategy = passportCustom.Strategy;
+const SamlStrategy = require('passport-saml').Strategy;
 
 
 
@@ -62,14 +61,15 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-
-passport.use('google-authenticate', new CustomStrategy(
+passport.use(new SamlStrategy(
   function(req, done) {
-  verify(req.body.id_token).then((e) => {
-    done(null, e);
+    verify(req.body.id_token).then((e) => {
+      done(null, e);
+    })
   })
-}
-));
+);
+
+
 
 
 
@@ -85,7 +85,7 @@ app.use('/cart', cartRouter);
 
 
 
-app.post('/auth/google/callback', passport.authenticate('google-authenticate', { failureRedirect: "/" }), async (req, res, next) => {
+app.post('/auth/google/callback', passport.authenticate('saml', { failureRedirect: "/" }), async (req, res, next) => {
   console.log("nilenilenilenilenile",req.user)
   // function (req, res) {
   //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
@@ -101,7 +101,7 @@ app.post('/auth/google/callback', passport.authenticate('google-authenticate', {
 
 
 
-app.get('/test', passport.authenticate('google-authenticate', { failureRedirect: "/" }), function (req,res) {
+app.get('/test', function (req,res) {
   console.log("nilenilenilenilenile",req.user)
 })
 
