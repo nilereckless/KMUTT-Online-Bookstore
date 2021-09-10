@@ -2,7 +2,7 @@ let staff = require('../controller/staff');
 
 exports.checkAdmin = async (req, res, next) => {
     if (req.user != undefined) {
-        var staffInfo = await staff.getStaff(req.user.emails[0].value)
+        var staffInfo = await staff.getStaff(req.user.emails)
         req.staff = staffInfo
     } else {
         req.staff = [];
