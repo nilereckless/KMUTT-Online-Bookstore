@@ -62,6 +62,11 @@ passport.deserializeUser(function(user, done) {
 });
 
 passport.use(new SamlStrategy(
+  {
+    path: '/auth/google/callback',
+    issuer: 'passport-saml',
+    cert: 'fake cert', // cert must be provided
+  },
   function(req, done) {
     verify(req.body.id_token).then((e) => {
       done(null, e);
