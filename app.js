@@ -87,7 +87,7 @@ app.use('/cart', cartRouter);
 app.post('/auth/google/callback', passport.authenticate('custom', { failureRedirect: "/" }), async (req, res, next) => {
   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
-    if (!allowedEmail.includes(req.user.emails.split("@")[1])) {
+    if (!allowedEmail.includes(req.user.email.split("@")[1])) {
       req.logout();
       return res.json('Please use KMUTT Account');
     }
