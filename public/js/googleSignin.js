@@ -7,8 +7,13 @@ function onSignIn(googleUser) {
     id_token: id_token,
   });
   request.done(function (e) {
-    console.log(e);
+  if (e === 'success') {
     window.location.reload();
+  } else {
+      alert(e);
+  }
+    console.log(e);
+    
   })
   request.fail(function (e) {
     console.log(e)
