@@ -28,6 +28,7 @@ exports.isStaffAuthenticated = async (req, res, next) => {
     } else {
         var staffInfo = await staff.getStaff(req.user.email)
         if (staffInfo.length === 0) {
+            req.flash('error', 'Only staff login first!');
             res.redirect('/');
         }
     }
