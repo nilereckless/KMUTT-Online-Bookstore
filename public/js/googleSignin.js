@@ -32,7 +32,8 @@ function onSignIn(googleUser) {
         // Request scopes in addition to 'profile' and 'email'
         scope: 'profile email'
       });
-      attachSignin(document.querySelector('[id^="google-"]'));
+      attachSignin(document.getElementById('google-signin'));
+      attachSignin(document.getElementById('google-signin-modal'));
     });
   };
 
