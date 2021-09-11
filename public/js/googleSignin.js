@@ -8,7 +8,7 @@ function onSignIn(googleUser) {
   });
   request.done(function (e) {
     console.log(e);
-    alert("loginSuccess");
+    window.location.reload();
   })
   request.fail(function (e) {
     console.log(e)
