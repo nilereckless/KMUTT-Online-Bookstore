@@ -37,7 +37,6 @@ function onSignIn(googleUser) {
   };
 
   function attachSignin(element) {
-    console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
           onSignIn(googleUser)
