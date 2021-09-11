@@ -38,12 +38,10 @@ function onSignIn(googleUser) {
   };
 
   function attachSignin(element) {
-    console.log(element);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
           onSignIn(googleUser)
         }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
         });
   }
 

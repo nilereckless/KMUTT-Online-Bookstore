@@ -85,19 +85,15 @@ app.use('/cart', cartRouter);
 
 
 app.post('/auth/google/callback', passport.authenticate('custom', { failureRedirect: "/" }), async (req, res, next) => {
-  req.session.save(function(){
-    res.redirect('/');
-  });
-  // function (req, res) {
-  //   var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
+  var allowedEmail = ["mail.kmutt.ac.th", "kmutt.ac.th"]
 
-  //   if (!allowedEmail.includes(req.user.emails[0].value.split("@")[1])) {
-  //     req.flash('error', 'Please use KMUTT Account');
-  //     req.logout();
-  //     return res.redirect('/');
-  //   }
-  //   console.log(req.user._json.email);
-  //   res.redirect('/');
+    if (!allowedEmail.includes(req.user.emails.split("@")[1])) {
+      req.logout();
+      return res.json('Please use KMUTT Account');
+    }
+  req.session.save(function(){
+    res.json('success');
+  });
 });
 
 
