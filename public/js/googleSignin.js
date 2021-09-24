@@ -6,7 +6,6 @@ function onSignIn(googleUser) {
   var request = $.post(url, {
     id_token: id_token,
   });
-  console.log("prince");
   request.done(function (e) {
   if (e === 'success') {
     window.location.reload();
@@ -21,6 +20,8 @@ function onSignIn(googleUser) {
     alert("error");
   })
 }
+
+console.log("prince");
 
 
 //  $("#googlelogin").on("click", function (e) {
