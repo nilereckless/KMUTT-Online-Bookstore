@@ -174,7 +174,9 @@
                     </p>
                     <p> Total Price : <%=sumPrice%> </p>
                     <button class="btn" id="clearCart" style="background-color: darkorchid; width: 120px;">Clear All Cart</button>
-                    <button class="btn" style="background-color: lightcoral; width: 100px;">Checkout</button>
+                    <a href="/cart/checkout">
+                        <button class="btn" style="background-color: lightcoral; width: 100px;">Checkout</button>
+                    </a>
                     <% } else{ %>
                         <p>You haven't book <%=totalCart%>
                         </p>
