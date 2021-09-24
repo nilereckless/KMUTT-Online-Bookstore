@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include layouts/header.ejs %>
+        <title> KMUTT Online BookStore </title>
+</head>
+<% include layouts/navbar.ejs %>
+
+    <body>
+        <h3>Address</h3>
+        <div class="table-responsive">
+            <table class="table table-order">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="min-width: 160px;">
+                            Name-surname</th>
+                        <th colspan="2" style="width: 30%;">Address</th>
+                        <th>Postcode</th>
+                        <th>Phone number</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div>
+            <% if(address.length> 0) {%>
+
+                <%for(var i=0; i< address.length; i++) {%>
+                    <div class="shipAddress" id="<%=address[i].shipID%>">
+                        Shipping ID : <%=address[i].shipID%> <br>
+                            District : <%=address[i].district%> <br>
+                                Sub District : <%=address[i].subdistrict%> <br>
+                                    Province : <%=address[i].province%> <br>
+                                        Postal Code: <%=address[i].postalCode%> <br>
+                                            <button class="use-Address"
+                                                data-adddressid="<%=address[i].shipID%>">Click</button>
+                                            <br>
+                    </div>
+                    <% } %>
+                        <div class="text-center"><button class="btn btn-primary" type="button"
+                                style="background-color: tomato;" id="newAddr">+ Add
+                                new address</button></div>
+                        <% } else { %>
+                            <div class="text-center"><button class="btn btn-primary" type="button"
+                                    style="background-color: tomato;" id="newAddr">+ Add
+                                    new address</button></div>
+                            <% } %>
+        </div>
+
+        <div style="display: none ; margin: auto;max-width: 700px;" id="insertAddress">
+            <div style="font-size:1.2em; width: 380px; margin: 0 auto 1rem;display: inline-block;">
+                <label>Address</label>
+                <textarea class="form-control" type="text" id="detail"> </textarea>
+
+                <div class="form-group">
+                    <label>Provinces</label>
+                    <select class="form-control" id="provinces">
+                        <option disabled selected>Select Provinces</option>
+                        <%for(var i=0; i< province.length; i++) {%>
+                            <option value="<%=province[i].name_in_thai%>" data-id="<%=province[i].id%>">
+                                <%=province[i].name_in_thai%>
+                            </option>
+                            <% } %>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label id="dist">District</label>
+                    <select class="form-control" id="district">
+                        <option disabled selected>Select District</option>
+                        <%for(var i=0; i< district.length; i++) {%>
+                            <option value="<%=district[i].name_in_thai%>" data-id="<%=district[i].province_id%>"
+                                data-district-id="<%=district[i].id%>">
+                                <%=district[i].name_in_thai%>
+                            </option>
+                            <% } %>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label id="subd">Subdistrict</label>
+                    <select class="form-control" id="subDistrict">
+                        <option disabled selected>Select SubDistrict</option>
+                    </select>
+                </div>
+                <label id="post">PostalCode</label>
+                <input class="form-control" type="text" readonly id="postID">
+
+                <button type="submit" class="btn btn-primary mb-3" id="userAddress">Save address</button>
+            </div>
+        </div>
+
+    </body>
+    <% include layouts/footer.ejs %>
+        <script>
+            $(document).ready(function () {
+                var selectedAddressID = null;
+                var postLabel = $('#post');
+                var districtLabel = $('#dist');
+                var subDistLabel = $('#subd');
+                var provinces = $('#provinces');
+                var district = $('#district');
+                var subDistrict = $('#subDistrict');
+                var postID = $('#postID');
+                var usrAddr = $('#detail');
+                district.hide();
+                subDistrict.hide();
+                postID.hide();
+                postLabel.hide();
+                districtLabel.hide();
+                subDistLabel.hide();
+
+                provinces.on('change', function (e) {
+                    console.log($(this).val());
+                    console.log($(this).find(':selected').attr('data-id'));
+                    district.children('option').hide();
+                    district.children("option[data-id=" + $(this).find(':selected').attr('data-id') + "]").show();
+                    if ($(this).find(':selected').attr('data-id') != district.find(':selected').attr('data-id') && district.find(':selected').attr('data-id')) {
+                        district.prop('selectedIndex', 0);
+                    }
+                    subDistrict.prop('selectedIndex', 0);
+                    districtLabel.show();
+                    district.show();
+                    postLabel.hide();
+                    postID.hide();
+                })
+
+                district.on('change', function (e) {
+                    subDistLabel.show();
+                    subDistrict.show();
+                    postID.hide();
+                    console.log($(this).val());
+                    console.log($(this).find(':selected').attr('data-district-id'));
+                    $.ajax({
+                        url: "/cart/subdistrict/" + $(this).find(':selected').attr('data-district-id'),
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (response) {
+                            subDistrict.find('option').not(':first').remove();
+                            $.each(response, function (key, value) {
+                                subDistrict.append('<option value=' + value.name_in_thai + ' data-postID=' + value.code + ' >' + value.name_in_thai + '</option>'); // return empty
+                            });
+                        }
+                    });
+                    subDistrict.prop('selectedIndex', 0);
+                })
+
+                subDistrict.on('change', function (e) {
+                    //  console.log($(this).find(':selected').attr('data-postID'));
+                    postID.val($(this).find(':selected').attr('data-postID'));
+                    postLabel.show();
+                    postID.show();
+                })
+
+            })
+
+            $('.use-Address').on('click', function (e) {
+                e.preventDefault();
+                var addrID = parseInt($(this).attr('data-adddressid'));
+                selectedAddressID = addrID;
+                $(".shipAddress").removeClass("shipAddress-active");
+                $("#" + addrID).addClass("shipAddress-active");
+            })
+
+            $('#newAddr').on('click', function (e) {
+                $('#insertAddress').css('display', 'block');
+            })
+
+            //userID', 'district', 'province', 'postalCode', 'address', 'subdistrict'
+            $('#userAddress').on('click', function (e) {
+                var settings = {
+                    "url": "/users/address/save",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    "data": {
+                        "district": $('#district').val(),
+                        "province": $('#provinces').val(),
+                        "postalcode": $('#postID').val(),
+                        "address": $('#detail').val(),
+                        "subdistrict": $('#subDistrict').val()
+                    }
+                };
+
+                $.ajax(settings)
+                    .done(function (response) {
+                        alert(response);
+
+                    });
+            })
+        </script>
+
+</html>

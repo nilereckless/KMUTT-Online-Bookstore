@@ -17,3 +17,13 @@
     background-color: #f57777 !important;
  
 }
+
+.shipAddress {
+  border: 1px solid;
+  padding: 10px;
+}
+
+.shipAddress-active {
+border: 1px solid #bada55;
+
+}
