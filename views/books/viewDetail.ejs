@@ -279,8 +279,8 @@
 
         <script>
             // var bookID = $(this).attr("data-id"); //รับค่า id หนังสือ เพื่อจะได้เพิ่มถูกเล่ม
-            $('[id^="book-"]').click(function (e) {
-                var x = e.target.id.split("-")[1];
+            $('[id^="book-"]').click(async function (e) {
+                var x = await e.target.id.split("-")[1];
                 // var x = e.target.id.charAt(e.target.id.length - 1);
                 console.log(x);
                 var qnt = parseInt(document.getElementById('number').value);
