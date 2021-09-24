@@ -5,6 +5,7 @@ var bookController = require('../controller/bookController');
 var cartStorage = [];
 const middleWare = require('../middleware/authentication');
 var shipController = require('../controller/shipAddressController');
+var locationController =  require('../controller/locationController');
 
 
 //middleware.isAuthenticated(), วางไว้หน้า async
