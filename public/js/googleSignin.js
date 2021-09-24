@@ -2,6 +2,7 @@
 function onSignIn(googleUser) {
   console.log(googleUser);
   var id_token = googleUser.Zb.$b.id_token;
+  console.log(googleUser.Zb);
   var url = '/auth/google/callback';
   var request = $.post(url, {
     id_token: id_token,
