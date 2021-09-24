@@ -2,11 +2,11 @@
 function onSignIn(googleUser) {
   console.log(googleUser);
   var id_token = googleUser.Zb.id_token;
-  console.log("prince");
   var url = '/auth/google/callback';
   var request = $.post(url, {
     id_token: id_token,
   });
+  console.log("prince");
   request.done(function (e) {
   if (e === 'success') {
     window.location.reload();
