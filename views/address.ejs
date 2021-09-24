@@ -183,6 +183,7 @@
 
             //userID', 'district', 'province', 'postalCode', 'address', 'subdistrict'
             $('#userAddress').on('click', function (e) {
+                window.location.reload();
                 var settings = {
                     "url": "/users/address/save",
                     "method": "POST",
