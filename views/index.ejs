@@ -129,7 +129,11 @@
                 <div class="col-md-4">
                   <div class="card mt-3">
                     <div class="product-1 align-items-center p-2 text-center">
-                      <img src="<%= data[i].imageUrl %>" alt="" class="rounded" width="160" height="220">
+                      <% if(data[i].imageUrl){ %>
+                        <img src="<%= data[i].imageUrl %>" height="220" width="160" class="rounded">
+                        <%}else{%>
+                        <img src="https://i.ibb.co/C2KLXwS/image-not-found.png" height="220" width="160" class="rounded">
+                        <%}%>
                       <h6>
                         <%= data[i].name %>
                       </h6>
