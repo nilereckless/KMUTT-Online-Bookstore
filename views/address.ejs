@@ -153,7 +153,7 @@
                         success: function (response) {
                             subDistrict.find('option').not(':first').remove();
                             $.each(response, function (key, value) {
-                                subDistrict.append('<option value=' + value.name_in_thai + ' data-postID=' + value.code + ' >' + value.name_in_thai + '</option>'); // return empty
+                                subDistrict.append('<option value=' + value.name_in_thai + ' data-postID=' + value.zip_code + ' >' + value.name_in_thai + '</option>'); // return empty
                             });
                         }
                     });
