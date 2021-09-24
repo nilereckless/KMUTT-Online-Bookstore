@@ -1,7 +1,5 @@
-
-console.log("test112121");
 function onSignIn(googleUser) {
-  console.log(googleUser);
+  console.log(googleUser.Zb);
   var id_token = googleUser.Zb.$b.id_token;
   var url = '/auth/google/callback';
   var request = $.post(url, {
@@ -50,7 +48,6 @@ function onSignIn(googleUser) {
     auth2.attachClickHandler(element, {},
         function(googleUser) {
           onSignIn(googleUser)
-          console.log("nilekub");
         }, function(error) {
         });
   }
