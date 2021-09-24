@@ -49,7 +49,7 @@ app.use(passport.session());
 app.use(logger('dev'));
 
 app.use(fileUpload());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 
 
