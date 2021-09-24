@@ -32,6 +32,7 @@ router.get('/', middleWare.isAuthenticatedCart, async (req, res, next) => {
             img: b[0].imageUrl,
             author: b[0].author,
             id: b[0].id,
+            stock: b[0].stock
         }
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
