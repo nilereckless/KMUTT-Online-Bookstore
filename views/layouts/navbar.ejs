@@ -1,0 +1,128 @@
+<style>
+  .Shopcart[data-count] {
+    position: relative;
+  }
+
+  .Shopcart[data-count]:after {
+    position: absolute;
+    right: -0.75em;
+    top: -.75em;
+    content: attr(data-count);
+    padding: .5em;
+    border-radius: 10em;
+    line-height: .9em;
+    color: white;
+    background: rgba(255, 0, 0, .75);
+    text-align: center;
+    min-width: 2em;
+    font: bold .4em sans-serif;
+  }
+</style>
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightsalmon;">
+  <a href="/" class="navbar-brand">KMUTT ONLINE BOOKSTORE</a>
+  <button class="navbar-toggler" type="button" data-toggler="collapse" data-target="#navbarMenu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link">Products</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Pay-In Slip</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">About Us</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+          More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Promotions</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">News and Activities</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li>
+        <a href="#" class="nav-link">
+          <i class="fa fa-heart fa-2x" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li>
+        <div id="cart" class="nav-link">
+          <i class="fa fa-shopping-cart fa-2x Shopcart" aria-hidden="true" id="cartCount"></i>
+        </div>
+      </li>
+      <li>
+        <a href="#" class="nav-link">
+          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Modal -->
+
+<div class="modal fade" id="loginmodal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">เข้าสู่ระบบ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button id="google-signin-modal">
+          LOGIN WITH KMUTT GOOGLE ACCOUNT
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function () {
+    var url = "/cart/count";
+    var request = $.get(url);
+    request.done(function (e) {
+      if (e !== "Unauthorized") {
+
+      }
+
+      var count = $("#cartCount").attr("data-count", e.count);
+      if ($("#cartCount").attr("data-count") <= 0) {
+        $("#cartCount").removeAttr("data-count");
+      }
+    })
+    request.fail(function () {
+      alert("error");
+    })
+    $('#cart').on('click', function (e) {
+      e.preventDefault()
+      var url = "/cart";
+      var request = $.get(url);
+      request.done(function (e) {
+        if (e !== "Unauthorized") {
+          window.location.href='/cart'
+        } else {
+          $('#loginmodal').modal('toggle')
+        }
+        console.log(e);
+      })
+      request.fail(function () {
+        alert("error");
+      })
+
+    })
+   
+  });
+</script>

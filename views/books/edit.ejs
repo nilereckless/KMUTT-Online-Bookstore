@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>KMUTT Bookstore management</title>
+</head>
+<% include ../layouts/header.ejs %>
+
+    <body class="container" style="margin-top: 50px;">
+        <h1 class="text-center">Admin Organization</h1> <br>
+        <% if(messages.error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= messages.error %>
+            </div>
+            <% } %>
+                <div class="back">
+                    <a href="/books" class="btn btn-info">Back</a>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        Edit Book
+                    </div>
+                    <div class="card-body">
+                        <form action="/books/update/<%= id %> " method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>BookName:</label>
+                                <input type="text" class="form-control" name="name" value="<%= name %>"
+                                    autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label>Author:</label>
+                                <input type="text" class="form-control" name="author" value="<%= author %>"
+                                    autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label>Price:</label>
+                                <input type="text" class="form-control" name="price" id="price" value="<%= price %>"
+                                    autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label>Stock:</label>
+                                <input type="text" class="form-control" name="stock" id="stock" value="<%= stock %>"
+                                    autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label>Isbn:</label>
+                                <input type="text" class="form-control" name="isbn" id="isbn" value="<%= isbn %>"
+                                    autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label>Upload Book Picture:</label>
+                                <input type="file" name="book_pic" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Catagory:</label>
+                                <select name="catagory" id="catagory">
+                                    <option value="Education">Education</option>
+                                    <option value="Information Technology">Information Technology</option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Other...">Other...</option>
+                                </select>
+                                <!-- <input type="text" class="form-control" name="catagory" value="<%= catagory %> " autocomplete="off"> -->
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-info" value="Update">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+    </body>
+    <% include ../layouts/footer.ejs %>
+        <script>
+            (function ($) {
+                $.fn.inputFilter = function (inputFilter) {
+                    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+                        if (inputFilter(this.value)) {
+                            this.oldValue = this.value;
+                            this.oldSelectionStart = this.selectionStart;
+                            this.oldSelectionEnd = this.selectionEnd;
+                        } else if (this.hasOwnProperty("oldValue")) {
+                            this.value = this.oldValue;
+                            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                        } else {
+                            this.value = "";
+                        }
+                    });
+                };
+            }(jQuery));
+            $("#stock, #price").inputFilter(function (value) {
+                return /^\d*$/.test(value);    // Allow digits only, using a RegExp
+            });
+
+        </script>
+
+</html>
