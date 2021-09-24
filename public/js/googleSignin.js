@@ -31,6 +31,7 @@ console.log("prince");
 
   var googleUser = {};
   var startApp = function() {
+    console.log("prince1")
     gapi.load('auth2', function(){
       // Retrieve the singleton for the GoogleAuth library and set up the client.
       auth2 = gapi.auth2.init({
@@ -48,6 +49,7 @@ console.log("prince");
     auth2.attachClickHandler(element, {},
         function(googleUser) {
           onSignIn(googleUser)
+          console.log("nilekub");
         }, function(error) {
         });
   }
