@@ -106,7 +106,7 @@ router.get('/count', middleWare.isAuthenticatedCart, async (req, res, next) => {
 })
 
 router.get('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) => {
-    var shipAddress = await shipController.getAllShippingAddressByUserID(req.params.id);
+    var shipAddress = await shipController.getAllShippingAddressByUserID(1);
     // console.log(shipAddress) ;
     var province = await locationController.getAllProvince();
     var district = await locationController.getAllDistrict();
