@@ -11,10 +11,6 @@
             background-color: white;
         }
 
-        #bookStore {
-            font-family: LucidaHandwriting;
-        }
-
         #priceDetail {
             font-size: 30px;
         }
@@ -124,7 +120,7 @@
             margin: 0;
         }
 
-        #stock {
+        #stockcss {
             color: red
         }
 
@@ -180,7 +176,12 @@
                             <div class="row">
                                 <!-- book img -->
                                 <div class="col-xl-5 col-md-5">
-                                    <img src="<%= imageUrl %>" id="image1" height="360" width="320" class="rounded">
+                                    <% if(imageUrl){ %>
+                                        <img src="<%= imageUrl %>" id="image1" height="360" width="320" class="rounded">
+                                        <%}else{%>
+                                            <img src="https://i.ibb.co/C2KLXwS/image-not-found.png" id="image1"
+                                                height="340" width="320" class="rounded">
+                                            <%}%>
                                 </div>
 
                                 <!-- space -->
@@ -220,12 +221,15 @@
                                             +
                                         </div>
                                         &nbsp;&nbsp;piece
-                                        <p id=stock>Have only <%= stock %> pieces</p>
-
-                                        <button class="btn btn-primary addCart" data-id="<%=id%>">add to cart</button>
+                                        <p id=stockcss>Have only <%= stock %> pieces</p>
+                                        <input type="number" hidden="true" id="stock" value="<%= stock %>" />
+                                        <div hidden="true" id="bookId" value="<%=id%>"></div>
+                                        <button class="btn btn-primary" id="book-<%= id %>">
+                                            add to cart
+                                        </button>
                                     </form>
 
-                                    
+
 
                                 </div>
                             </div>
@@ -257,8 +261,10 @@
         <script>
             function increaseValue() {
                 var value = parseInt(document.getElementById('number').value, 10);
-                value = isNaN(value) ? 0 : value;
-                value++;
+                value = isNaN(value) ? 1 : value;
+                if (value < "<%= stock %>") {
+                    value++;
+                }
                 document.getElementById('number').value = value;
             }
 
@@ -271,10 +277,40 @@
             }
         </script>
 
+        <script>
+            // var bookID = $(this).attr("data-id"); //รับค่า id หนังสือ เพื่อจะได้เพิ่มถูกเล่ม
+            $('[id^="book-"]').click(function (e) {
+                var x = e.target.id.split("-")[1];
+                // var x = e.target.id.charAt(e.target.id.length - 1);
+                console.log(x);
+                var qnt = parseInt(document.getElementById('number').value);
+                var stock = parseInt(document.getElementById('stock').value);
+                console.log("stk" + stock);
+                console.log("qnt" + qnt);
+                if (qnt > stock) {
+                    window.alert("Out of stock");
+                } else if (qnt <= stock) {
+                    console.log(qnt); //รับค่า quantity ของหนังสือ เพื่อเอาไปวนloopแล้วaddตามจำนวน
+                    for (var i = 0; i < qnt; i++) {
+                        var url = "/cart/add/";
+                        console.log(i);
+                        // เริ่ม loop เพื่อ add หนังสือเข้าเลย
+                        $.ajax({
+                            type: "GET",
+                            url: url + x,
+                            success: function () {
+                                console.log("earth");
+                                window.location.reload();
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("fail");
+                            },
+                        });
 
-
-        <script type="text/javascript" src="/js/cart.js">
+                    }
+                }
+            })
         </script>
 
-
 </html>
+
