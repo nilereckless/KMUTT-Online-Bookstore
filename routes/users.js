@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/address', async (req, res) => {
-  var shipAddress = await shipController.getAllShippingAddressByUserID(1); // req.user.id
+  var shipAddress = await shipController.getAllShippingAddressByUserID(req.user.id); // req.user.id
   // console.log(shipAddress) ;
   res.json(shipAddress);
 })
@@ -26,7 +26,7 @@ router.get('/address/(:id)', async (req, res) => {
 
 router.post('/address/save', async (req, res) => {
   console.log("Address now", req.body);
-  var shipAddress = await shipController.addShippingAddress(1, req.body.district, req.body.province, req.body.postalcode, req.body.address, req.body.subdistrict).catch((e) => {
+  var shipAddress = await shipController.addShippingAddress(req.user.id, req.body.district, req.body.province, req.body.postalcode, req.body.address, req.body.subdistrict).catch((e) => {
     console.log(e);
   });
   if (shipAddress.affectedRows === 1) {
