@@ -1,4 +1,5 @@
 
+console.log("test112121");
 function onSignIn(googleUser) {
   console.log(googleUser);
   var id_token = googleUser.Zb.$b.id_token;
@@ -21,7 +22,7 @@ function onSignIn(googleUser) {
   })
 }
 
-console.log("prince");
+
 
 
 //  $("#googlelogin").on("click", function (e) {
