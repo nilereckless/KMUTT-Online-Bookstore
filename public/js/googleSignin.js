@@ -1,6 +1,6 @@
 
 function onSignIn(googleUser) {
-  console.log(googleUser);
+  console.log(googleUser.$b.id_token);
   var id_token = googleUser.Zb.id_token;
   var url = '/auth/google/callback';
   var request = $.post(url, {
