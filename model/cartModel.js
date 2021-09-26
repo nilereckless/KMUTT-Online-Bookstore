@@ -14,11 +14,30 @@ module.exports = class Cart {
         this.cart.push(books);
     }
 
-    addCartWithQuantity(books, quantity){
-        for(var i = 0 ; i < quantity ; i++){
-          this.cart.push({id: books}) ;
+    addCartWithQuantity(books, quantity) {
+        for (var i = 0; i < quantity; i++) {
+            this.cart.push({ id: books });
         }
     }
+
+    setCartQuantityByBookID(quantity, bookID) {
+        // [{ id: '6' },
+        // { id: '6' },
+        // { id: '5' },
+        // { id: '7' },
+        // { id: '5' },
+        // { id: '5' },
+        // { id: '5' }]
+        this.cart.map(book => {
+            this.cart.splice(book.indexOf(book.id), 1);
+        })
+
+        for (var i = 0; i < quantity; i++) {
+            this.cart.push({ id: books });
+        }
+    }
+
+
 
     getQuantityByBookID(bookID) {
         var quantity = 0;
@@ -51,20 +70,20 @@ module.exports = class Cart {
     }
 
     removeAllCartByBookID(bookID) {
-         if(this.cart.find(book => book.id === bookID) !== undefined){
+        if (this.cart.find(book => book.id === bookID) !== undefined) {
             for (var i = 0; i < this.cart.length; i++) {
                 var book = this.cart[i];
                 if (book.id === bookID) {
                     this.cart.splice(i, 1);
-                    i-- ;
+                    i--;
                 }
             }
-              return true ;
-         }
-         return false ;
+            return true;
+        }
+        return false;
     }
 
-    removeAllCart(){
-        this.cart = [] ;
+    removeAllCart() {
+        this.cart = [];
     }
 }
