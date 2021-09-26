@@ -67,9 +67,7 @@ router.get('/add/:id/:quantity', middleWare.isAuthenticatedCart, async (req, res
     } else {
         //   console.log("Receive " , cartStorage[1]) ;
         cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
-        if(quantity!==undefined && quantity!==null && quantity > 0){
-            cart.addCartWithQuantity(bookID, quantity) ;
-        }
+        cart.addCartWithQuantity(bookID, quantity) ;
     }
     cartStorage[req.user.id] = cart;
     res.json("success");

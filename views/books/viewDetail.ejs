@@ -228,9 +228,6 @@
                                             add to cart
                                         </button>
                                     </form>
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -292,18 +289,20 @@
                 } else if (qnt <= stock) {
                     console.log(qnt); //รับค่า quantity ของหนังสือ เพื่อเอาไปวนloopแล้วaddตามจำนวน
                     var url = "/cart/add/" + x + "/" + qnt;
-                        console.log(url);
-                        // เริ่ม loop เพื่อ add หนังสือเข้าเลย
-                        $.ajax({
-                            type: "GET",
-                            url: url ,
-                            success: function () {
-                                console.log("earth");
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                console.log("fail");
-                            },
-                        });
+                    console.log(url);
+                    // เริ่ม loop เพื่อ add หนังสือเข้าเลย
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function () {
+                            window.alert("Success");
+                            console.log("earth");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            window.alert("Fail");
+                            console.log("fail");
+                        },
+                    });
 
 
                 }
