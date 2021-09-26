@@ -5,7 +5,7 @@ var bookController = require('../controller/bookController');
 var cartStorage = [];
 const middleWare = require('../middleware/authentication');
 var shipController = require('../controller/shipAddressController');
-var locationController =  require('../controller/locationController');
+var locationController = require('../controller/locationController');
 
 
 //middleware.isAuthenticated(), วางไว้หน้า async
@@ -18,7 +18,9 @@ router.get('/', middleWare.isAuthenticatedCart, async (req, res, next) => {
     } else {
         cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
     }
+
     cartStorage[req.user.id] = cart;
+    console.log(cart);
     var cartInfo = [];
     var total = 0;
     const ids = cart.getCart().map(o => o.id)
@@ -58,7 +60,7 @@ router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) =>
 
 router.get('/add/:id/:quantity', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
-    var quantity = req.params.quantity ;
+    var quantity = req.params.quantity;
     var cart = null;
     if (cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
@@ -67,7 +69,7 @@ router.get('/add/:id/:quantity', middleWare.isAuthenticatedCart, async (req, res
     } else {
         //   console.log("Receive " , cartStorage[1]) ;
         cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
-        cart.addCartWithQuantity(bookID, quantity) ;
+        cart.addCartWithQuantity(bookID, quantity);
     }
     cartStorage[req.user.id] = cart;
     res.json("success");
