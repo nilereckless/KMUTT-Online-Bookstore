@@ -292,7 +292,7 @@
                 } else if (qnt <= stock) {
                     console.log(qnt); //รับค่า quantity ของหนังสือ เพื่อเอาไปวนloopแล้วaddตามจำนวน
                     for (var i = 0; i < qnt; i++) {
-                        var url = "/cart/add/";
+                        var url = "/cart/add/" + x + "/" + qnt;
                         console.log(i);
                         // เริ่ม loop เพื่อ add หนังสือเข้าเลย
                         $.ajax({

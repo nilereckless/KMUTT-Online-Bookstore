@@ -56,6 +56,25 @@ router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) =>
     res.json("success");
 })
 
+router.get('/add/:id/:quantity', middleWare.isAuthenticatedCart, async (req, res, next) => {
+    var bookID = req.params.id;
+    var quantity = req.params.quantity ;
+    var cart = null;
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
+        //  console.log("Create new cart = " ,cart.getCart()) ;
+        cart.addCart({ id: bookID });
+    } else {
+        //   console.log("Receive " , cartStorage[1]) ;
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        if(quantity!==undefined && quantity!==null && quantity > 0){
+            cart.addCartWithQuantity(bookID, quantity) ;
+        }
+    }
+    cartStorage[req.user.id] = cart;
+    res.json("success");
+})
+
 router.get('/remove/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
