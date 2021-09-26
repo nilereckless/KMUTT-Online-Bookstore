@@ -278,7 +278,7 @@
             var bookId = $(this).attr('data-id');
             $.ajax({
                 type: "GET",
-                url: "/cart/remove/" + quantity + "/" + bookId,
+                url: "/cart/set/" + quantity + "/" + bookId,
                 success: function (data) {
                     console.log("success");
                     window.location.reload();
