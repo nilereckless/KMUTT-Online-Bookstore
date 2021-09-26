@@ -166,7 +166,7 @@
                         <button class="minus-btn" type="button" name="button">
                             <i class="fas fa-minus" id="minusIt-<%=cart[i].id%>"></i>
                         </button>
-                        <input type="text" name="name" value="<%=cart[i].quantity%>" id="quantity-"<%=cart[i].id%> data-id="<%=cart[i].id%>">
+                        <input type="text" name="name" value="<%=cart[i].quantity%>" id="quantity-"<%=cart[i].id%> data-id="<%=cart[i].id%>" disabled>
                         <%if (cart[i].quantity < cart[i].stock){%>
                             <button class="plus-btn" type="button" name="button">
                                 <i class="fas fa-plus" id="plusIt-<%=cart[i].id%>"></i>
