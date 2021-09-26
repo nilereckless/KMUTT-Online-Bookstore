@@ -13,10 +13,10 @@ module.exports = class Cart {
     addCart(books) {
         this.cart.push(books);
     }
-    
+
     addCartWithQuantity(books, quantity){
         for(var i = 0 ; i < quantity ; i++){
-          this.cart.push(books) ;
+          this.cart.push({id: books}) ;
         }
     }
 
