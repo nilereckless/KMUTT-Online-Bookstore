@@ -75,22 +75,22 @@ router.get('/add/:id/:quantity', middleWare.isAuthenticatedCart, async (req, res
     res.json("success");
 })
 
-// router.get('/set/:quantity/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
-//     var bookID = req.params.id;
-//     var quantity = req.params.quantity;
-//     var cart = null;
-//     if (cartStorage[req.user.id] === undefined) {
-//         cart = new Cart(req.user.id);
-//         //  console.log("Create new cart = " ,cart.getCart()) ;
-//         cart.addCart({ id: bookID });
-//     } else {
-//         //   console.log("Receive " , cartStorage[1]) ;
-//         cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
-//         cart.addCartWithQuantity(bookID, quantity);
-//     }
-//     cartStorage[req.user.id] = cart;
-//     res.json("success");
-// })
+router.get('/set/:quantity/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
+    var bookID = req.params.id;
+    var quantity = req.params.quantity;
+    var cart = null;
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
+        //  console.log("Create new cart = " ,cart.getCart()) ;
+        cart.addCart({ id: bookID });
+    } else {
+        //   console.log("Receive " , cartStorage[1]) ;
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart.addCartWithQuantity(bookID, quantity);
+    }
+    cartStorage[req.user.id] = cart;
+    res.json("success");
+})
 
 
 
