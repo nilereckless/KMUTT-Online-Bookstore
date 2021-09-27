@@ -95,7 +95,7 @@
     var request = $.get(url);
     request.done(function (e) {
       if (e !== "Unauthorized") {
-
+        
       }
 
       var count = $("#cartCount").attr("data-count", e.count);
@@ -112,7 +112,7 @@
       var request = $.get(url);
       request.done(function (e) {
         if (e !== "Unauthorized") {
-          window.location.href='/cart'
+          window.location.href = '/cart'
         } else {
           $('#loginmodal').modal('toggle')
         }
@@ -123,6 +123,6 @@
       })
 
     })
-   
+
   });
 </script>

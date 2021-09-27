@@ -285,9 +285,9 @@
                 var stock = parseInt(document.getElementById('stock').value);
                 console.log("stk" + stock);
                 console.log("qnt" + qnt);
-                if (qnt > stock) {
+                if (qnt >= stock) {
                     window.alert("Out of stock");
-                } else if (qnt <= stock) {
+                } else if (qnt < stock) {
                     console.log(qnt); //รับค่า quantity ของหนังสือ เพื่อเอาไปวนloopแล้วaddตามจำนวน
                     var url = "/cart/add/" + x + "/" + qnt;
                     console.log(url);
