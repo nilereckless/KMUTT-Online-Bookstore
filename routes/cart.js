@@ -6,6 +6,7 @@ var cartStorage = [];
 const middleWare = require('../middleware/authentication');
 var shipController = require('../controller/shipAddressController');
 var locationController = require('../controller/locationController');
+var orderHistoryController = require('../controller/orderHistoryController');
 
 
 //middleware.isAuthenticated(), วางไว้หน้า async
@@ -155,8 +156,9 @@ router.get('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) =
 
 router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var address = await shipController.getShippingAddressByShipID(req.body.address);
-    if(req.user.id == address.userID) {
+    if (req.user.id == address.userID) {
         var orderID = Math.round(Math.floor(Date.now() / 1000))
+        await orderHistoryController.addOrderHistoryByID(req.user.id, orderID);
         console.log(orderID);
         res.json(address);
     } else {
