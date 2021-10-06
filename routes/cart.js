@@ -153,6 +153,15 @@ router.get('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) =
     res.render('address', { address: shipAddress, province: province, district: district });
 })
 
+router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) => {
+    var address = await shipController.getShippingAddressByShipID(req.body.address);
+    if(req.user.id == address.userID) {
+        res.json(address);
+    } else {
+        res.json("error");
+    }
+})
+
 router.get('/subdistrict/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var subDist = await locationController.getSubdistrictByDistrictID(req.params.id);
     console.log(subDist);

@@ -184,7 +184,28 @@
 
             $('#confirm').on('click', function (e) {
                 var option = $('input[name=option]:checked', '#option_payment').val()
-                alert(option);
+               if(option === undefined || selectedAddressID === null){
+                   alert("Please select your option to payment!");
+               } else {
+                //    selectedAddressID 
+                var settings = {
+                    "url": "/cart/checkout",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    "data": {
+                        "address": selectedAddressID,
+                    }
+                };
+
+                $.ajax(settings)
+                    .done(function (response) {
+                        alert(response);
+
+                    });
+               }
                 
             })
 
