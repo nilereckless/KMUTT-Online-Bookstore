@@ -175,8 +175,12 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 
 router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var orderID =  await orderHistoryController.getOrderHistoryByID(req.params.orderID);
-    console.log(orderID);
-    res.render("completeOrder");
+    if(orderID.length > 0 && orderID[0].user_id == req.user.id){
+        res.render("completeOrder", {orderID: orderID[0].order_id});
+    } else {
+        res.render("completeOrder", {orderID: "Not found your orderID!"});
+    }
+   
 })
 
 router.get('/subdistrict/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
