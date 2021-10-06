@@ -100,15 +100,11 @@
             </label>
           </div>
         <div>
-            <form name="checkoutForm" method="GET" action="/users/payment">
-                <script type="text/javascript" src="https://cdn.omise.co/omise.js"
-                    data-key="pkey_test_5p4rrbsrvn2e8jygu3h"
-                    data-image="https://www.kmutt.ac.th/wp-content/uploads/2020/09/KMUTT_CI_Primary_Logo-Full-1200x1200.png"
-                    data-frame-label="KMUTT Online Bookstore" data-button-label="Payment" data-submit-label="Pay"
-                    data-location="no" data-amount="10050" data-currency="thb">
-                    </script>
-                <!--the script will render <input type="hidden" name="omiseToken"> for you automatically-->
-            </form>
+            <div>
+                <input type="radio" id="bank" name="bank" value="bank"
+                       checked>
+                <label for="bank">โอนเงินผ่านธนาคาร</label>
+              </div>
         </div>
 
     </body>
