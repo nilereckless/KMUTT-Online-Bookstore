@@ -159,15 +159,15 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     if (req.user.id == address.userID) {
         var orderID = Math.round(Math.floor(Date.now() / 1000))
         var orderIDState =  await orderHistoryController.addOrderHistoryByID(req.user.id, orderID);
-        if (orderIDState.affected === 1) {
+        if (orderIDState.affectedRows === 1) {
             res.json(orderID);
         } else {
             res.json("error");
         }
         // add book order By Napan 
         // for loop แค่ bookID ว่ามีกี่เล่มสั่งอะไรบ้าง By Napan
-        console.log(orderID);
-        res.json(address);
+        
+      
     } else {
         res.json("error");
     }
