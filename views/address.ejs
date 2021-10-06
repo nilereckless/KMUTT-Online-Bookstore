@@ -184,29 +184,30 @@
 
             $('#confirm').on('click', function (e) {
                 var option = $('input[name=option]:checked', '#option_payment').val()
-               if(option === undefined || selectedAddressID === null){
-                   alert("Please select your option to payment!");
-               } else {
-                //    selectedAddressID 
-                var settings = {
-                    "url": "/cart/checkout",
-                    "method": "POST",
-                    "timeout": 0,
-                    "headers": {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    "data": {
-                        "address": selectedAddressID,
-                    }
-                };
+                if (option === undefined || selectedAddressID === null) {
+                    alert("Please select your option to payment!");
+                } else {
+                    //    selectedAddressID 
+                    var settings = {
+                        "url": "/cart/checkout",
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        "data": {
+                            "address": selectedAddressID,
+                        }
+                    };
 
-                $.ajax(settings)
-                    .done(function (response) {
-                        alert(response);
+                    $.ajax(settings)
+                        .done(function (response) {
+                            window.location.href = `/cart/checkout/complete?orderID=${response}`;
 
-                    });
-               }
-                
+
+                        });
+                }
+
             })
 
             //userID', 'district', 'province', 'postalCode', 'address', 'subdistrict'
