@@ -94,10 +94,12 @@
             </div>
         </div>
         <div class="form-check">
-            <input type="radio" id="store" name="option" value="store">
-            <label for="store">รับสินค้าที่ร้าน</label>
-            <input type="radio" id="bank" name="option" value="bank">
-            <label for="bank">โอนเงินผ่านธนาคาร</label>
+            <form id="option_payment">
+                <input type="radio" id="store" name="option" value="store">
+                <label for="store">รับสินค้าที่ร้าน</label>
+                <input type="radio" id="bank" name="option" value="bank">
+                <label for="bank">โอนเงินผ่านธนาคาร</label>
+            </form>
         </div>
         <div>
             <button type="submit" id="confirm">ยืนยันคำสั่งซื้อ</button>
@@ -181,7 +183,9 @@
             })
 
             $('#confirm').on('click', function (e) {
-                alert("Confirm!");
+                var option = $('input[name=option]:checked', '#option_payment').val()
+                alert(option);
+                
             })
 
             //userID', 'district', 'province', 'postalCode', 'address', 'subdistrict'
