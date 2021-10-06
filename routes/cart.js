@@ -156,6 +156,8 @@ router.get('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) =
 router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var address = await shipController.getShippingAddressByShipID(req.body.address);
     if(req.user.id == address.userID) {
+        var orderID = Math.round(Math.floor(Date.now() / 1000))
+        console.log(orderID);
         res.json(address);
     } else {
         res.json("error");
