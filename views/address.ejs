@@ -100,7 +100,7 @@
             <label for="bank">โอนเงินผ่านธนาคาร</label>
         </div>
         <div>
-            <button type="submit">ยืนยันคำสั่งซื้อ</button>
+            <button type="submit" id="confirm">ยืนยันคำสั่งซื้อ</button>
         </div>
 
 
@@ -178,6 +178,10 @@
 
             $('#newAddr').on('click', function (e) {
                 $('#insertAddress').css('display', 'block');
+            })
+
+            $('#confirm').on('click', function (e) {
+                alert("Confirm!");
             })
 
             //userID', 'district', 'province', 'postalCode', 'address', 'subdistrict'
