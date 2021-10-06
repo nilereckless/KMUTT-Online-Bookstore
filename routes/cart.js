@@ -178,7 +178,7 @@ router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, async 
     if(orderID.length > 0 && orderID[0].user_id == req.user.id){
         res.render("completeOrder", {orderID: orderID[0].order_id});
     } else {
-        res.render("completeOrder", {orderID: "Not found your orderID!"});
+        res.render("completeOrder", {orderID: null, message: "Not found your orderID"});
     }
    
 })

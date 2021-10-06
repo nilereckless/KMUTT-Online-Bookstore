@@ -9,12 +9,14 @@
 
     <body>
         <h1>ขอบคุณสำหรับการสั่งซื้อของคุณ</h1>
-        <h3>เลขรายการสั่งซื้อของคุณ <%= orderID %>  </h3>
-
-
-
+        
+        <% if(orderID==null) {%>
+            <h3><%= message %></h3>
+            <% } else { %>
+                <h3>เลขรายการสั่งซื้อของคุณ <%= orderID %></h3>
+                <% } %>
     </body>
     <% include layouts/footer.ejs %>
-     
+
 
 </html>
