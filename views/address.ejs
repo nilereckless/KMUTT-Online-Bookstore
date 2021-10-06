@@ -109,8 +109,8 @@
     </body>
     <% include layouts/footer.ejs %>
         <script>
+            let selectedAddressID = null;
             $(document).ready(function () {
-                let selectedAddressID = null;
                 var postLabel = $('#post');
                 var districtLabel = $('#dist');
                 var subDistLabel = $('#subd');
