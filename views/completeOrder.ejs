@@ -9,18 +9,12 @@
 
     <body>
         <h1>ขอบคุณสำหรับการสั่งซื้อของคุณ</h1>
-        <h3>เลขรายการสั่งซื้อของคุณ </h3>
+        <h3>เลขรายการสั่งซื้อของคุณ <%= orderID %>  </h3>
 
 
 
     </body>
     <% include layouts/footer.ejs %>
-        <script>
-            var url_string = window.location.href
-            var url = new URL(url_string);
-            var orderID = url.searchParams.get("orderID");
-            console.log(orderID);
-
-        </script>
+     
 
 </html>
