@@ -173,6 +173,12 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
 })
 
+router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, async (req, res, next) => {
+    var orderID =  await orderHistoryController.getOrderHistoryByID(req.params.orderID);
+    console.log(orderID);
+    res.render("completeOrder");
+})
+
 router.get('/subdistrict/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var subDist = await locationController.getSubdistrictByDistrictID(req.params.id);
     console.log(subDist);

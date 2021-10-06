@@ -202,7 +202,7 @@
 
                     $.ajax(settings)
                         .done(function (response) {
-                            window.location.href = `/cart/checkout/complete?orderID=${response}`;
+                            window.location.href = `/cart/checkout/complete/${response}`;
 
 
                         });
