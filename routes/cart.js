@@ -158,7 +158,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     var address = await shipController.getShippingAddressByShipID(req.body.address);
     if (req.user.id == address.userID) {
         var orderID = Math.round(Math.floor(Date.now() / 1000))
-        var orderIDState =  await orderHistoryController.addOrderHistoryByID(req.user.id, orderID);
+        var orderIDState =  await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.payment_option);
         if (orderIDState.affectedRows === 1) {
             res.json(orderID);
         } else {
