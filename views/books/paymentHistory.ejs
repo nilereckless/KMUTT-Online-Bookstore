@@ -42,9 +42,80 @@
 
                 approveButton.on('click', function (e) {
                     var paymentID = $(this).attr("data-paymentID")
+                    var settings = {
+                        "url": "/books/payment",
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        "data": {
+                            "paymentID": paymentID,
+                            "status": "Approved"
+                        }
+                    };
+
+                    $.ajax(settings)
+                        .done(function (response) {
+                            if (response == "success") {
+                                Swal.fire({
+                                    title: 'Approve Successfully',
+                                    text: "You can insert another new book",
+                                    icon: 'success',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload();
+                                    }
+                                })
+                            } else {
+                                Swal.fire({
+                                    title: 'Incomplete Approved',
+                                    text: "test",
+                                    icon: 'error',
+                                })
+                            }
+
+
+
+                        });
                 })
                 declineButton.on('click', function (e) {
                     var paymentID = $(this).attr("data-paymentID")
+                    var settings = {
+                        "url": "/books/payment",
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        "data": {
+                            "paymentID": paymentID,
+                            "status": "Declined"
+                        }
+                    };
+
+                    $.ajax(settings)
+                        .done(function (response) {
+                            if (response == "success") {
+                                Swal.fire({
+                                    title: 'Decline Successfully',
+                                    text: "You can insert another new book",
+                                    icon: 'success',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload();
+                                    }
+                                })
+                            } else {
+                                Swal.fire({
+                                    title: 'Incomplete Declined',
+                                    text: "test",
+                                    icon: 'error',
+                                })
+                            }
+
+
+                        });
                 })
             });
         </script>
