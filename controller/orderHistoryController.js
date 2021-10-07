@@ -24,5 +24,28 @@ exports.addOrderHistoryByID = (user_id, order_id, payment_option) => {
     })
 }
 
+exports.getAllOrderHistory = () => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT * FROM order_history`;
+        dbConn.query(query, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        })
+    })
+}
+
+exports.updateOrderStatusByID = (order_id, status) => {
+    return new Promise((resolve, reject) => {
+        var query = `'UPDATE order_history SET status = ${status} WHERE order_id = ${order_id}`;
+        dbConn.query(query, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        })
+    })
+}
 
 

@@ -9,6 +9,8 @@ let helpers = require('../lib/helpers');
 const CryptoJS = require("crypto-js");
 const { isStaffAuthenticated } = require('../middleware/authentication');
 const pageAmount = 10;
+var orderHistoryController = require('../controller/orderHistoryController');
+
 
 
 
@@ -413,6 +415,11 @@ router.post('/author/suggest', (req, res) => {
 
 //upload img
 router.post('/image/upload', (req, res) => {
+})
+
+router.get('/payment', async (req, res) => {
+    var payments = await orderHistoryController.getAllOrderHistory()
+    res.render("paymentHistory", {payments: payments});
 })
 
 
