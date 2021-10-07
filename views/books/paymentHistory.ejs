@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>KMUTT Bookstore management</title>
+</head>
+<% include ../layouts/header.ejs %>
+
+    <body>
+
+        <% for(let i=0; i < payments.length; i++) { %>
+            <div>
+                <%= payments[i].order_id%>
+            </div>
+            <div>
+                <%= payments[i].user_id%>
+            </div>
+            <div>
+                <%= payments[i].status%>
+            </div>
+            <div>
+                <%= payments[i].payment_option%>
+            </div>
+            <div>
+                <%= payments[i].created_at%>
+            </div>
+            <div>
+                <button class="approve" data-paymentID= "<%= payments[i].order_id%>"> Approve </button>
+            </div>
+            <div>
+                <button class="decline" data-paymentID= "<%= payments[i].order_id%>"> Decline </button>
+            </div>
+            <% } %>
+    </body>
+    <% include ../layouts/footer.ejs %>
+
+
+</html>
