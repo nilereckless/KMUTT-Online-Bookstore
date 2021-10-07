@@ -38,7 +38,7 @@ exports.getAllOrderHistory = () => {
 
 exports.updateOrderStatusByID = (order_id, status) => {
     return new Promise((resolve, reject) => {
-        var query = `'UPDATE order_history SET status = '${status}' WHERE order_id = ${order_id}`;
+        var query = `UPDATE order_history SET status = '${status}' WHERE order_id = ${order_id}`;
         dbConn.query(query, (err, rows) => {
             if (err) {
                 reject(err);
