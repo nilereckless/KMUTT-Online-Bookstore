@@ -419,7 +419,7 @@ router.post('/image/upload', (req, res) => {
 
 router.get('/payment', async (req, res) => {
     var payments = await orderHistoryController.getAllOrderHistory()
-    res.render("paymentHistory", {payments: payments});
+    res.render("books/paymentHistory", {payments: payments});
 })
 
 
