@@ -9,6 +9,7 @@ const client = new OAuth2Client("315716910345-28jpa507rrqnitgj7a5jd2dolrdqcpun.a
 var passport = require('passport');
 const passportCustom = require('passport-custom');
 const CustomStrategy = passportCustom.Strategy;
+require('./paymentChecker');
 
 
 
