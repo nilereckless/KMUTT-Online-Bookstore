@@ -422,6 +422,20 @@ router.get('/payment', async (req, res) => {
     res.render("books/paymentHistory", {payments: payments});
 })
 
+router.post('/payment', async (req, res) => {
+   var status = req.body.status
+   var paymentID = req.body.paymentID
+
+   var orders = await orderHistoryController.updateOrderStatusByID(paymentID, status)
+   if(orders.affectedRows === 1){
+        return res.json("success");
+   } else {
+       res.json("error");
+   }
+
+})
+
+
 
 
 

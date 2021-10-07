@@ -10,29 +10,43 @@
 
         <% for(let i=0; i < payments.length; i++) { %>
             <div>
-                <%= payments[i].order_id%>
-            </div>
-            <div>
-                <%= payments[i].user_id%>
-            </div>
-            <div>
-                <%= payments[i].status%>
-            </div>
-            <div>
-                <%= payments[i].payment_option%>
-            </div>
-            <div>
-                <%= payments[i].created_at%>
-            </div>
-            <div>
-                <button class="approve" data-paymentID= "<%= payments[i].order_id%>"> Approve </button>
-            </div>
-            <div>
-                <button class="decline" data-paymentID= "<%= payments[i].order_id%>"> Decline </button>
+                <div>
+                    <%= payments[i].order_id%>
+                </div>
+                <div>
+                    <%= payments[i].user_id%>
+                </div>
+                <div>
+                    <%= payments[i].status%>
+                </div>
+                <div>
+                    <%= payments[i].payment_option%>
+                </div>
+                <div>
+                    <%= payments[i].created_at%>
+                </div>
+                <div>
+                    <button class="approve" data-paymentID="<%= payments[i].order_id%>"> Approve </button>
+                </div>
+                <div>
+                    <button class="decline" data-paymentID="<%= payments[i].order_id%>"> Decline </button>
+                </div>
             </div>
             <% } %>
     </body>
     <% include ../layouts/footer.ejs %>
+        <script>
+            $(document).ready(function () {
+                var approveButton = $(".approve")
+                var declineButton = $(".decline")
 
+                approveButton.on('click', function (e) {
+                    var paymentID = $(this).attr("data-paymentID")
+                })
+                declineButton.on('click', function (e) {
+                    var paymentID = $(this).attr("data-paymentID")
+                })
+            });
+        </script>
 
 </html>
