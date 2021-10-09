@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
-#google-signin, #google-signin-modal{
+/* #google-signin, #google-signin-modal{
   width: 380px;
     border: 0px;
     margin-bottom: 10px;
@@ -16,7 +16,7 @@
 #google-signin:hover, #google-signin-modal:hover{
     background-color: #f57777 !important;
  
-}
+} */
 
 .shipAddress {
   border: 1px solid;
