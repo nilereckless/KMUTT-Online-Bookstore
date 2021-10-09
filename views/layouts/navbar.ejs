@@ -53,11 +53,11 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <%if(user!=undefined){%>
+        <% if(user!=undefined){%>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
               data-toggle="dropdown">
-              <img src="<%= user.img %> alt=" <%=user.name %>" width="40" height="40" class="rounded-circle">
+              <img src="<%= user.img %> alt=" <%= user.name %>" width="40" height="40" class="rounded-circle">
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <% if (user) { %>
