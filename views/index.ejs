@@ -40,21 +40,6 @@
               </button>
           </div>
           <% } %>
-            <% if (user!=undefined) { %>
-              <img src="<%= user.img %> " alt="<%= user.name %>">
-              <h2>Hello, <%= user.name %>.</h2>
-              <% } %>
-
-                <% if (user) { %>
-                  <% if (staff.length> 0) { %>
-                    <a href="/books">Admin Organization</a> <br> <br>
-                    <% } %>
-                      <a href="/logout">logout</a>
-                      <% } else { %>
-                        <button id="google-signin">
-                          LOGIN WITH KMUTT GOOGLE ACCOUNT
-                        </button>
-                        <% } %>
       </div>
       <!-- promotion -->
       <div class="container">
