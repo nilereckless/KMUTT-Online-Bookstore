@@ -360,10 +360,10 @@ function search(req, res, next) {
 }
 
 //ISBN
-router.post('/search', search, function (req, res, next) {
+router.post('/search', search, authentication.checkAdmin, function (req, res, next) {
     var searchResult = req.searchResult;
     console.log(searchResult);
-    res.render('productfilter', { title: 'Express', data: searchResult });
+    res.render('productfilter', { title: 'Express', data: searchResult, user: req.user, staff: req.staff });
 });
 
 router.get('/filter',  authentication.checkAdmin, (req, res) => {
