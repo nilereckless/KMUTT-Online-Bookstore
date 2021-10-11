@@ -164,12 +164,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
         } else {
             res.json("error");
         }
-        // add book order By Napan 
-        // for loop แค่ bookID ว่ามีกี่เล่มสั่งอะไรบ้าง By Napan
-        // เมื่อสั่งแล้วตะกร้าต้องหาย By Napan 
-
-        
-      
+        // add book order By Napan  // for loop แค่ bookID ว่ามีกี่เล่มสั่งอะไรบ้าง By Napan // เมื่อสั่งแล้วตะกร้าต้องหาย By Napan 
     } else {
         res.json("error");
     }
