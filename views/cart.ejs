@@ -6,8 +6,8 @@
         <title>Shopping Cart</title>
         <style>
             .shopping-cart {
-                width: 600px;
-                height: 550px;
+                width: 550px;
+                height: 450px;
                 margin: 80px auto;
                 background: seashell;
                 box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
@@ -49,10 +49,11 @@
                 Cursor: pointer;
             }
 
-            .delete-btn {
+            /* .delete-btn {
                 width: 18px;
                 height: 17px;
-            }
+                align-items: right;
+            } */
 
             .like-btn {
                 position: absolute;
@@ -105,98 +106,188 @@
                 cursor: pointer;
             }
 
-            .minus-btn img {
-                margin-bottom: 3px;
+            /* .minus-btn img {
+                padding: 15px 30px 14px 30px;
+                margin: 5px auto;
+                display: block;
+                width: 100px;
+
             }
 
             .plus-btn img {
-                margin-top: 2px;
-            }
+                padding: 15px 30px 14px 30px;
+                margin: 5px auto;
+                display: block;
+                width: 100px;
+
+            } */
 
             button:focus,
             input:focus {
                 outline: 0;
             }
 
-            .total-price {
+            /* .total-price {
                 width: 83px;
                 padding-top: 27px;
                 text-align: center;
                 font-size: 16px;
                 color: #43484D;
                 font-weight: 300;
+            } */
+
+
+            div.sticky {
+                margin-top: 80px;
+                position: -webkit-sticky;
+                position: sticky;
+                top: 0;
+                padding: 50px;
+                font-size: 18px;
+
+                background: seashell;
+                box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
+                border-radius: 6px;
+
+                display: flex;
+                flex-direction: column;
+
+            }
+
+            #image1 {
+                padding: 5px;
+                padding-left: 10px;
+                padding-right: 10px;
+                background-color: white;
+                margin-left: 10px;
+            }
+
+            #noBook {
+                margin-top: 80px;
+                margin-left: 500px;
+                border-radius: 6px;
+                width: 50%;
+                background-color: lightgray;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                font-size: 24px;
             }
         </style>
 </head>
 
 <body>
     <% include layouts/navbar.ejs %>
-        <h3 style="text-align: center;">Shopping Cart</h3>
-        <% if(cart.length> 0){ %>
-            <%for(var i=0; i<cart.length; i++) {%>
-                <div class="shopping-cart">
-                    <!--Title-->
-                    <div class="title">
-                        <%= cart[i].bookName %>
+        <div class="row mx-0 justify-content-xl center">
+            <div class="col-lg-10 col-md-12 px-0">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9">
+                        <!-- shop item -->
+                        <% if(cart.length> 0){ %>
+                            <%for(var i=0; i<cart.length; i++) {%>
+                                <div class="shopping-cart">
+                                    <!--Title-->
+                                    <div class="title">
+                                        <%= cart[i].bookName %>
+
+                                    </div>
+                                    <div class="buttons delete-btn" align="right" data-id="<%=cart[i].id%>">
+                                        <i class="far fa-times-circle"></i>
+                                    </div>
+
+                                    <div class="row mx-0 justify-content-xl center">
+                                        <div class="col-lg-10 col-md-12 px-0">
+                                            <div class="row">
+                                                <!-- book img -->
+                                                <div class="col-xl-5 col-md-5">
+                                                    <% if(cart[i].img){ %>
+                                                        <img src="<%= cart[i].img%>" id="image1" height="220"
+                                                            width="160" class="rounded">
+                                                        <%}else{%>
+                                                            <img src="https://i.ibb.co/C2KLXwS/image-not-found.png"
+                                                                id="image1" height="220" width="160" class="rounded">
+                                                            <%}%>
+                                                                <div class="description" align="center">
+                                                                    <span> Author : <%= cart[i].author %> </span>
+                                                                </div>
+                                                </div>
+
+                                                <!-- space -->
+                                                <div class="col-xl-1 col-lg-1 d-md-none d-lg-block"></div>
+                                                <div class="col-lg-6 col-md-7">
+                                                    <br><br><br><br>
+                                                    Quatity<br>
+                                                    <div class="quantity" align="center">
+                                                        <button class="minus-btn" type="button" name="button">
+                                                            <i class="fas fa-minus" id="minusIt-<%=cart[i].id%>"></i>
+                                                        </button>
+                                                        <input type="text" name="name" value="<%=cart[i].quantity%>"
+                                                            id="quantity-" <%=cart[i].id%>
+                                                        data-id="<%=cart[i].id%>" disabled>
+                                                            <%if (cart[i].quantity < cart[i].stock){%>
+                                                                <button class="plus-btn" type="button" name="button">
+                                                                    <i class="fas fa-plus"
+                                                                        id="plusIt-<%=cart[i].id%>"></i>
+                                                                </button>
+                                                                &nbsp;&nbsp;piece
+
+                                                                <%}else{%>
+                                                                    <button class="plus-btn" type="button"
+                                                                        name="button">
+                                                                        <i class="fas fa-plus"></i>
+                                                                    </button>
+                                                                    &nbsp;&nbsp;piece
+                                                                    <br>
+                                                                    <span style="color:red;">Only have
+                                                                        <%=cart[i].stock%> pieces
+                                                                    </span>
+                                                                    <%}%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="total-price" align="center">
+                                        <br><br>
+                                        total price : <%=cart[i].quantity*cart[i].price%> ฿
+                                    </div>
+                                </div>
+                                <% } %>
+
                     </div>
 
-                    <!--Product-->
-                    <div class="item">
-                        <div class="buttons delete-btn" data-id="<%=cart[i].id%>">
-                            <i class="far fa-times-circle"></i>
-                            <span class="like-btn"></span>
+                    <div class="col-xl-3 col-md-3" id="purchaseOrder">
+                        <div class="sticky">
+                            <!-- purchase order -->
+
+                            <p align="center">
+                                Total Price : <%=sumPrice%> ฿
+                            </p>
+
+                            <div align="center">
+
+                                <a href="/cart/checkout">
+                                    <button type="button" class="btn btn-primary"
+                                        style="background-color: #24a0ed; width: 100px;">Checkout</button>
+                                </a>
+                                <br><br>
+                                <button type="button" class="btn btn-danger" id="clearCart"
+                                    style="background-color: red; width: 120px;">Clear All
+                                    Cart</button>
+                            </div>
+
+
                         </div>
                     </div>
-
-                    <div class="image">
-                        <% if(cart[i].img){ %>
-                            <img src="<%= cart[i].img%>" height="220" width="160" class="rounded">
-                            <%}else{%>
-                                <img src="https://i.ibb.co/C2KLXwS/image-not-found.png" height="220" width="160"
-                                    class="rounded">
-                                <%}%>
-
-                    </div>
-
-                    <div class="description">
-                        <span> Author : <%= cart[i].author %> </span>
-                    </div>
-
-                    <div class="quantity">
-                        <button class="minus-btn" type="button" name="button">
-                            <i class="fas fa-minus" id="minusIt-<%=cart[i].id%>"></i>
-                        </button>
-                        <input type="text" name="name" value="<%=cart[i].quantity%>" id="quantity-"<%=cart[i].id%> data-id="<%=cart[i].id%>" disabled>
-                        <%if (cart[i].quantity < cart[i].stock){%>
-                            <button class="plus-btn" type="button" name="button">
-                                <i class="fas fa-plus" id="plusIt-<%=cart[i].id%>"></i>
-                            </button>
-                            <%}else{%>
-                                <button class="plus-btn" type="button" name="button">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                                <br>
-                                <div style="color:red;">Only have <%=cart[i].stock%> pieces</div>
-                                <%}%>
-                    </div>
-
-                    <div class="total-price">price : <%=cart[i].quantity*cart[i].price%>
-                    </div>
                 </div>
-                <% } %>
-                    <p>You have total book <%=totalCart%>
-                    </p>
-                    <p> Total Price : <%=sumPrice%>
-                    </p>
-                    <button class="btn" id="clearCart" style="background-color: darkorchid; width: 120px;">Clear All
-                        Cart</button>
-                    <a href="/cart/checkout">
-                        <button class="btn" style="background-color: lightcoral; width: 100px;">Checkout</button>
-                    </a>
-                    <% } else{ %>
-                        <p>You haven't book <%=totalCart%>
-                        </p>
-                        <% } %>
+            </div>
+        </div>
+        <% } else{ %>
+            <div id="noBook">
+                No book in cart
+            </div>
+            <% } %>
+
 
 </body>
 <% include layouts/footer.ejs %>
@@ -272,7 +363,7 @@
         })
     </script>
     <script>
-         $('[id^=quantity-]').on("change",function (e) {
+        $('[id^=quantity-]').on("change", function (e) {
             e.preventDefault();
             var quantity = e.target.value;
             var bookId = $(this).attr('data-id');
@@ -289,7 +380,6 @@
             });
         });
     </script>
-
 
 
 </html>
