@@ -10,6 +10,7 @@ const CryptoJS = require("crypto-js");
 const { isStaffAuthenticated } = require('../middleware/authentication');
 const pageAmount = 10;
 var orderHistoryController = require('../controller/orderHistoryController');
+let authentication = require('../middleware/authentication');
 
 
 
@@ -51,7 +52,7 @@ router.get('/', ensureAuthenticated, searchLib.searchAdmin, (req, res, next) => 
 })
 
 //view detail book 
-router.get('/viewDetail/(:id)', function (req, res, next) {
+router.get('/viewDetail/(:id)', authentication.checkAdmin, function (req, res, next) {
     let id = req.params.id;
 
     dbConn.query('SELECT * FROM books WHERE id = ' + id, (err, rows, fields) => {
@@ -68,7 +69,8 @@ router.get('/viewDetail/(:id)', function (req, res, next) {
                 stock: rows[0].stock,
                 imageUrl: rows[0].imageUrl,
                 catagory: rows[0].catagory,
-                isbn: rows[0].isbn
+                isbn: rows[0].isbn,
+                user: req.user
             })
         }
     });
@@ -363,13 +365,14 @@ router.post('/search', search, function (req, res, next) {
     res.render('productfilter', { title: 'Express', data: searchResult });
 });
 
-router.get('/filter', (req, res) => {
+router.get('/filter',  authentication.checkAdmin, (req, res) => {
     var searchResult = req.searchResult;
     res.render('books/filter', {
         results: '',
         searchTerm: '',
         searchResult: '',
-        catagory: ''
+        catagory: '',
+        user: req.user
     });
 })
 

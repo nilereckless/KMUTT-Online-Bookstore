@@ -7,10 +7,10 @@ const middleWare = require('../middleware/authentication');
 var shipController = require('../controller/shipAddressController');
 var locationController = require('../controller/locationController');
 var orderHistoryController = require('../controller/orderHistoryController');
-
+let authentication = require('../middleware/authentication');
 
 //middleware.isAuthenticated(), วางไว้หน้า async
-router.get('/', middleWare.isAuthenticatedCart, async (req, res, next) => {
+router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin , async (req, res, next) => {
     console.log("sessioncome", req.user)
     var cart = null;
     //   console.log(cartStorage[1]) ;
@@ -40,7 +40,7 @@ router.get('/', middleWare.isAuthenticatedCart, async (req, res, next) => {
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
-    res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total });
+    res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total, user: req.user });
 })
 
 router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
