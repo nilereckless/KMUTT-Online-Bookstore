@@ -7,23 +7,24 @@
 <% include ../layouts/header.ejs %>
 
     <body>
-
+        <% include ../layouts/navbar.ejs %>
+        <h1 class="text-center">Payment History</h1> <br>
         <% for(let i=0; i < payments.length; i++) { %>
             <div>
                 <div>
-                    <%= payments[i].order_id%>
+                  OrderID:  <%= payments[i].order_id%>
                 </div>
                 <div>
-                    <%= payments[i].user_id%>
+                  UserID:  <%= payments[i].user_id%>
                 </div>
                 <div>
-                    <%= payments[i].status%>
+                  Status:  <%= payments[i].status%>
                 </div>
                 <div>
-                    <%= payments[i].payment_option%>
+                 Payment Option:   <%= payments[i].payment_option%>
                 </div>
                 <div>
-                    <%= payments[i].created_at%>
+                 Timestamp:  <%= payments[i].created_at%>
                 </div>
                 <div>
                     <button class="approve" data-paymentID="<%= payments[i].order_id%>"> Approve </button>
