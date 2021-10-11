@@ -19,7 +19,7 @@ router.get('/newbook', async (req, res, next) => {
   var data = await viewbook.getNewestBook(moment(date).format('YYYY-MM-DD'), 3);
  // console.log(data);
 
-  res.render('viewbook', { data: data });
+  res.render('viewbook', { data: data, user: req.user, staff: req.staff });
 })
 
 
