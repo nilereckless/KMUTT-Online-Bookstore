@@ -146,12 +146,12 @@ router.get('/count', middleWare.isAuthenticatedCart, async (req, res, next) => {
     res.json({ count: cart.getTotalCart() });
 })
 
-router.get('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) => {
+router.get('/checkout', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
     var shipAddress = await shipController.getAllShippingAddressByUserID(req.user.id);
     // console.log(shipAddress) ;
     var province = await locationController.getAllProvince();
     var district = await locationController.getAllDistrict();
-    res.render('address', { address: shipAddress, province: province, district: district });
+    res.render('address', { address: shipAddress, province: province, district: district, user: req.user, staff: req.staff });
 })
 
 router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) => {
@@ -170,12 +170,12 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
 })
 
-router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, async (req, res, next) => {
+router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
     var orderID =  await orderHistoryController.getOrderHistoryByID(req.params.orderID);
     if(orderID.length > 0 && orderID[0].user_id == req.user.id){
         res.render("completeOrder", {orderID: orderID[0].order_id});
     } else {
-        res.render("completeOrder", {orderID: null, message: "Not found your orderID"});
+        res.render("completeOrder", {orderID: null, message: "Not found your orderID", user: req.user, staff: req.staff});
     }
    
 })
