@@ -40,7 +40,7 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin , asyn
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
-    res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total, user: req.user });
+    res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total, user: req.user, staff: req.staff });
 })
 
 router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {

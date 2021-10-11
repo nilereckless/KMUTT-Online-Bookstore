@@ -70,7 +70,8 @@ router.get('/viewDetail/(:id)', authentication.checkAdmin, function (req, res, n
                 imageUrl: rows[0].imageUrl,
                 catagory: rows[0].catagory,
                 isbn: rows[0].isbn,
-                user: req.user
+                user: req.user,
+                staff: req.staff
             })
         }
     });
@@ -372,7 +373,8 @@ router.get('/filter',  authentication.checkAdmin, (req, res) => {
         searchTerm: '',
         searchResult: '',
         catagory: '',
-        user: req.user
+        user: req.user,
+        staff: req.staff
     });
 })
 
