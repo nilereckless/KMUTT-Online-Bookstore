@@ -27,10 +27,10 @@
                  Timestamp:  <%= payments[i].created_at%>
                 </div>
                 <div>
-                    <button class="approve" data-paymentID="<%= payments[i].order_id%>"> Approve </button>
+                    <button class="approve btn-success" data-paymentID="<%= payments[i].order_id%>" > Approve </button> <br>
                 </div>
                 <div>
-                    <button class="decline" data-paymentID="<%= payments[i].order_id%>"> Decline </button>
+                    <button class="decline btn-danger" data-paymentID="<%= payments[i].order_id%>"> Decline </button>
                 </div>
             </div>
             <% } %>
