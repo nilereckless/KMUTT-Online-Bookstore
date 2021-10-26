@@ -156,7 +156,7 @@ router.get('/checkout', middleWare.isAuthenticatedCart, authentication.checkAdmi
 })
 
 router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) => {
-    var address = await shipController.getShippingAddressByShipID(req.body.address);
+
     var orderID = Math.round(Math.floor(Date.now() / 1000))
     //written by arit
     var cart = null;
@@ -188,7 +188,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
     for (var j = 0; j < cartInfo.length; j++) {
         new Promise((resolve, reject) => {
-            var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id) VALUES ( '${req.user.id}', '${orderID}', '${cartInfo[j].bookName}', '${cartInfo[j].quantity}','${total}','${cartInfo[j].id}')`;
+            var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id) VALUES ( '1', '${orderID}', '${cartInfo[j].bookName}', '${cartInfo[j].quantity}','${total}','${cartInfo[j].id}')`;
             dbConn.query(query, (err, rows) => {
                 if (err) {
                     reject(err);
@@ -198,6 +198,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
         })
     }
     //end here
+    var address = await shipController.getShippingAddressByShipID(req.body.address);
     if (req.user.id == address.userID) {
         var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.payment_option);
         if (orderIDState.affectedRows === req.user.id) {
@@ -205,7 +206,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
         } else {
             res.json("error");
         }
-    
+
     } else {
         res.json("error");
     }
