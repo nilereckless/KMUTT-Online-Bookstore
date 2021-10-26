@@ -188,7 +188,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
     for (var j = 0; j < cartInfo.length; j++) {
         new Promise((resolve, reject) => {
-            var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id) VALUES ( '1', '${orderID}', '${cartInfo[j].bookName}', '${cartInfo[j].quantity}','${total}','${cartInfo[j].id}')`;
+            var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id) VALUES ( '${req.user.id}', '${orderID}', '${cartInfo[j].bookName}', '${cartInfo[j].quantity}','${total}','${cartInfo[j].id}')`;
             dbConn.query(query, (err, rows) => {
                 if (err) {
                     reject(err);
