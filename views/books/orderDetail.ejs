@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .center {
+            margin: auto;
+            margin-top: 20px;
+            width: 60%;
+
+            padding: 10px;
+        }
+
+        #totalPrice {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<% include ../layouts/header.ejs %>
+
+    <body>
+        <div class="center">
+            <h1 align="center">ใบสรุปคำสั่งซื้อ
+            </h1>
+            <h2 align="center" style="color: grey;">#<%=data[0].order_id%>
+            </h2>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">BookID</th>
+                        <th scope="col">BookName</th>
+                        <th scope="col">Quality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i=0; i < data.length; i++) { %>
+                        <tr>
+                            <th scope="row">
+                                <%= data[i].book_id %>
+                            </th>
+                            <td>
+                                <%= data[i].book_name%>
+                            </td>
+                            <td>
+                                <%= data[i].quantity %>
+                            </td>
+                        </tr>
+                        <%}%>
+                </tbody>
+            </table>
+            <p align="right" id="totalPrice">Total price<br>
+                <%=data[0].total_price%> ฿
+            </p>
+        </div>
+    </body>
+    <% include ../layouts/footer.ejs %>
+
+</html>

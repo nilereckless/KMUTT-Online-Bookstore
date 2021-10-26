@@ -15,22 +15,24 @@
         <% for(let i=0; i < payments.length; i++) { %>
             <div>
                 <div>
-                  OrderID:  <%= payments[i].order_id%>
+                    OrderID: <a href="/books/orderDetail/<%=payments[i].order_id%>" target="_blank">
+                        <%= payments[i].order_id%>
+                    </a>
                 </div>
                 <div>
-                  UserID:  <%= payments[i].user_id%>
+                    UserID: <%= payments[i].user_id%>
                 </div>
                 <div>
-                  Status:  <%= payments[i].status%>
+                    Status: <%= payments[i].status%>
                 </div>
                 <div>
-                 Payment Option:   <%= payments[i].payment_option%>
+                    Payment Option: <%= payments[i].payment_option%>
                 </div>
                 <div>
-                 Timestamp:  <%= payments[i].created_at%>
+                    Timestamp: <%= payments[i].created_at%>
                 </div>
                 <div>
-                    <button class="approve btn-success" data-paymentID="<%= payments[i].order_id%>" > Approve </button> 
+                    <button class="approve btn-success" data-paymentID="<%= payments[i].order_id%>"> Approve </button>
                     <button class="decline btn-danger" data-paymentID="<%= payments[i].order_id%>"> Decline </button>
                 </div>
             </div>

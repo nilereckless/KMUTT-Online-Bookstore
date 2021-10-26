@@ -56,7 +56,7 @@ router.get('/viewDetail/(:id)', authentication.checkAdmin, function (req, res, n
     let id = req.params.id;
 
     dbConn.query('SELECT * FROM books WHERE id = ' + id, (err, rows, fields) => {
-        if(rows.length <=0){
+        if (rows.length <= 0) {
             req.flash('error', 'Book not found with id = ' + id)
             res.redirect('/books');
         } else {
@@ -92,7 +92,7 @@ router.get('/add', isStaffAuthenticated, (req, res, next) => {
 })
 
 //add book 
-router.post('/add', isStaffAuthenticated,async (req, res, next) => {
+router.post('/add', isStaffAuthenticated, async (req, res, next) => {
     let name = req.body.name;
     let author = req.body.author;
     let price = req.body.price;
@@ -204,7 +204,7 @@ router.post('/add', isStaffAuthenticated,async (req, res, next) => {
 })
 
 //Display edit book page
-router.get('/edit/(:id)', isStaffAuthenticated,(req, res, next) => {
+router.get('/edit/(:id)', isStaffAuthenticated, (req, res, next) => {
     let id = req.params.id;
 
     dbConn.query('SELECT * FROM books WHERE id = ' + id, (err, rows, fields) => {
@@ -312,7 +312,7 @@ router.post('/update/:id', isStaffAuthenticated, (req, res, next) => {
 })
 
 //Delete book
-router.get('/delete/(:id)',isStaffAuthenticated, (req, res, next) => {
+router.get('/delete/(:id)', isStaffAuthenticated, (req, res, next) => {
     let id = req.params.id;
 
     dbConn.query('DELETE FROM books WHERE id = ' + id, (err, result) => {
@@ -366,7 +366,7 @@ router.post('/search', search, authentication.checkAdmin, function (req, res, ne
     res.render('productfilter', { title: 'Express', data: searchResult, user: req.user, staff: req.staff });
 });
 
-router.get('/filter',  authentication.checkAdmin, (req, res) => {
+router.get('/filter', authentication.checkAdmin, (req, res) => {
     var searchResult = req.searchResult;
     res.render('books/filter', {
         results: '',
@@ -424,21 +424,37 @@ router.post('/image/upload', (req, res) => {
 
 router.get('/payment', async (req, res) => {
     var payments = await orderHistoryController.getAllOrderHistory()
-    res.render("books/paymentHistory", {payments: payments});
+    res.render("books/paymentHistory", { payments: payments });
 })
 
 router.post('/payment', async (req, res) => {
-   var status = req.body.status
-   var paymentID = req.body.paymentID
+    var status = req.body.status
+    var paymentID = req.body.paymentID
 
-   var orders = await orderHistoryController.updateOrderStatusByID(paymentID, status)
-   if(orders.affectedRows === 1){
+    var orders = await orderHistoryController.updateOrderStatusByID(paymentID, status)
+    if (orders.affectedRows === 1) {
         return res.json("success");
-   } else {
-       res.json("error");
-   }
+    } else {
+        res.json("error");
+    }
 
 })
+
+router.get('/orderDetail/(:id)', isStaffAuthenticated, function (req, res, next) {
+    let id = req.params.id;
+
+    dbConn.query(`SELECT * FROM order_books WHERE order_id =  ${id} ORDER BY book_id ASC`, (err, rows, fields) => {
+        if (rows.length <= 0) {
+            req.flash('error', 'order not found')
+            res.redirect('/books');
+        } else {
+            res.render('books/orderDetail', {
+                data: rows
+            })
+        }
+    });
+})
+
 
 
 
