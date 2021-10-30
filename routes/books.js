@@ -12,6 +12,15 @@ const pageAmount = 10;
 var orderHistoryController = require('../controller/orderHistoryController');
 var shipAddressController = require('../controller/shipAddressController');
 let authentication = require('../middleware/authentication');
+const nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL || 'threeradon.1999@mail.kmutt.ac.th', // TODO: your gmail account
+        pass: process.env.PASSWORD || 'nile.trd19' // TODO: your gmail password
+    }
+});
 
 
 
@@ -438,14 +447,18 @@ router.post('/payment', async (req, res) => {
     var address = await shipAddressController.getShippingAddressByShipID(orderInformation[0].shipaddress_id)
     console.log(address);
     if (orders.affectedRows === 1) {
-        
+        let mailOptions = {
+            from: 'threeradon.1999@mail.kmutt.ac.th', // TODO: email sender
+            to: '', // TODO: email receiver
+            subject: 'Nodemailer - Test',
+            text: 'Wooohooo it works!!'
+        };
 
-
-
-
-
-
-
+        transporter.sendMail(mailOptions, (err, data) => {
+            if (err) {
+                return console.log('Error occurs');
+            }
+        });
 
         return res.json("success");
     } else {
