@@ -450,8 +450,8 @@ router.post('/payment', async (req, res) => {
         let mailOptions = {
             from: 'threeradon.1999@mail.kmutt.ac.th', // TODO: email sender
             to: orderInformation[0].email, // TODO: email receiver
-            subject: 'Nodemailer - Test',
-            text: 'Wooohooo it works!!'
+            subject: 'KMUTTBookstore - Payment Confirm notification #OrderID ' + paymentID  ,
+            text: 'เรียนคุณ '+ orderInformation[0].name + ' สถานะการดำเนินการชำระเงินสำเร็จ หมายเลขคำสั่งซื้อของคุณ คือ ' + paymentID 
         };
 
         transporter.sendMail(mailOptions, (err, data) => {
