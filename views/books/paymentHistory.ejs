@@ -53,15 +53,16 @@
                 var approveButton = $(".approve")
                 var declineButton = $(".decline")
 
-                if ($('#track-' + paymentID).val().length <= 0) {
-                    Swal.fire({
-                        text: "Tracknumber can't be empty",
-                        icon: 'warning',
-                    })
-                }
+
 
                 approveButton.on('click', function (e) {
                     var paymentID = $(this).attr("data-paymentID")
+                    if ($('#track-' + paymentID).val().length <= 0) {
+                        Swal.fire({
+                            text: "Tracknumber can't be empty",
+                            icon: 'warning',
+                        })
+                    }
                     var settings = {
                         "url": "/books/payment",
                         "method": "POST",
