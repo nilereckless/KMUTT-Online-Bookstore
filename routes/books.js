@@ -433,7 +433,8 @@ router.post('/payment', async (req, res) => {
     var paymentID = req.body.paymentID
 
     var orders = await orderHistoryController.updateOrderStatusByID(paymentID, status)
-    
+    var orderInformation = await orderHistoryController.getOrderHistoryByID(paymentID)
+    console.log(orderInformation);
     if (orders.affectedRows === 1) {
         
 
