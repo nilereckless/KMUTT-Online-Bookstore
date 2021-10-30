@@ -37,6 +37,10 @@
                     <%= payments[i].created_at%>
                 </div>
                 <div>
+                    <b>Tracking number:</b>
+                    <input type="text" id="track-<%= payments[i].order_id%>">
+                </div>
+                <div>
                     <button class="approve btn-success" data-paymentID="<%= payments[i].order_id%>"> Approve </button>
                     <button class="decline btn-danger" data-paymentID="<%= payments[i].order_id%>"> Decline </button>
                 </div>
@@ -49,6 +53,13 @@
                 var approveButton = $(".approve")
                 var declineButton = $(".decline")
 
+                if ($('#track-' + paymentID).val().length <= 0) {
+                    Swal.fire({
+                        text: "Tracknumber can't be empty",
+                        icon: 'warning',
+                    })
+                }
+
                 approveButton.on('click', function (e) {
                     var paymentID = $(this).attr("data-paymentID")
                     var settings = {
@@ -60,7 +71,8 @@
                         },
                         "data": {
                             "paymentID": paymentID,
-                            "status": "Approved"
+                            "status": "Approved",
+                            "track_number": $('#track-' + paymentID).val()
                         }
                     };
 
