@@ -10,6 +10,7 @@ const CryptoJS = require("crypto-js");
 const { isStaffAuthenticated } = require('../middleware/authentication');
 const pageAmount = 10;
 var orderHistoryController = require('../controller/orderHistoryController');
+var shipAddressController = require('../controller/shipAddressController');
 let authentication = require('../middleware/authentication');
 
 
@@ -434,7 +435,8 @@ router.post('/payment', async (req, res) => {
 
     var orders = await orderHistoryController.updateOrderStatusByID(paymentID, status)
     var orderInformation = await orderHistoryController.getOrderHistoryByID(paymentID)
-    console.log(orderInformation);
+    var address = await shipAddressController.getShippingAddressByShipID(orderInformation[0].shipaddress_id)
+    console.log(address);
     if (orders.affectedRows === 1) {
         
 
