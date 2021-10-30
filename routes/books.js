@@ -17,8 +17,8 @@ const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL || 'threeradon.1999@mail.kmutt.ac.th', // TODO: your gmail account
-        pass: process.env.PASSWORD || 'nile.trd19' // TODO: your gmail password
+        user: process.env.EMAIL || 'noreplykmuttonlinebookstore@gmail.com', // TODO: your gmail account
+        pass: process.env.PASSWORD || 'KongtapTheeradonNapan055457' // TODO: your gmail password
     }
 });
 
