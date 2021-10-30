@@ -448,7 +448,7 @@ router.post('/payment', async (req, res) => {
     console.log(address);
     if (orders.affectedRows === 1) {
         let mailOptions = {
-            from: 'threeradon.1999@mail.kmutt.ac.th', // TODO: email sender
+            from: 'noreplykmuttonlinebookstore@gmail.com', // TODO: email sender
             to: orderInformation[0].email, // TODO: email receiver
             subject: 'KMUTTBookstore - Payment Confirm notification #OrderID ' + paymentID  ,
             text: 'เรียนคุณ '+ orderInformation[0].name + ' สถานะการดำเนินการชำระเงินสำเร็จ หมายเลขคำสั่งซื้อของคุณ คือ ' + paymentID + ' tracking number : ' + req.body.track_number
