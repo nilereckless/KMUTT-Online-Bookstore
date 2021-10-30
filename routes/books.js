@@ -422,6 +422,7 @@ router.post('/author/suggest', (req, res) => {
 router.post('/image/upload', (req, res) => {
 })
 
+// ชื่อ, เลขสั่งซื้อสินค้า, ที่อยู่
 router.get('/payment', async (req, res) => {
     var payments = await orderHistoryController.getAllOrderHistory()
     res.render("books/paymentHistory", { payments: payments });
@@ -432,7 +433,17 @@ router.post('/payment', async (req, res) => {
     var paymentID = req.body.paymentID
 
     var orders = await orderHistoryController.updateOrderStatusByID(paymentID, status)
+    
     if (orders.affectedRows === 1) {
+        
+
+
+
+
+
+
+
+
         return res.json("success");
     } else {
         res.json("error");
