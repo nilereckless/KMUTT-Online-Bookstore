@@ -449,7 +449,7 @@ router.post('/payment', async (req, res) => {
     if (orders.affectedRows === 1) {
         let mailOptions = {
             from: 'threeradon.1999@mail.kmutt.ac.th', // TODO: email sender
-            to: '', // TODO: email receiver
+            to: orderInformation[0].email, // TODO: email receiver
             subject: 'Nodemailer - Test',
             text: 'Wooohooo it works!!'
         };
