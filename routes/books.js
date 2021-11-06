@@ -468,7 +468,7 @@ router.post('/payment', async (req, res) => {
         var bookorder = await orderHistoryController.getBookOrderByOrderID(paymentID)
         console.log(bookorder);
 
-        var bookstock = await bookController.updateBookStockByID(bookorder[0].book_id, bookorder[0].quantity)
+        var bookstock = await bookController.updateBookStockByID(bookorder[0].book_id, parseInt(bookorder[0].quantity))
         return res.json("success");
     } else {
         res.json("error");
