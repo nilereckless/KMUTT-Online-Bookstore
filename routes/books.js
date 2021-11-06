@@ -11,9 +11,12 @@ const { isStaffAuthenticated } = require('../middleware/authentication');
 const pageAmount = 10;
 var orderHistoryController = require('../controller/orderHistoryController');
 var shipAddressController = require('../controller/shipAddressController');
+var bookController = require('../controller/bookController');
 let authentication = require('../middleware/authentication');
 const nodemailer = require('nodemailer');
 
+
+// Sending E-mail 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -24,7 +27,7 @@ let transporter = nodemailer.createTransport({
 
 
 
-
+// Check Login 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     req.flash('error', 'Please Login !');
@@ -438,6 +441,8 @@ router.get('/payment', async (req, res) => {
     res.render("books/paymentHistory", { payments: payments });
 })
 
+// Orders payment
+// Sending G-mail when fill tracking number & Approved by Staff
 router.post('/payment', async (req, res) => {
     var status = req.body.status
     var paymentID = req.body.paymentID
@@ -460,6 +465,9 @@ router.post('/payment', async (req, res) => {
             }
         });
 
+        var bookorder = await orderHistoryController.getBookOrderByOrderID(paymentID)
+
+        var bookstock = await bookController.updateBookStockByID(bookorder[0].book_id, bookorder[0].quantity)
         return res.json("success");
     } else {
         res.json("error");
@@ -467,6 +475,7 @@ router.post('/payment', async (req, res) => {
 
 })
 
+// Summarize orderID in Payment History by Arit
 router.get('/orderDetail/(:id)', isStaffAuthenticated, function (req, res, next) {
     let id = req.params.id;
 

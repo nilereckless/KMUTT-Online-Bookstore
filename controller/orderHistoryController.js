@@ -36,6 +36,18 @@ exports.getAllOrderHistory = () => {
     })
 }
 
+exports.getBookOrderByOrderID = (id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT * FROM order_books WHERE order_id = ${id}`;
+        dbConn.query(query, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        })
+    })
+}
+
 exports.updateOrderStatusByID = (order_id, status) => {
     return new Promise((resolve, reject) => {
         var query = `UPDATE order_history SET status = '${status}' WHERE order_id = ${order_id}`;

@@ -53,8 +53,6 @@
                 var approveButton = $(".approve")
                 var declineButton = $(".decline")
 
-
-
                 approveButton.on('click', function (e) {
                     var paymentID = $(this).attr("data-paymentID")
                     if ($('#track-' + paymentID).val().length <= 0) {
