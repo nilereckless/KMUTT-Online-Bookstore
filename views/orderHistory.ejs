@@ -7,23 +7,23 @@
     <body>
         <% include layouts/navbar.ejs %>
 
-            <h5>ประวัติการสั่งซื้อของคุณ</h5>
+            <h4 class="text-center">ประวัติการสั่งซื้อของคุณ</h4>
             <% for(let i=0; i < orderbooks.length; i++) { %>
                 <tr>
                     <th scope="row">
-                        <b>เลขคำสั่งซื้อของคุณ </b>
-                        <%= orderbooks[i].order_id %>
+                        <b class="text-center">เลขคำสั่งซื้อของคุณ </b>
+                        <%= orderbooks[i].order_id %> <br>
                     </th>
                     <td>
-                        <b> ชื่อหนังสือ </b>
-                        <%= orderbooks[i].book_name%>
+                        <b class="text-center"> ชื่อหนังสือ </b>
+                        <%= orderbooks[i].book_name%> <br>
                     </td>
                     <td>
-                        <b>จำนวน</b>
-                        <%= orderbooks[i].quantity %>
+                        <b class="text-center">จำนวน</b>
+                        <%= orderbooks[i].quantity %> <br>
                     </td>
                     <td>
-                        <b>ราคา</b>
+                        <b class="text-center">ราคา</b>
                         <%= orderbooks[i].price %>
                     </td>
                 </tr>
