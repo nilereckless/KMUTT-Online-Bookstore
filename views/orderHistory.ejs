@@ -25,7 +25,11 @@
                     </td>
                     <td>
                         <b>ราคา</b>
-                        <%= orderbooks[i].total_price %> <b>บาท</b>
+                        <%= orderbooks[i].total_price %> <b>บาท</b> <br>
+                    </td>
+                    <td>
+                        <b>สั่งซื้อเมื่อวันที่</b>
+                        <%= orderbooks[i].created_at %> 
                     </td>
                 </tr>
                 <%}%>
