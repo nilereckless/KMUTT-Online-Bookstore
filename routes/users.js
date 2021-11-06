@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var shipController = require('../controller/shipAddressController');
 var orderBookController = require('../controller/orderBookController');
+let authentication = require('../middleware/authentication');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -38,7 +39,7 @@ router.post('/address/save', async (req, res) => {
 
 })
 
-router.get('/orderHistory', async (req, res) => {
+router.get('/orderHistory', authentication.checkAdmin, async (req, res) => {
     var orderbooks = await orderBookController.getorderByUserID(req.user.id)
     console.log(req.staff);
     res.render('orderHistory', { orderbooks: orderbooks, user: req.user, staff: req.staff})
