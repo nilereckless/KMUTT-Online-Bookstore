@@ -8,7 +8,22 @@
         <% include layouts/navbar.ejs %>
 
             <h5>ประวัติการสั่งซื้อของคุณ</h5>
-            <%= orderbooks %> 
+            <% for(let i=0; i < orderbooks.length; i++) { %>
+                <tr>
+                    <th scope="row">
+                        <%= orderbooks[i].order_id %>
+                    </th>
+                    <td>
+                        <%= orderbooks[i].book_name%>
+                    </td>
+                    <td>
+                        <%= orderbooks[i].quantity %>
+                    </td>
+                    <td>
+                        <%= orderbooks[i].price %>
+                    </td>
+                </tr>
+                <%}%>
 
 
 
