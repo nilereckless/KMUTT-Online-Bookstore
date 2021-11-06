@@ -41,7 +41,7 @@ router.post('/address/save', async (req, res) => {
 router.get('/orderHistory', async (req, res) => {
     var orderbooks = await orderBookController.getorderByUserID(req.user.id)
     console.log(orderbooks);
-    res.render('orderHistory', {orderbooks: orderbooks, user: req.user, staff: req.staff})
+    res.render('orderHistory', { orderbooks: orderbooks, user: req.user, staff: req.staff})
 })
 
 module.exports = router;
