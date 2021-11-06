@@ -9,21 +9,21 @@
 
             <h4 class="text-center">ประวัติการสั่งซื้อของคุณ</h4>
             <% for(let i=0; i < orderbooks.length; i++) { %>
-                <tr>
+                <tr class="text-center">
                     <th scope="row">
-                        <b class="text-center">เลขคำสั่งซื้อของคุณ </b>
+                        <b>เลขคำสั่งซื้อของคุณ </b>
                         <%= orderbooks[i].order_id %> <br>
                     </th>
                     <td>
-                        <b class="text-center"> ชื่อหนังสือ </b>
+                        <b> ชื่อหนังสือ </b>
                         <%= orderbooks[i].book_name%> <br>
                     </td>
                     <td>
-                        <b class="text-center">จำนวน</b>
+                        <b>จำนวน</b>
                         <%= orderbooks[i].quantity %> <br>
                     </td>
                     <td>
-                        <b class="text-center">ราคา</b>
+                        <b>ราคา</b>
                         <%= orderbooks[i].total_price %>
                     </td>
                 </tr>
