@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var shipController = require('../controller/shipAddressController');
+var orderBookController = require('../controller/orderBookController');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -35,6 +36,11 @@ router.post('/address/save', async (req, res) => {
     res.json('error');
   }
 
+})
+
+router.get('/orderHistory', async (req, res) => {
+    var orderbooks = await orderBookController.getorderByUserID(req.user.id)
+    res.render('orderHistory', {orderbooks: orderbooks})
 })
 
 module.exports = router;
