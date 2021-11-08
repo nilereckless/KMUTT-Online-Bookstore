@@ -24,6 +24,18 @@ exports.addOrderHistoryByID = (user_id, order_id, payment_option, shipaddress_id
     })
 }
 
+exports.addAllOrderByID = (user_id, order_id, book_name, quantity, total_price, book_id, shipID, district, province, postalcode, address, subdistrict) => {
+    return new Promise((resolve, reject) => {
+        var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id, shipID, district, province, postalCode, address, subdistrict) VALUES ( '${user_id}', '${order_id}', '${book_name}', '${quantity}','${total_price}','${book_id}', '${shipID}', '${district}', '${province}', '${postalcode}', '${address}', '${subdistrict}')`;
+        dbConn.query(query, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        })
+    })
+}
+
 exports.getAllOrderHistory = () => {
     return new Promise((resolve, reject) => {
         var query = `SELECT * FROM order_history`;

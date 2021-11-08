@@ -194,15 +194,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
     console.log(shipData.province);
     for (var j = 0; j < cartInfo.length; j++) {
-        new Promise((resolve, reject) => {
-            var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id, shipID, district, province, postalCode, address, subdistrict) VALUES ( '${req.user.id}', '${orderID}', '${cartInfo[j].bookName}', '${cartInfo[j].quantity}','${total}','${cartInfo[j].id}', '${shipData[0].shipID}', '${shipData[0].district}', '${shipData[0].province}', '${shipData[0].postalCode}', '${shipData[0].address}', '${shipData[0].subdistrict}')`;
-            dbConn.query(query, (err, rows) => {
-                if (err) {
-                    reject(err);
-                }
-                resolve(rows);
-            })
-        })
+        var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, shipData.shipID, shipData.district, shipData.province, shipData.postalCode, shipData.address, shipData.subdistrict);
     }
 
     //end here
