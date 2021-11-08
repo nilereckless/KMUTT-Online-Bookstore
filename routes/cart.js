@@ -167,12 +167,12 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     console.log(shipData);
     console.log(data);
 
-    if (cartStorage[1] === undefined) {
-        cart = new Cart(1);
+    if (cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(1, cartStorage[1].cart);
+        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
     }
-    cartStorage[1] = cart;
+    cartStorage[req.user.id] = cart;
     var cartInfo = [];
     var total = 0; //no
 
@@ -208,18 +208,18 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 
     //end here
 
-    // var address = await shipController.getShippingAddressByShipID(req.body.address);
-    // if (req.user.id == address.userID) {
-    //     var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.payment_option, req.body.address, req.user.email, req.user.name);
-    //     if (orderIDState.affectedRows === 1) {
-    //         res.json(orderID);
-    //     } else {
-    //         res.json("error");
-    //     }
+    var address = await shipController.getShippingAddressByShipID(req.body.address);
+    if (req.user.id == address.userID) {
+        var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.payment_option, req.body.address, req.user.email, req.user.name);
+        if (orderIDState.affectedRows === 1) {
+            res.json(orderID);
+        } else {
+            res.json("error");
+        }
 
-    // } else {
-    //     res.json("error");
-    // }
+    } else {
+        res.json("error");
+    }
 })
 
 router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
