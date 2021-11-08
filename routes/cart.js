@@ -164,6 +164,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     var address = await shipController.getShippingAddressByShipID(req.body.address);
     var cart = null;
     var shipData = await shipController.getShippingAddressByShipID(shipID);
+    console.log(shipData);
     console.log(data);
 
     if (cartStorage[1] === undefined) {
