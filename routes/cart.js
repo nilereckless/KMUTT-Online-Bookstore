@@ -191,36 +191,35 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
         }
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
-        for (var j = 0; j < cartInfo.length; j++) {
-            console.log(req.user.id);
-            console.log(orderID);
-            console.log(cartInfo[j].bookName);
-            console.log(total);
-            console.log(shipData.province);
-            console.log(shipData.district);
-            console.log(shipData.postalCode);
-            console.log(shipData.address);
-            console.log(shipData.subdistrict);
-            var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, shipData.shipID, shipData.district, shipData.province, shipData.postalCode, shipData.address, shipData.subdistrict);
-        }
     }
    
-    
+    for (var j = 0; j < cartInfo.length; j++) {
+        console.log(req.user.id);
+        console.log(orderID);
+        console.log(cartInfo[j].bookName);
+        console.log(total);
+        console.log(shipData.province);
+        console.log(shipData.district);
+        console.log(shipData.postalCode);
+        console.log(shipData.address);
+        console.log(shipData.subdistrict);
+        var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, shipData.shipID, shipData.district, shipData.province, shipData.postalCode, shipData.address, shipData.subdistrict);
+    }
 
     //end here
 
-    var address = await shipController.getShippingAddressByShipID(req.body.address);
-    if (req.user.id == address.userID) {
-        var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.payment_option, req.body.address, req.user.email, req.user.name);
-        if (orderIDState.affectedRows === 1) {
-            res.json(orderID);
-        } else {
-            res.json("error");
-        }
+    // var address = await shipController.getShippingAddressByShipID(req.body.address);
+    // if (req.user.id == address.userID) {
+    //     var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.payment_option, req.body.address, req.user.email, req.user.name);
+    //     if (orderIDState.affectedRows === 1) {
+    //         res.json(orderID);
+    //     } else {
+    //         res.json("error");
+    //     }
 
-    } else {
-        res.json("error");
-    }
+    // } else {
+    //     res.json("error");
+    // }
 })
 
 router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
