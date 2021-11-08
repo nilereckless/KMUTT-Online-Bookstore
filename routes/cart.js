@@ -226,6 +226,16 @@ router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authen
     } else {
         res.render("completeOrder", { orderID: null, message: "Not found your orderID", user: req.user, staff: req.staff });
     }
+    //clear cart
+    var cart = null;
+    if (cartStorage[1] === undefined) {
+        cart = new Cart(1);
+    } else {
+        cart = new Cart(1, cartStorage[1].cart);
+        cart.removeAllCart();
+    }
+    cartStorage[1] = cart;
+    res.json("success");
 
 })
 
