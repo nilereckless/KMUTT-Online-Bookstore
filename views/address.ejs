@@ -109,6 +109,7 @@
     </body>
     <% include layouts/footer.ejs %>
         <script>
+            var shipID = [];
             let selectedAddressID = null;
             $(document).ready(function () {
                 var postLabel = $('#post');
@@ -170,9 +171,14 @@
 
             })
 
-            $('.use-Address').on('click', function (e) {
+          //new
+          $('.use-Address').on('click', function (e) {
                 e.preventDefault();
                 var addrID = parseInt($(this).attr('data-adddressid'));
+                console.log(addrID);
+
+                shipID.push(addrID);
+                console.log(shipID);
                 selectedAddressID = addrID;
                 $(".shipAddress").removeClass("shipAddress-active");
                 $("#" + addrID).addClass("shipAddress-active");
@@ -182,14 +188,19 @@
                 $('#insertAddress').css('display', 'block');
             })
 
+            //new
             $('#confirm').on('click', function (e) {
+                for(i=0; i<shipID.length; i++){
+                    var shipIDtoSend = parseInt(shipID[shipID.length-1]);
+                }
+               console.log(shipIDtoSend);
                 var option = $('input[name=option]:checked', '#option_payment').val()
                 if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
                 } else {
                     //    selectedAddressID 
                     var settings = {
-                        "url": "/cart/checkout",
+                        "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend ,
                         "method": "POST",
                         "timeout": 0,
                         "headers": {
@@ -207,7 +218,9 @@
 
 
                         });
-                }
+
+                    
+                    }
 
             })
 

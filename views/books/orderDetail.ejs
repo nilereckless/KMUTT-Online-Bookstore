@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Order bills</title>
     <style>
         .center {
             margin: auto;
@@ -18,6 +18,22 @@
         #totalPrice {
             font-size: 20px;
         }
+
+        #address {
+            padding-left: 20px;
+            font-size: 18px;
+            border-radius: 25px;
+            background: lightgray;
+            padding: 20px;
+            width: 500px;
+            height: 100px;
+        }
+        /* #address2{
+            padding-left: 40px;
+        } */
+        #table{
+            padding-top: 20px;
+        }
     </style>
 </head>
 <% include ../layouts/header.ejs %>
@@ -26,15 +42,18 @@
         <div class="center">
             <h1 align="center">ใบสรุปคำสั่งซื้อ
             </h1>
-            <h2 align="center" style="color: grey;">#<%=data[0].order_id%>
-            </h2>
-
+            <h2 align="center" style="color: grey;">#<%=data[0].order_id%></h2>
+            <h3>ที่อยู่การจัดส่ง</h3>
+            <div id="address">Shipping ID : <%=data[0].shipID%>
+                <div id="address2"><%=data[0].address%>&nbsp;<%=data[0].district%>&nbsp;<%=data[0].subdistrict%>&nbsp;<%=data[0].province%>,&nbsp;<%=data[0].postalCode%></div>
+            </div>
+            <div id=table>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">BookID</th>
                         <th scope="col">BookName</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Quality</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +72,7 @@
                         <%}%>
                 </tbody>
             </table>
+        </div>
             <p align="right" id="totalPrice">Total price<br>
                 <%=data[0].total_price%> ฿
             </p>

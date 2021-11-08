@@ -159,14 +159,18 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 
     var orderID = Math.round(Math.floor(Date.now() / 1000))
     //written by arit
+    var shipID = req.query.shipIDtoSend;
+    var address = await shipController.getShippingAddressByShipID(req.body.address);
     var cart = null;
+    var shipData = await shipController.getShippingAddressByShipID(shipID);
+    console.log(data);
 
-    if (cartStorage[req.user.id] === undefined) {
-        cart = new Cart(req.user.id);
+    if (cartStorage[1] === undefined) {
+        cart = new Cart(1);
     } else {
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(1, cartStorage[1].cart);
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage[1] = cart;
     var cartInfo = [];
     var total = 0; //no
 
@@ -188,7 +192,8 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
     for (var j = 0; j < cartInfo.length; j++) {
         new Promise((resolve, reject) => {
-            var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id) VALUES ( '${req.user.id}', '${orderID}', '${cartInfo[j].bookName}', '${cartInfo[j].quantity}','${total}','${cartInfo[j].id}')`;
+            var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id, shipID, district, province, postalCode, address, subdistrict) VALUES ( '${req.user.id}', '${orderID}', '${cartInfo[j].bookName}', '${cartInfo[j].quantity}','${total}','${cartInfo[j].id}', '${shipData.shipID}', '${shipData.district}', '${shipData.province}', '${shipData.postalCode}', '${shipData.address}', '${shipData.subdistrict}')`;
+            // var query = `INSERT INTO order_books (user_id, order_id, book_name, quantity, total_price, book_id, shipID, district, province, postalCode, address, subdistrict) VALUES ( '1', '${orderID}', '${cartInfo[j].bookName}', '${cartInfo[j].quantity}','${total}','${cartInfo[j].id}', '${shipID}', '${data.district}', '${data.province}', '${data.postalCode}', '${data.address}', '${data.subdistrict}' )`
             dbConn.query(query, (err, rows) => {
                 if (err) {
                     reject(err);
@@ -197,7 +202,9 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
             })
         })
     }
+
     //end here
+
     var address = await shipController.getShippingAddressByShipID(req.body.address);
     if (req.user.id == address.userID) {
         var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.payment_option, req.body.address, req.user.email, req.user.name);
