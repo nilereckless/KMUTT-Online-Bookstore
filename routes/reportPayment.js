@@ -9,7 +9,7 @@ let helpers = require('../lib/helpers');
 
 router.post('/upload', async (req, res, next) => {
     console.log("nile1", req.user.id);
-   // let userID = 1
+    // let userID = 1
     let fullName = req.body.customerName;
     let eMail = req.body.customerEmail;
     let phone = req.body.customerPhone;
@@ -37,7 +37,7 @@ router.post('/upload', async (req, res, next) => {
             }
             slipImg.mv('public/' + path, function (err) {
                 if (err) {
-                    req.flash('success', 'Upload Complete');
+                    req.flash('error', 'Upload Failed');
 
                     res.redirect('/');
                 }
@@ -51,7 +51,9 @@ router.post('/upload', async (req, res, next) => {
         console.log(e);
     }
 
-    res.json('success or not');
+    req.flash('success', 'Upload Complete');
+
+    res.redirect('/');
 })
 
 
