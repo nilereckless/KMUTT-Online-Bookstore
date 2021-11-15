@@ -28,7 +28,7 @@ router.get('/omise', async (req, res) => {
   var cart = null;
  // console.log("Get cart storage", cartStorage.cartStorage[req.user.id]) ;
   console.log("Another cart", cartStorage[req.user.id]) ;
-  console.log("Test Cart1", cartStorage.cart[req.user.id]) ;
+  console.log("Test Cart1", cartStorage.cart.id) ;
 
   //   console.log(cartStorage[req.user.id]) ;
   if (cartStorage.cartStorage[req.user.id] === undefined) {
