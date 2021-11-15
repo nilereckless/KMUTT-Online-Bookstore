@@ -34,7 +34,10 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/');
 }
 
-
+// report Payment
+router.get('/reportPayment', async(req, res) => {
+    res.render("books/reportPayment") ;
+})
 
 //display book page
 router.get('/', ensureAuthenticated, searchLib.searchAdmin, (req, res, next) => {
