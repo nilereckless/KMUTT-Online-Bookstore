@@ -30,7 +30,6 @@ router.get('/omise', async (req, res) => {
   console.log("Test shipID", shipID);
 
   var cart = null;
-  console.log("Get cart storage", cartStorage.cartStorage[req.user.id]);
 
   if (cartStorage.cartStorage[req.user.id] === undefined) {
     cart = new Cart(req.user.id);
@@ -44,26 +43,19 @@ router.get('/omise', async (req, res) => {
   for (var i = 0; i < filtered.length; i++) {
     var b = await bookController.getBookByID(filtered[i].id);
     total = await total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
-    console.log("Price per one", b[0].price);
-    console.log("Quantity per one", cart.getQuantityByBookID(filtered[i].id));
   }
-
-  console.log("Total price to pay", total);
 
   var omise = require('omise')({
     'secretKey': 'skey_test_5p4rrbsrwo9f2d2ut18'
   });
 
   var token = req.query.omise_token;
-  console.log("Omise token", token);
 
   omise.charges.create({
     'amount': total * 100,
     'currency': 'thb',
     'card': token
   }, async function (err, charge) {
-    console.log("Call charge omise", charge);
-    console.log(charge["status"]);
     console.log("To Omise Backend");
     if (charge["status"] === "successful") {
       // console.log("Omise fully successful!!");
@@ -80,7 +72,7 @@ router.get('/omise', async (req, res) => {
 
     } else {
       console.log("Omise payment failed");
-      return res.render('');
+      return res.redirect('/');
     }
   });
 })

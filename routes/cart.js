@@ -157,7 +157,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 
     var orderID = Math.round(Math.floor(Date.now() / 1000))
     //written by arit
-    var shipID = req.query.shipIDtoSend;
+    var shipID = parseInt(req.query.shipIDtoSend) ;
     console.log(shipID);
     var address = await shipController.getShippingAddressByShipID(req.body.address);
     var cart = null ;
@@ -193,16 +193,6 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
    
     for (var j = 0; j < cartInfo.length; j++) {
-     /*   console.log(req.user.id);
-        console.log(orderID);
-        console.log(cartInfo[j].bookName);
-        console.log(total);
-        console.log(shipData.shipID);
-        console.log(shipData.district);
-        console.log(shipData.province);
-        console.log(shipData.postalCode);
-        console.log(shipData.address);
-        console.log(shipData.subdistrict); */
         var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, shipData.shipID, shipData.district, shipData.province, shipData.postalCode, shipData.address, shipData.subdistrict);
     }
 
