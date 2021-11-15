@@ -61,7 +61,7 @@ router.get('/omise', async (req, res) => {
     'amount': total * 100,
     'currency': 'thb',
     'card': token
-  }, function (err, charge) {
+  }, async function (err, charge) {
     console.log("Call charge omise", charge);
     console.log(charge["status"]);
     console.log("To Omise Backend");
