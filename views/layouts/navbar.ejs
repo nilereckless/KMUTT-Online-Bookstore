@@ -145,8 +145,8 @@
         }
         console.log(e);
       })
-      request.fail(function () {
-        alert("error");
+      request.fail(function (e) {
+        alert(e);
       })
 
     })
