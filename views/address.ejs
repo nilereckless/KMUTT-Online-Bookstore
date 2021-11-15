@@ -138,193 +138,193 @@
 
     </body>
     <% include layouts/footer.ejs %>
-        <scrip src="https://cdn.omise.co/omise.js%22%3E">
-            </script>
-            <script>
-                Omise.setPublicKey("pkey_test_5pqd1sni9llkvowsnbr");
-            </script>
-            <script>
-                var shipID = [];
-                let selectedAddressID = null;
-                $(document).ready(function () {
-                    var postLabel = $('#post');
-                    var districtLabel = $('#dist');
-                    var subDistLabel = $('#subd');
-                    var provinces = $('#provinces');
-                    var district = $('#district');
-                    var subDistrict = $('#subDistrict');
-                    var postID = $('#postID');
-                    var usrAddr = $('#detail');
-                    district.hide();
-                    subDistrict.hide();
-                    postID.hide();
+        <script src="https://cdn.omise.co/omise.js"></script>
+        <script>
+            Omise.setPublicKey("pkey_test_5pqd1sni9llkvowsnbr");
+        </script>
+        
+        <script>
+            var shipID = [];
+            let selectedAddressID = null;
+            $(document).ready(function () {
+                var postLabel = $('#post');
+                var districtLabel = $('#dist');
+                var subDistLabel = $('#subd');
+                var provinces = $('#provinces');
+                var district = $('#district');
+                var subDistrict = $('#subDistrict');
+                var postID = $('#postID');
+                var usrAddr = $('#detail');
+                district.hide();
+                subDistrict.hide();
+                postID.hide();
+                postLabel.hide();
+                districtLabel.hide();
+                subDistLabel.hide();
+
+                provinces.on('change', function (e) {
+                    console.log($(this).val());
+                    console.log($(this).find(':selected').attr('data-id'));
+                    district.children('option').hide();
+                    district.children("option[data-id=" + $(this).find(':selected').attr('data-id') + "]").show();
+                    if ($(this).find(':selected').attr('data-id') != district.find(':selected').attr('data-id') && district.find(':selected').attr('data-id')) {
+                        district.prop('selectedIndex', 0);
+                    }
+                    subDistrict.prop('selectedIndex', 0);
+                    districtLabel.show();
+                    district.show();
                     postLabel.hide();
-                    districtLabel.hide();
-                    subDistLabel.hide();
-
-                    provinces.on('change', function (e) {
-                        console.log($(this).val());
-                        console.log($(this).find(':selected').attr('data-id'));
-                        district.children('option').hide();
-                        district.children("option[data-id=" + $(this).find(':selected').attr('data-id') + "]").show();
-                        if ($(this).find(':selected').attr('data-id') != district.find(':selected').attr('data-id') && district.find(':selected').attr('data-id')) {
-                            district.prop('selectedIndex', 0);
-                        }
-                        subDistrict.prop('selectedIndex', 0);
-                        districtLabel.show();
-                        district.show();
-                        postLabel.hide();
-                        postID.hide();
-                    })
-
-                    district.on('change', function (e) {
-                        subDistLabel.show();
-                        subDistrict.show();
-                        postID.hide();
-                        console.log($(this).val());
-                        console.log($(this).find(':selected').attr('data-district-id'));
-                        $.ajax({
-                            url: "/cart/subdistrict/" + $(this).find(':selected').attr('data-district-id'),
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function (response) {
-                                subDistrict.find('option').not(':first').remove();
-                                $.each(response, function (key, value) {
-                                    subDistrict.append('<option value=' + value.name_in_thai + ' data-postID=' + value.zip_code + ' >' + value.name_in_thai + '</option>'); // return empty
-                                });
-                            }
-                        });
-                        subDistrict.prop('selectedIndex', 0);
-                    })
-
-                    subDistrict.on('change', function (e) {
-                        //  console.log($(this).find(':selected').attr('data-postID'));
-                        postID.val($(this).find(':selected').attr('data-postID'));
-                        postLabel.show();
-                        postID.show();
-                    })
-
+                    postID.hide();
                 })
 
-                $("#checkout").submit(function () {
-
-                    var form = $(this);
-                    form.find("input[type=submit]").prop("disabled", true);
-
-                    var card = {
-                        "name": form.find("[data-omise=holder_name]").val(),
-                        "number": form.find("[data-omise=number]").val(),
-                        "expiration_month": form.find("[data-omise=expiration_month]").val(),
-                        "expiration_year": form.find("[data-omise=expiration_year]").val(),
-                        "security_code": form.find("[data-omise=security_code]").val()
-                    };
-
-                    Omise.createToken("card", card, function (statusCode, response) {
-                        if (response.object == "error") {
-                            var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
-                            if (response.object == "error") {
-                                message_text = response.message;
-                            }
-                            $("#token_errors").html(message_text);
-
-                            form.find("input[type=submit]").prop("disabled", false);
-                        } else {
-                            form.find("[name=omise_token]").val(response.id);
-
-                            form.find("[data-omise=number]").val("");
-                            form.find("[data-omise=security_code]").val("");
-
-                            form.get(0).submit();
-                            console.log("Omise response", response);
-                            console.log("Omise id", response.id);
-
-                        };
-                    });
-
-                    return false;
-
-                });
-                //new
-                $('.use-Address').on('click', function (e) {
-                    e.preventDefault();
-                    var addrID = parseInt($(this).attr('data-adddressid'));
-                    console.log(addrID);
-
-                    shipID.push(addrID);
-                    console.log(shipID);
-                    selectedAddressID = addrID;
-                    $(".shipAddress").removeClass("shipAddress-active");
-                    $("#" + addrID).addClass("shipAddress-active");
-                })
-
-                $('#newAddr').on('click', function (e) {
-                    $('#insertAddress').css('display', 'block');
-                })
-
-                //new
-                $('#confirm').on('click', function (e) {
-
-                    for (i = 0; i < shipID.length; i++) {
-                        var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
-                    }
-                    console.log(shipIDtoSend);
-                    var option = $('input[name=option]:checked', '#option_payment').val()
-                    if (option === undefined || selectedAddressID === null) {
-                        alert("Please select your option to payment!");
-                    } else {
-                        //    selectedAddressID 
-                        var settings = {
-                            "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend,
-                            "method": "POST",
-                            "timeout": 0,
-                            "headers": {
-                                "Content-Type": "application/x-www-form-urlencoded",
-                            },
-                            "data": {
-                                "address": selectedAddressID,
-                                "payment_option": option
-                            }
-                        };
-
-                        $.ajax(settings)
-                            .done(function (response) {
-                                window.location.href = `/cart/checkout/complete/${response}`;
-
-
+                district.on('change', function (e) {
+                    subDistLabel.show();
+                    subDistrict.show();
+                    postID.hide();
+                    console.log($(this).val());
+                    console.log($(this).find(':selected').attr('data-district-id'));
+                    $.ajax({
+                        url: "/cart/subdistrict/" + $(this).find(':selected').attr('data-district-id'),
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (response) {
+                            subDistrict.find('option').not(':first').remove();
+                            $.each(response, function (key, value) {
+                                subDistrict.append('<option value=' + value.name_in_thai + ' data-postID=' + value.zip_code + ' >' + value.name_in_thai + '</option>'); // return empty
                             });
-
-
-                    }
-
+                        }
+                    });
+                    subDistrict.prop('selectedIndex', 0);
                 })
 
-                //userID', 'district', 'province', 'postalCode', 'address', 'subdistrict'
-                $('#userAddress').on('click', function (e) {
-                    window.location.reload();
+                subDistrict.on('change', function (e) {
+                    //  console.log($(this).find(':selected').attr('data-postID'));
+                    postID.val($(this).find(':selected').attr('data-postID'));
+                    postLabel.show();
+                    postID.show();
+                })
+
+            })
+
+            $("#checkout").submit(function () {
+
+                var form = $(this);
+                form.find("input[type=submit]").prop("disabled", true);
+
+                var card = {
+                    "name": form.find("[data-omise=holder_name]").val(),
+                    "number": form.find("[data-omise=number]").val(),
+                    "expiration_month": form.find("[data-omise=expiration_month]").val(),
+                    "expiration_year": form.find("[data-omise=expiration_year]").val(),
+                    "security_code": form.find("[data-omise=security_code]").val()
+                };
+
+                Omise.createToken("card", card, function (statusCode, response) {
+                    if (response.object == "error") {
+                        var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
+                        if (response.object == "error") {
+                            message_text = response.message;
+                        }
+                        $("#token_errors").html(message_text);
+
+                        form.find("input[type=submit]").prop("disabled", false);
+                    } else {
+                        form.find("[name=omise_token]").val(response.id);
+
+                        form.find("[data-omise=number]").val("");
+                        form.find("[data-omise=security_code]").val("");
+
+                        form.get(0).submit();
+                        console.log("Omise response", response);
+                        console.log("Omise id", response.id);
+
+                    };
+                });
+
+                return false;
+
+            });
+            //new
+            $('.use-Address').on('click', function (e) {
+                e.preventDefault();
+                var addrID = parseInt($(this).attr('data-adddressid'));
+                console.log(addrID);
+
+                shipID.push(addrID);
+                console.log(shipID);
+                selectedAddressID = addrID;
+                $(".shipAddress").removeClass("shipAddress-active");
+                $("#" + addrID).addClass("shipAddress-active");
+            })
+
+            $('#newAddr').on('click', function (e) {
+                $('#insertAddress').css('display', 'block');
+            })
+
+            //new
+            $('#confirm').on('click', function (e) {
+
+                for (i = 0; i < shipID.length; i++) {
+                    var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
+                }
+                console.log(shipIDtoSend);
+                var option = $('input[name=option]:checked', '#option_payment').val()
+                if (option === undefined || selectedAddressID === null) {
+                    alert("Please select your option to payment!");
+                } else {
+                    //    selectedAddressID 
                     var settings = {
-                        "url": "/users/address/save",
+                        "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend,
                         "method": "POST",
                         "timeout": 0,
                         "headers": {
                             "Content-Type": "application/x-www-form-urlencoded",
                         },
                         "data": {
-                            "district": $('#district').val(),
-                            "province": $('#provinces').val(),
-                            "postalcode": $('#postID').val(),
-                            "address": $('#detail').val(),
-                            "subdistrict": $('#subDistrict').val()
+                            "address": selectedAddressID,
+                            "payment_option": option
                         }
                     };
 
                     $.ajax(settings)
                         .done(function (response) {
-                            alert(response);
+                            window.location.href = `/cart/checkout/complete/${response}`;
+
 
                         });
-                })
 
-            </script>
+
+                }
+
+            })
+
+            //userID', 'district', 'province', 'postalCode', 'address', 'subdistrict'
+            $('#userAddress').on('click', function (e) {
+                window.location.reload();
+                var settings = {
+                    "url": "/users/address/save",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    "data": {
+                        "district": $('#district').val(),
+                        "province": $('#provinces').val(),
+                        "postalcode": $('#postID').val(),
+                        "address": $('#detail').val(),
+                        "subdistrict": $('#subDistrict').val()
+                    }
+                };
+
+                $.ajax(settings)
+                    .done(function (response) {
+                        alert(response);
+
+                    });
+            })
+
+        </script>
 
 
 </html>
