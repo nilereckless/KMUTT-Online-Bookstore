@@ -31,13 +31,13 @@ router.post('/upload', async (req, res, next) => {
             var trimmedString = filename.substring(0, 12);
             path = `/upload/slip/${trimmedString}.${helpers.getExtension(slipImg.name)}`;
             if (!helpers.imageFilter(slipImg.name)) {
-                req.flash('success', 'Upload is complete');
+                req.flash('error', 'Upload image is invalid!');
                 res.redirect('/books/reportPayment');
                 return;
             }
             slipImg.mv('public/' + path, function (err) {
                 if (err) {
-                    req.flash('error', 'Upload image is invalid!');
+                    req.flash('success', 'Upload Complete');
 
                     res.redirect('/books');
                 }
