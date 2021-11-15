@@ -67,17 +67,17 @@ router.get('/omise', async (req, res) => {
     console.log("To Omise Backend");
     if (charge["status"] === "successful") {
       // console.log("Omise fully successful!!");
-      const body = { a: 1 };
+      const body = { shipIDtoSend: shipID };
 
-      const response = await fetch('https://httpbin.org/post', {
-        method: 'post',
+      const response = await fetch('https://kmuttonlinebookstore.me/cart/checkout', {
+        method: 'POST',
         body: JSON.stringify(body),
         headers: { 'Content-Type': 'application/json' }
       });
+      
       const data = await response.json();
-
       console.log(data);
-      return res.render('/cart/checkout/?shipIDtoSend=' + shipID);
+
     } else {
       console.log("Omise payment failed");
       return res.render('');
