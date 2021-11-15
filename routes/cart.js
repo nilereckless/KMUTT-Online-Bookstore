@@ -11,18 +11,15 @@ let dbConn = require('../lib/db');
 var cartStorage = require('../model/cartStorage') ;
 
 //middleware.isAuthenticated(), วางไว้หน้า async
-router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
-    console.log("sessioncome", req.user)
+router.get('/', async (req, res, next) => {
     var cart = null;
-    //   console.log(cartStorage[1]) ;
+    //   console.log(cartStorage.cartStorage[1]) ;
     if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
         cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
     }
-
-    cartStorage.cartStorage[req.user.id].cart = cart;
-    console.log(cart);
+    cartStorage.cartStorage[req.user.id] = cart;
     var cartInfo = [];
     var total = 0;
     const ids = cart.getCart().map(o => o.id)
@@ -36,12 +33,11 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
             img: b[0].imageUrl,
             author: b[0].author,
             id: b[0].id,
-            stock: b[0].stock
         }
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
-    res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total, user: req.user, staff: req.staff });
+    res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total });
 })
 
 router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
