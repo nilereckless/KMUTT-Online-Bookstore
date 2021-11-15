@@ -26,6 +26,7 @@ router.get('/payment', (req, res) => {
 router.get('/omise', async (req, res) => {
 
   var cart = null;
+  console.log("Get cart storage", cartStorage.cartStorage[req.user.id]) ;
   //   console.log(cartStorage[req.user.id]) ;
   if (cartStorage.cartStorage[req.user.id] === undefined) {
     cart = new Cart(req.user.id);
@@ -39,6 +40,8 @@ router.get('/omise', async (req, res) => {
   for (var i = 0; i < filtered.length; i++) {
     var b = await bookController.getBookByID(filtered[i].id);
     total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
+    console.log("Price per one", b[0].price) ;
+    console.log("Quantity per one",cart.getQuantityByBookID(filtered[i].id)) ;
   }
 
   console.log("Total price to pay", total);
