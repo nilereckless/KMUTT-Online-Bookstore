@@ -11,15 +11,16 @@ let dbConn = require('../lib/db');
 var cartStorage = require('../model/cartStorage') ;
 
 //middleware.isAuthenticated(), วางไว้หน้า async
-router.get('/', async (req, res, next) => {
+
+router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
     var cart = null;
     //   console.log(cartStorage.cartStorage[1]) ;
-    if (cartStorage.cartStorage[req.user.id] === undefined) {
-        cart = new Cart(req.user.id);
+    if (cartStorage.cartStorage[1] === undefined) {
+        cart = new Cart(1);
     } else {
-        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
+        cart = new Cart(1, cartStorage.cartStorage[1].cart);
     }
-    cartStorage.cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[1] = cart;
     var cartInfo = [];
     var total = 0;
     const ids = cart.getCart().map(o => o.id)
@@ -38,7 +39,7 @@ router.get('/', async (req, res, next) => {
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
     res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total });
-})
+}) 
 
 router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
