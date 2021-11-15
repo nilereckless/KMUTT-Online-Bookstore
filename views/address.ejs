@@ -226,7 +226,7 @@
 
                 //new
                 $('#confirm').on('click', function (e) {
-                    $("#checkout").submit(function () {
+                    
 
                         var form = $(this);
                         form.find("input[type=submit]").prop("disabled", true);
@@ -263,7 +263,7 @@
 
                         return false;
 
-                    });
+                   
                     for (i = 0; i < shipID.length; i++) {
                         var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
                     }
