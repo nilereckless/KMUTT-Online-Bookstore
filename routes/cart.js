@@ -160,8 +160,9 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     var shipID = req.query.shipIDtoSend;
     console.log(shipID);
     var address = await shipController.getShippingAddressByShipID(req.body.address);
-    var cart = null;
+    var cart = null ;
     var shipData = await shipController.getShippingAddressByShipID(shipID);
+    console.log("Address what", address) ;
     console.log(shipData);
     console.log(data);
 
@@ -192,7 +193,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
    
     for (var j = 0; j < cartInfo.length; j++) {
-        console.log(req.user.id);
+     /*   console.log(req.user.id);
         console.log(orderID);
         console.log(cartInfo[j].bookName);
         console.log(total);
@@ -201,7 +202,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
         console.log(shipData.province);
         console.log(shipData.postalCode);
         console.log(shipData.address);
-        console.log(shipData.subdistrict);
+        console.log(shipData.subdistrict); */
         var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, shipData.shipID, shipData.district, shipData.province, shipData.postalCode, shipData.address, shipData.subdistrict);
     }
 

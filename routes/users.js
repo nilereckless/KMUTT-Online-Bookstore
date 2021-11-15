@@ -4,9 +4,11 @@ const middleWare = require('../middleware/authentication');
 var bookController = require('../controller/bookController');
 var shipController = require('../controller/shipAddressController');
 const Cart = require('../model/cartModel');
-var cartStorage = require('../model/cartStorage') ;
+var cartStorage = require('../model/cartStorage');
 var orderBookController = require('../controller/orderBookController');
 let authentication = require('../middleware/authentication');
+var fetch = require('node-fetch');
+
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -24,11 +26,11 @@ router.get('/payment', (req, res) => {
 })
 
 router.get('/omise', async (req, res) => {
-  var shipID = req.query.shipIDToSend ;
-  console.log("Test shipID", shipID) ;
+  var shipID = req.query.shipIDToSend;
+  console.log("Test shipID", shipID);
 
   var cart = null;
-  console.log("Get cart storage", cartStorage.cartStorage[req.user.id]) ;
+  console.log("Get cart storage", cartStorage.cartStorage[req.user.id]);
 
   if (cartStorage.cartStorage[req.user.id] === undefined) {
     cart = new Cart(req.user.id);
@@ -42,8 +44,8 @@ router.get('/omise', async (req, res) => {
   for (var i = 0; i < filtered.length; i++) {
     var b = await bookController.getBookByID(filtered[i].id);
     total = await total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
-    console.log("Price per one", b[0].price) ;
-    console.log("Quantity per one",cart.getQuantityByBookID(filtered[i].id)) ;
+    console.log("Price per one", b[0].price);
+    console.log("Quantity per one", cart.getQuantityByBookID(filtered[i].id));
   }
 
   console.log("Total price to pay", total);
@@ -53,7 +55,7 @@ router.get('/omise', async (req, res) => {
   });
 
   var token = req.query.omise_token;
-  console.log("Omise token", token) ;
+  console.log("Omise token", token);
 
   omise.charges.create({
     'amount': total * 100,
@@ -61,15 +63,25 @@ router.get('/omise', async (req, res) => {
     'card': token
   }, function (err, charge) {
     console.log("Call charge omise", charge);
-     console.log(charge["status"]);
+    console.log(charge["status"]);
     console.log("To Omise Backend");
     if (charge["status"] === "successful") {
-      console.log("Omise fully successful!!");
-       return res.render('/cart/checkout/') ;
+      // console.log("Omise fully successful!!");
+      const body = { a: 1 };
+
+      const response = await fetch('https://httpbin.org/post', {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const data = await response.json();
+
+      console.log(data);
+      return res.render('/cart/checkout/?shipIDtoSend=' + shipID);
     } else {
       console.log("Omise payment failed");
-      return res.render('') ;
-    } 
+      return res.render('');
+    }
   });
 })
 
