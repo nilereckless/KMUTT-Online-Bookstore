@@ -162,7 +162,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     var testNan = parseInt(shipID) ;
     console.log("Nan", testNan) ;
     
-    var address = await shipController.getShippingAddressByShipID(req.body.address);
+  //  var address = await shipController.getShippingAddressByShipID(req.body.address);
     var cart = null ;
     var shipData = await shipController.getShippingAddressByShipID(shipID);
     console.log("Address what", address) ;
