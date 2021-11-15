@@ -39,7 +39,7 @@ router.post('/upload', async (req, res, next) => {
                 if (err) {
                     req.flash('success', 'Upload Complete');
 
-                    res.redirect('/books');
+                    res.redirect('/');
                 }
 
             });
