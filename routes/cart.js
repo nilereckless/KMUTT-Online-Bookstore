@@ -9,6 +9,7 @@ var locationController = require('../controller/locationController');
 var orderHistoryController = require('../controller/orderHistoryController');
 let authentication = require('../middleware/authentication');
 let dbConn = require('../lib/db');
+var cartStorage = require('../model/cartStorage') ;
 
 //middleware.isAuthenticated(), วางไว้หน้า async
 router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
