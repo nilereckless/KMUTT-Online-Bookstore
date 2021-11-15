@@ -157,7 +157,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 
     var orderID = Math.round(Math.floor(Date.now() / 1000))
     //written by arit
-    var shipID = req.query.shipIDtoSend;
+    var shipID = req.params.shipIDtoSend;
     console.log("Test shipID", shipID);
     var testNan = parseInt(shipID) ;
     console.log("Nan", testNan) ;
