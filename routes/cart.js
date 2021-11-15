@@ -15,13 +15,13 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
     console.log("sessioncome", req.user)
     var cart = null;
     //   console.log(cartStorage[1]) ;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
     }
 
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id].cart = cart;
     console.log(cart);
     var cartInfo = [];
     var total = 0;
@@ -47,16 +47,16 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
 router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
         //  console.log("Create new cart = " ,cart.getCart()) ;
         cart.addCart({ id: bookID });
     } else {
         //   console.log("Receive " , cartStorage[1]) ;
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
         cart.addCart({ id: bookID });
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
@@ -64,13 +64,13 @@ router.get('/add/:id/:quantity', middleWare.isAuthenticatedCart, async (req, res
     var bookID = req.params.id;
     var quantity = req.params.quantity;
     var cart = null;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
         //  console.log("Create new cart = " ,cart.getCart()) ;
         cart.addCart({ id: bookID });
     } else {
         //   console.log("Receive " , cartStorage[1]) ;
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
         cart.addCartWithQuantity(bookID, quantity);
     }
     cartStorage[req.user.id] = cart;
@@ -81,16 +81,16 @@ router.get('/set/:quantity/:id', middleWare.isAuthenticatedCart, async (req, res
     var bookID = req.params.id;
     var quantity = req.params.quantity;
     var cart = null;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
         //  console.log("Create new cart = " ,cart.getCart()) ;
         cart.addCart({ id: bookID });
     } else {
         //   console.log("Receive " , cartStorage[1]) ;
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
         cart.addCartWithQuantity(bookID, quantity);
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
@@ -99,51 +99,51 @@ router.get('/set/:quantity/:id', middleWare.isAuthenticatedCart, async (req, res
 router.get('/remove/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
         cart.removeCartByBookID(bookID);
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
 router.get('/clear', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
         cart.removeAllCart();
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
 router.get('/clear/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
     var cart = null;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
         cart.removeAllCartByBookID(bookID);
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     res.json("success");
 })
 
 router.get('/count', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var cart = null;
     //   console.log(cartStorage[1]) ;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     res.json({ count: cart.getTotalCart() });
 })
 
@@ -167,12 +167,12 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     console.log(shipData);
     console.log(data);
 
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     var cartInfo = [];
     var total = 0; //no
 
@@ -232,13 +232,13 @@ router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authen
     }
     //clear cart
     var cart = null;
-    if (cartStorage[req.user.id] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(req.user.id, cartStorage[req.user.id].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
         cart.removeAllCart();
     }
-    cartStorage[req.user.id] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     res.json("success");
 
 })

@@ -26,11 +26,8 @@ router.get('/payment', (req, res) => {
 router.get('/omise', async (req, res) => {
 
   var cart = null;
- // console.log("Get cart storage", cartStorage.cartStorage[req.user.id]) ;
-  console.log("Another cart", cartStorage[req.user.id]) ;
-  console.log("Test Cart1", cartStorage.cart.id) ;
+  console.log("Get cart storage", cartStorage.cartStorage[req.user.id]) ;
 
-  //   console.log(cartStorage[req.user.id]) ;
   if (cartStorage.cartStorage[req.user.id] === undefined) {
     cart = new Cart(req.user.id);
   } else {
@@ -64,13 +61,13 @@ router.get('/omise', async (req, res) => {
     console.log("Call charge omise", charge);
      console.log(charge["status"]);
     console.log("To Omise Backend");
-   /* if (charge["status"] === "successful") {
+    if (charge["status"] === "successful") {
       console.log("Omise fully successful!!");
       // return res.render('') ;
     } else {
       console.log("Omise payment failed");
 
-    } */
+    } 
   });
 })
 
