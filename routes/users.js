@@ -24,6 +24,8 @@ router.get('/payment', (req, res) => {
 })
 
 router.get('/omise', async (req, res) => {
+  var shipID = req.query.shipIDToSend ;
+  console.log("Test shipID", shipID) ;
 
   var cart = null;
   console.log("Get cart storage", cartStorage.cartStorage[req.user.id]) ;
@@ -63,10 +65,10 @@ router.get('/omise', async (req, res) => {
     console.log("To Omise Backend");
     if (charge["status"] === "successful") {
       console.log("Omise fully successful!!");
-      // return res.render('') ;
+       return res.render('/cart/checkout/') ;
     } else {
       console.log("Omise payment failed");
-
+      return res.render('') ;
     } 
   });
 })

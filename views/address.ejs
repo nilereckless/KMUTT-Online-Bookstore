@@ -133,6 +133,7 @@
                 </div>
 
                 <input type="submit" id="create_token">
+                <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
             </form>
         </div>
 
@@ -208,6 +209,12 @@
 
             $("#checkout").submit(function () {
 
+                for (i = 0; i < shipID.length; i++) {
+                    var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
+                }
+
+                console.log(shipIDtoSend);
+               
                 var form = $(this);
                 form.find("input[type=submit]").prop("disabled", true);
 
@@ -252,6 +259,7 @@
 
                 shipID.push(addrID);
                 console.log(shipID);
+                $("#shipIDOmise").val(addrID) ;
                 selectedAddressID = addrID;
                 $(".shipAddress").removeClass("shipAddress-active");
                 $("#" + addrID).addClass("shipAddress-active");
@@ -267,6 +275,7 @@
                 for (i = 0; i < shipID.length; i++) {
                     var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
                 }
+
                 console.log(shipIDtoSend);
                 var option = $('input[name=option]:checked', '#option_payment').val()
                 if (option === undefined || selectedAddressID === null) {
