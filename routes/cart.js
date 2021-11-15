@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const Cart = require('../model/cartModel');
 var bookController = require('../controller/bookController');
-var cartStorage = [];
 const middleWare = require('../middleware/authentication');
 var shipController = require('../controller/shipAddressController');
 var locationController = require('../controller/locationController');

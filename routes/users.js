@@ -46,7 +46,9 @@ router.get('/omise', async (req, res) => {
   var omise = require('omise')({
     'secretKey': 'skey_test_5p4rrbsrwo9f2d2ut18'
   });
+
   var token = req.query.omise_token;
+  console.log("Omise token", token) ;
 
   omise.charges.create({
     'amount': total * 100,
