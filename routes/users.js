@@ -41,7 +41,7 @@ router.get('/omise', async (req, res) => {
     total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
   }
 
-  console.log(total);
+  console.log("Total price to pay", total);
 
   var omise = require('omise')({
     'secretKey': 'skey_test_5p4rrbsrwo9f2d2ut18'
@@ -53,7 +53,7 @@ router.get('/omise', async (req, res) => {
     'currency': 'thb',
     'card': token
   }, function (err, charge) {
-    console.log(charge);
+    console.log("Call charge omise", charge);
     // console.log(charge["status"]);
     console.log("To Omise Backend");
     if (charge["status"] === "successful") {
