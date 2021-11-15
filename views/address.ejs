@@ -226,44 +226,44 @@
 
                 //new
                 $('#confirm').on('click', function (e) {
-                    
 
-                        var form = $(this);
-                        form.find("input[type=submit]").prop("disabled", true);
 
-                        var card = {
-                            "name": form.find("[data-omise=holder_name]").val(),
-                            "number": form.find("[data-omise=number]").val(),
-                            "expiration_month": form.find("[data-omise=expiration_month]").val(),
-                            "expiration_year": form.find("[data-omise=expiration_year]").val(),
-                            "security_code": form.find("[data-omise=security_code]").val()
-                        };
+                    var form = $(this);
+                    form.find("input[type=submit]").prop("disabled", true);
 
-                        Omise.createToken("card", card, function (statusCode, response) {
+                    var card = {
+                        "name": form.find("[data-omise=holder_name]").val(),
+                        "number": form.find("[data-omise=number]").val(),
+                        "expiration_month": form.find("[data-omise=expiration_month]").val(),
+                        "expiration_year": form.find("[data-omise=expiration_year]").val(),
+                        "security_code": form.find("[data-omise=security_code]").val()
+                    };
+
+                    Omise.createToken("card", card, function (statusCode, response) {
+                        if (response.object == "error") {
+                            var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
                             if (response.object == "error") {
-                                var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
-                                if (response.object == "error") {
-                                    message_text = response.message;
-                                }
-                                $("#token_errors").html(message_text);
+                                message_text = response.message;
+                            }
+                            $("#token_errors").html(message_text);
 
-                                form.find("input[type=submit]").prop("disabled", false);
-                            } else {
-                                form.find("[name=omise_token]").val(response.id);
+                            form.find("input[type=submit]").prop("disabled", false);
+                        } else {
+                            form.find("[name=omise_token]").val(response.id);
 
-                                form.find("[data-omise=number]").val("");
-                                form.find("[data-omise=security_code]").val("");
+                            form.find("[data-omise=number]").val("");
+                            form.find("[data-omise=security_code]").val("");
 
-                                form.get(0).submit();
-                                console.log("Omise response", response);
-                                console.log("Omise id", response.id);
+                            form.get(0).submit();
+                            console.log("Omise response", response);
+                            console.log("Omise id", response.id);
 
-                            };
-                        });
+                        };
+                    });
 
-                        return false;
+                    return false;
 
-                   
+
                     for (i = 0; i < shipID.length; i++) {
                         var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
                     }
