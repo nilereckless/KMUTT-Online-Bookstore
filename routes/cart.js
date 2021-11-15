@@ -15,7 +15,7 @@ var cartStorage = require('../model/cartStorage') ;
 router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
     var cart = null;
     //   console.log(cartStorage.cartStorage[1]) ;
-    if (cartStorage.cartStorage[1] === undefined) {
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
     } else {
         cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
