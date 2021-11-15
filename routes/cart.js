@@ -38,7 +38,8 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
-    res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total });
+    return res.json('success');
+    //res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total });
 }) 
 
 router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
