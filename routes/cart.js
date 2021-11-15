@@ -16,11 +16,11 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
     var cart = null;
     //   console.log(cartStorage.cartStorage[1]) ;
     if (cartStorage.cartStorage[1] === undefined) {
-        cart = new Cart(1);
+        cart = new Cart(req.user.id);
     } else {
-        cart = new Cart(1, cartStorage.cartStorage[1].cart);
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
     }
-    cartStorage.cartStorage[1] = cart;
+    cartStorage.cartStorage[req.user.id] = cart;
     var cartInfo = [];
     var total = 0;
     const ids = cart.getCart().map(o => o.id)
@@ -43,6 +43,7 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
 
 router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
+    console.log("User id", req.user.id) ;
     var cart = null;
     if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
