@@ -60,6 +60,7 @@ router.get('/omise', async (req, res) => {
     if (charge["status"] === "successful") {
       // console.log("Omise fully successful!!");
       const body = { shipIDtoSend: shipID };
+      console.log(body) ;
 
       const response = await fetch('https://kmuttonlinebookstore.me/cart/checkout', {
         method: 'POST',
