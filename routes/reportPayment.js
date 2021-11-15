@@ -8,7 +8,7 @@ const CryptoJS = require("crypto-js");
 let helpers = require('../lib/helpers');
 
 router.post('/upload', async (req, res, next) => {
-    console.log("nile1");
+    console.log("nile1", req.user.id);
    // let userID = 1
     let fullName = req.body.customerName;
     let eMail = req.body.customerEmail;
