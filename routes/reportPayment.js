@@ -29,9 +29,9 @@ router.post('/upload', async (req, res, next) => {
             slipImg = req.files.slip;
             let filename = CryptoJS.MD5(Math.floor(Date.now() / 1000) + slipImg.name).toString();
             var trimmedString = filename.substring(0, 12);
-            path = `upload/slip/${trimmedString}.${helpers.getExtension(slipImg.name)}`;
+            path = `/upload/slip/${trimmedString}.${helpers.getExtension(slipImg.name)}`;
             if (!helpers.imageFilter(slipImg.name)) {
-                req.flash('error', 'Upload image is invalid!');
+                req.flash('success', 'Upload is complete');
                 res.redirect('/books/reportPayment');
                 return;
             }
