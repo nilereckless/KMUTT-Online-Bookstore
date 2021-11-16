@@ -62,20 +62,21 @@ router.get('/omise', async (req, res) => {
       const body = { shipIDtoSend: shipID };
       console.log(body) ;
 
-      const response = await fetch('https://kmuttonlinebookstore.me/cart/checkout', {
+    /*  const response = await fetch('https://kmuttonlinebookstore.me/cart/checkout', {
         method: 'POST',
         body: JSON.stringify(body),
         headers: { 'Content-Type': 'application/json' }
       });
 
       const data = await response.json();
-      console.log(data);
+      console.log(data); */
+      return res.redirect("/") ;
 
     } else {
       console.log("Omise payment failed");
       return res.redirect('/');
-    }
-  });
+    } 
+  }); 
 })
 
 router.get('/address/(:id)', async (req, res) => {
