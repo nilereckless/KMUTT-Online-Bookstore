@@ -476,6 +476,28 @@ router.post('/payment', async (req, res) => {
             var bookstock = await bookController.updateBookStockByID(parseInt(bookorder[0].book_id), parseInt(bookorder[0].quantity))
             return res.json("success");
         } 
+
+        if(status === "Declined"){
+            let mailOptions = {
+                from: 'noreplykmuttonlinebookstore@gmail.com', // TODO: email sender
+                to: orderInformation[0].email, // TODO: email receiver
+                subject: 'KMUTTBookstore - Payment Confirm notification #OrderID ' + paymentID  ,
+                text: 'เรียนคุณ '+ orderInformation[0].name + ' หมายเลขคำสั่งซื้อของคุณ คือ ' + paymentID + ' คำสั่งซื้อของคุณหมดอายุ '
+            };
+    
+            transporter.sendMail(mailOptions, (err, data) => {
+                if (err) {
+                    return console.log('Error occurs');
+                }
+            });
+    
+            var bookorder = await orderHistoryController.getBookOrderByOrderID(paymentID)
+            console.log(bookorder);
+    
+            var bookstock = await bookController.updateBookStockByID(parseInt(bookorder[0].book_id), parseInt(bookorder[0].quantity))
+            return res.json("success");
+        }
+
         return res.json("success") ;
     } 
     else {
