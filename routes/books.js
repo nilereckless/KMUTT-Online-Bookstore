@@ -459,8 +459,7 @@ router.post('/payment', async (req, res) => {
             from: 'noreplykmuttonlinebookstore@gmail.com', // TODO: email sender
             to: orderInformation[0].email, // TODO: email receiver
             subject: 'KMUTTBookstore - Payment Confirm notification #OrderID ' + paymentID  ,
-            text: 'เรียนคุณ '+ orderInformation[0].name + 'หมายเลขคำสั่งซื้อของคุณ คือ ' + paymentID + ' tracking number : ' + req.body.track_number,
-            html: '<body><h1>Thank you for shopping</h1></body>'
+            text: 'เรียนคุณ '+ orderInformation[0].name + 'หมายเลขคำสั่งซื้อของคุณ คือ ' + paymentID + ' tracking number : ' + req.body.track_number
         };
 
         transporter.sendMail(mailOptions, (err, data) => {
