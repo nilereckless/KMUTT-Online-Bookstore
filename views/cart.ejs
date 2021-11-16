@@ -316,7 +316,7 @@
             var plusItem = plusId.split("-")[1];
             $.ajax({
                 type: "GET",
-                url: "/cart/add/" + plusItem,
+                url: "/cart/add/" + plusItem + "/1",
                 success: function (data) {
                     console.log("success");
                     window.location.reload();
