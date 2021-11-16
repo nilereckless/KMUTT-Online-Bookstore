@@ -481,7 +481,7 @@ router.post('/payment', async (req, res) => {
             let mailOptions = {
                 from: 'noreplykmuttonlinebookstore@gmail.com', // TODO: email sender
                 to: orderInformation[0].email, // TODO: email receiver
-                subject: 'KMUTTBookstore - Payment Confirm notification #OrderID ' + paymentID  ,
+                subject: 'KMUTTBookstore - Payment Cancelled #OrderID ' + paymentID  ,
                 text: 'เรียนคุณ '+ orderInformation[0].name + ' หมายเลขคำสั่งซื้อของคุณ คือ ' + paymentID + ' คำสั่งซื้อของคุณหมดอายุ '
             };
     
