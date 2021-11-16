@@ -455,6 +455,7 @@ router.post('/payment', async (req, res) => {
     var orderInformation = await orderHistoryController.getOrderHistoryByID(paymentID)
     var address = await shipAddressController.getShippingAddressByShipID(orderInformation[0].shipaddress_id)
     console.log(address);
+  if(status === "Approved"){
     if (orders.affectedRows === 1) {
         let mailOptions = {
             from: 'noreplykmuttonlinebookstore@gmail.com', // TODO: email sender
@@ -474,8 +475,10 @@ router.post('/payment', async (req, res) => {
 
         var bookstock = await bookController.updateBookStockByID(parseInt(bookorder[0].book_id), parseInt(bookorder[0].quantity))
         return res.json("success");
-    } else {
-        res.json("error");
+    } 
+  }
+    else {
+       return res.json("Payment declined");
     }
 
 })
