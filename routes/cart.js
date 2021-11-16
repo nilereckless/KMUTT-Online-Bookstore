@@ -38,6 +38,7 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
             stock: b[0].stock
         }
         stock = b[0].stock
+        console.log(stock);
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
