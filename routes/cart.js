@@ -23,7 +23,6 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
     cartStorage.cartStorage[req.user.id] = cart;
     var cartInfo = [];
     var total = 0;
-    var stock = 0;
     const ids = cart.getCart().map(o => o.id)
     const filtered = cart.getCart().filter(({ id }, index) => !ids.includes(id, index + 1))
     for (var i = 0; i < filtered.length; i++) {
@@ -37,8 +36,6 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
             id: b[0].id,
             stock: b[0].stock
         }
-        stock = b[0].stock
-        console.log(stock);
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
