@@ -156,13 +156,12 @@
       
      <div class="modal-body">
       <% if(notify!=null){ %>
-         <% for(let i=0; i < notify.length; i++) { %>
-           Order Number : <%=notify[i].orderNumber> 
-           <%=notify[i].message>
-           <% } %>
+             <% for(let i=0; i < notify.length; i++) { %>
+                Order Number : <%=notify[i].orderNumber%> 
+                <%=notify[i].message%>
+              <% } %>
         <% } %>
-
-        <% else{ %>
+        <% else { %>
            Empty
         <% } %>
       </div>
