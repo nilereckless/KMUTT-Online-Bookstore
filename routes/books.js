@@ -449,6 +449,7 @@ router.get('/payment', async (req, res) => {
 router.post('/payment', async (req, res) => {
     var status = req.body.status
     var paymentID = req.body.paymentID
+    console.log("Showing",status);
 
     var orders = await orderHistoryController.updateOrderStatusByID(paymentID, status)
     var orderInformation = await orderHistoryController.getOrderHistoryByID(paymentID)

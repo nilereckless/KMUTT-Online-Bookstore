@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <button class="approve btn-success" data-paymentID="<%= payments[i].order_id%>"> Approve </button>
-                    <button class="decline btn-danger" data-paymentID="<%= payments[i].order_id%>"> Decline </button>
+                    <button class="decline btn-danger" id="decline" data-paymentID="<%= payments[i].order_id%>"> Decline </button>
                 </div>
             </div>
             <% } %>
@@ -120,7 +120,6 @@
                             if (response == "success") {
                                 Swal.fire({
                                     title: 'Decline Successfully',
-                                    text: "You can insert another new book",
                                     icon: 'success',
                                 }).then((result) => {
                                     if (result.isConfirmed) {
