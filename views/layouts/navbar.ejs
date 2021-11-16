@@ -18,6 +18,25 @@
     font: bold .4em sans-serif;
   }
 
+  .Notibell{
+    position: relative;
+  }
+
+  .Notibell[data-count]:after {
+    position: absolute;
+    right: -0.75em;
+    top: -.75em;
+    content: attr(data-count);
+    padding: .5em;
+    border-radius: 10em;
+    line-height: .9em;
+    color: white;
+    background: rgba(255, 0, 0, .75);
+    text-align: center;
+    min-width: 2em;
+    font: bold .4em sans-serif;
+  }
+
   /* #profileDropDown{
   margin-right: 20px;
 } */
@@ -64,7 +83,7 @@
   </li>
   <li>
     <a href="#" class="nav-link">
-      <i class="fas fa-2x fa-bell Notibell"></i>
+      <i class="fas fa-2x fa-bell Notibell" id="notifyCount" data-count="10"></i>
     </a>
   </li>
   <li>
