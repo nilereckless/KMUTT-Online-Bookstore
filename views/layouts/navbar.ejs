@@ -186,7 +186,7 @@
       if (e !== "Unauthorized") {
         var notifyCount = e.length;
         if (notifyCount != 0) {
-          $("#notifyCount").data("count", notifyCount);
+          $("#notifyCount").attr("data-count", notifyCount);
           console.log(e);
         }
       }
