@@ -161,11 +161,11 @@
 
     })
 
-    var urlNoti = "/notifications" ;
+    var urlNoti = "/users/notify" ;
     var requestNoti = $.get(urlNoti) ;
         requestNoti.done(function(e) {
           if(e !== "Unauthorized"){
-            
+            console.log("test") ;
           } 
           console.log(e) ;
         })

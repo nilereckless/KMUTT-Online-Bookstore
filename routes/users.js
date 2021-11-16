@@ -8,7 +8,7 @@ var cartStorage = require('../model/cartStorage');
 var orderBookController = require('../controller/orderBookController');
 let authentication = require('../middleware/authentication');
 var fetch = require('node-fetch');
-
+var notificationController = require('../controller/notificationController') ;
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -103,6 +103,11 @@ router.get('/orderHistory', authentication.checkAdmin, async (req, res) => {
   var orderbooks = await orderBookController.getorderByUserID(req.user.id)
   console.log(req.staff);
   res.render('orderHistory', { orderbooks: orderbooks, user: req.user, staff: req.staff })
+})
+
+router.get('/notify', async (req, res) => {
+ var notify = await notificationController.getNotificationsByUserID(req.user.id) ;
+ console.log(notify) ;
 })
 
 module.exports = router;
