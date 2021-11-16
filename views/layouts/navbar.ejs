@@ -63,6 +63,11 @@
         </form>
   </li>
   <li>
+    <a href="#" class="nav-link">
+      <i class="fas fa-2x fa-bell Notibell"></i>
+    </a>
+  </li>
+  <li>
     <div id="cart" class="nav-link">
       <i class="fa fa-shopping-cart fa-2x Shopcart" aria-hidden="true" id="cartCount"></i>
     </div>
@@ -156,6 +161,18 @@
 
     })
 
+    var urlNoti = "/notifications" ;
+    var requestNoti = $.get(urlNoti) ;
+        requestNoti.done(function(e) {
+          if(e !== "Unauthorized"){
+            
+          } 
+          console.log(e) ;
+        })
+        request.fail(function() {
+          alert( "error" );
+        }) ;
+  
   });
 
 </script>

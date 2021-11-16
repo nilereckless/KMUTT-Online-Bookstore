@@ -31,6 +31,8 @@ var booksRouter = require('./routes/books');
 var cartRouter = require('./routes/cart');
 var locationRouter = require('./routes/location');
 var reportPaymentRouter = require('./routes/reportPayment') ;
+var notificationRouter = require('./routes/notifications') ;
+
 var app = express();
 
 // view engine setup
@@ -84,6 +86,7 @@ app.use('/books',/*authentication.isStaffAuthenticated,*/ booksRouter); // ‡πÅ‡∏
 app.use('/cart', cartRouter);
 app.use('/location', locationRouter);
 app.use('/reportPayment', reportPaymentRouter);
+app.use('/notifications', notificationRouter) ;
 
 
 

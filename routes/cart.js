@@ -8,7 +8,8 @@ var locationController = require('../controller/locationController');
 var orderHistoryController = require('../controller/orderHistoryController');
 let authentication = require('../middleware/authentication');
 let dbConn = require('../lib/db');
-var cartStorage = require('../model/cartStorage') ;
+var cartStorage = require('../model/cartStorage');
+var notificationController = require('../controller/notificationController');
 
 //middleware.isAuthenticated(), วางไว้หน้า async
 
@@ -40,11 +41,11 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
     res.render('cart', { cart: cartInfo, totalCart: cart.getTotalCart(), sumPrice: total, user: req.user, staff: req.staff });
-}) 
+})
 
 router.get('/add/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var bookID = req.params.id;
-    console.log("User id", req.user.id) ;
+    console.log("User id", req.user.id);
     var cart = null;
     if (cartStorage.cartStorage[req.user.id] === undefined) {
         cart = new Cart(req.user.id);
@@ -158,16 +159,16 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 
     var orderID = Math.round(Math.floor(Date.now() / 1000))
     //written by arit
-   /* var shipID = req.body.shipIDtoSend ;
-    console.log("Test shipID", shipID);
-    var testNan = parseInt(shipID) ;
-    console.log("Nan", testNan) ; */
-    var shipID = req.query.shipIDtoSend ;
-    
-  //  var address = await shipController.getShippingAddressByShipID(req.body.address);
-    var cart = null ;
+    /* var shipID = req.body.shipIDtoSend ;
+     console.log("Test shipID", shipID);
+     var testNan = parseInt(shipID) ;
+     console.log("Nan", testNan) ; */
+    var shipID = req.query.shipIDtoSend;
+
+    //  var address = await shipController.getShippingAddressByShipID(req.body.address);
+    var cart = null;
     var shipData = await shipController.getShippingAddressByShipID(shipID);
-    console.log("Address what", address) ;
+    console.log("Address what", address);
     console.log(shipData);
     console.log(data);
 
@@ -196,7 +197,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
         cartInfo.push(data);
         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
     }
-   
+
     for (var j = 0; j < cartInfo.length; j++) {
         var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, shipData.shipID, shipData.district, shipData.province, shipData.postalCode, shipData.address, shipData.subdistrict);
     }
@@ -207,6 +208,8 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     if (req.user.id == address.userID) {
         var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.payment_option, req.body.address, req.user.email, req.user.name);
         if (orderIDState.affectedRows === 1) {
+            var txt = "Your cart is ordered" + orderID;
+            notificationController.addNotifications(req.user.id, txt, "pending", orderID);
             res.json(orderID);
         } else {
             res.json("error");
@@ -226,7 +229,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 //     console.log("Test shipID", shipID);
 //     var testNan = parseInt(shipID) ;
 //     console.log("Nan", testNan) ;
-    
+
 //   //  var address = await shipController.getShippingAddressByShipID(req.body.address);
 //     var cart = null ;
 //     var shipData = await shipController.getShippingAddressByShipID(shipID);
@@ -259,7 +262,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 //         cartInfo.push(data);
 //         total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
 //     }
-   
+
 //     for (var j = 0; j < cartInfo.length; j++) {
 //         var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, shipData.shipID, shipData.district, shipData.province, shipData.postalCode, shipData.address, shipData.subdistrict);
 //     }
