@@ -107,7 +107,8 @@ router.get('/orderHistory', authentication.checkAdmin, async (req, res) => {
 
 router.get('/notify', async (req, res) => {
  var notify = await notificationController.getNotificationsByUserID(req.user.id) ;
- console.log(notify) ;
+// console.log(notify) ;
+ res.json(notify) ;
 })
 
 module.exports = router;
