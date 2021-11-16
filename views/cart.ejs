@@ -311,20 +311,21 @@
         });
 
         $('[id^=plusIt-]').click(function (e) {
-            e.preventDefault();
-            var plusId = e.target.id;
-            var plusItem = plusId.split("-")[1];
-            $.ajax({
-                type: "GET",
-                url: "/cart/add/" + plusItem + "/1",
-                success: function (data) {
-                    console.log("success");
-                    window.location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("fail");
-                },
-            });
+            console.log("nile33")
+            // e.preventDefault();
+            // var plusId = e.target.id;
+            // var plusItem = plusId.split("-")[1];
+            // $.ajax({
+            //     type: "GET",
+            //     url: "/cart/add/" + plusItem,
+            //     success: function (data) {
+            //         console.log("success");
+            //         window.location.reload();
+            //     },
+            //     error: function (jqXHR, textStatus, errorThrown) {
+            //         console.log("fail");
+            //     },
+            // });
         });
     </script>
 
