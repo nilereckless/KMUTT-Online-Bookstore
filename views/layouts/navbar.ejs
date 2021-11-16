@@ -187,9 +187,9 @@
         var notifyCount = e.length;
         if (notifyCount != 0) {
           $("#notifyCount").data("count", notifyCount);
+          console.log(e);
         }
       }
-      console.log(e);
     })
     request.fail(function () {
       alert("error");
