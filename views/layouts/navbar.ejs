@@ -83,7 +83,8 @@
           </li>
           <li>
             <a href="#" class="nav-link">
-              <i class="fas fa-2x fa-bell Notibell" id="notifyCount" data-toggle="modal" data-target="#notifyTarget"></i>
+              <i class="fas fa-2x fa-bell Notibell" id="notifyCount" data-toggle="modal"
+                data-target="#notifyTarget"></i>
             </a>
           </li>
           <li>
@@ -153,9 +154,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
-     <div class="modal-body">
-   
+
+      <div class="modal-body">
+        <% if(notify!=null) { %>
+          <% for(let i=0; i < notify.length; i++) { %>
+            Order Number : <%=notify[i].orderNumber%>
+              <%=notify[i].message%>
+                <% } %>
+                  <% } %>
+                    <% else { %>
+                      Empty
+                      <% } %>
       </div>
 
       <div class="modal-footer">
