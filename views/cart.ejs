@@ -226,10 +226,9 @@
                                                         data-id="<%=cart[i].id%>" disabled>
                                                             <%if (cart[i].quantity < cart[i].stock){%>
                                                                 <button class="plus-btn" type="button" name="button">
-                                                                    <i class="fas fa-plus" id="plusIt-<%=cart[i].id%>"></i>
+                                                                    <i class="fas fa-plus" id="plus-<%=cart[i].id%>"></i>
                                                                 </button>
                                                                 &nbsp;&nbsp;piece
-
                                                                 <%}else{%>
                                                                     <button class="plus-btn" type="button"
                                                                         name="button">
@@ -309,7 +308,7 @@
             });
         });
 
-        $('[id^=plusIt-]').click(function (e) {
+        $('[id^=plus-]').click(function (e) {
             console.log("nile33")
             // e.preventDefault();
             // var plusId = e.target.id;
