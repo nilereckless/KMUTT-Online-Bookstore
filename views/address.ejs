@@ -5,6 +5,73 @@
     <% include layouts/header.ejs %>
         <title> KMUTT Online BookStore </title>
 </head>
+<style>
+    body {
+        padding-top: 50px;
+    }
+
+    #selectAdr {
+        appearance: none;
+        background-color: #2ea44f;
+        border: 1px solid rgba(27, 31, 35, .15);
+        border-radius: 6px;
+        box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        padding: 6px 16px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    #selectAdr:focus:not(:focus-visible):not(.focus-visible) {
+        box-shadow: none;
+        outline: none;
+    }
+
+    #selectAdr:hover {
+        background-color: #2c974b;
+    }
+
+    #selectAdr:focus {
+        box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+        outline: none;
+    }
+
+    #selectAdr:disabled {
+        background-color: #94d3a2;
+        border-color: rgba(27, 31, 35, .1);
+        color: rgba(255, 255, 255, .8);
+        cursor: default;
+    }
+
+    #selectAdr:active {
+        background-color: #298e46;
+        box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+    }
+
+
+    .shipAddress {
+        font-size: 18px;
+        margin-bottom: 10px;
+        background: seashell;
+        box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
+        border-radius: 10px;
+        border-width: 2px;
+        ;
+    }
+</style>
 <% include layouts/navbar.ejs %>
 
     <body>
@@ -87,6 +154,40 @@
                             <label for="store">รับสินค้าที่ร้าน</label><br>
                             <input type="radio" id="bank" name="option" value="bank">
                             <label for="bank">โอนเงินผ่านธนาคาร</label>
+                            <input type="radio" id="omise" name="option" value="bank">
+                            <label for="bank">ชำระผ่าน Visa/Mastercard</label>
+                        </form>
+                    </div>
+                    Omise <br>
+                    <div>
+                        <form id="checkout" action="/users/omise" method="GET">
+                            <div id="token_errors"></div>
+            
+                            <input type="hidden" name="omise_token">
+            
+                            <div>
+                                Name<br>
+                                <input type="text" data-omise="holder_name">
+                            </div>
+            
+                            <div>
+                                Number<br>
+                                <input type="text" data-omise="number">
+                            </div>
+            
+                            <div>
+                                Date<br>
+                                <input type="text" data-omise="expiration_month" size="4"> /
+                                <input type="text" data-omise="expiration_year" size="8">
+                            </div>
+            
+                            <div>
+                                Security Code<br>
+                                <input type="text" data-omise="security_code" size="8">
+                            </div>
+            
+                            <input type="submit" id="create_token">
+                            <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
                         </form>
                     </div>
                     <div align="center">
@@ -187,10 +288,9 @@
                 <label for="store">รับสินค้าที่ร้าน</label>
                 <input type="radio" id="bank" name="option" value="bank">
                 <label for="bank">โอนเงินผ่านธนาคาร</label>
+                <input type="radio" id="omise" name="option" value="bank">
+                <label for="bank">ชำระผ่าน Visa/Mastercard</label>
             </form>
-        </div>
-        <div>
-            <button type="submit" id="confirm">ยืนยันคำสั่งซื้อ</button>
         </div>
         Omise <br>
         <div>
@@ -223,6 +323,9 @@
                 <input type="submit" id="create_token">
                 <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
             </form>
+        </div>
+        <div>
+            <button type="submit" id="confirm">ยืนยันคำสั่งซื้อ</button>
         </div>
 
     </body>
