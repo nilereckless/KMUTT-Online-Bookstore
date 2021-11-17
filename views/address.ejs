@@ -153,7 +153,7 @@
                             <input type="radio" id="store" name="option" value="store">
                             <label for="store">รับสินค้าที่ร้าน</label><br>
                             <input type="radio" id="bank" name="option" value="bank">
-                            <label for="bank">โอนเงินผ่านธนาคาร</label>
+                            <label for="bank">โอนเงินผ่านธนาคาร</label><br>
                             <input type="radio" id="omise" name="option" value="bank">
                             <label for="bank">ชำระผ่าน Visa/Mastercard</label>
                         </form>
@@ -197,136 +197,7 @@
             </div>
 
         </div>
-        <h3>Address</h3>
-        <div class="table-responsive">
-            <table class="table table-order">
-                <thead>
-                    <tr>
-                        <th colspan="2" style="min-width: 160px;">
-                            Name-surname</th>
-                        <th colspan="2" style="width: 30%;">Address</th>
-                        <th>Postcode</th>
-                        <th>Phone number</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <div>
-            <% if(address.length> 0) {%>
-
-                <%for(var i=0; i< address.length; i++) {%>
-                    <div class="shipAddress" id="<%=address[i].shipID%>">
-                        Shipping ID : <%=address[i].shipID%> <br>
-                            District : <%=address[i].district%> <br>
-                                Sub District : <%=address[i].subdistrict%> <br>
-                                    Province : <%=address[i].province%> <br>
-                                        Postal Code: <%=address[i].postalCode%> <br>
-                                            <button class="use-Address"
-                                                data-adddressid="<%=address[i].shipID%>">Click</button>
-                                            <br>
-                    </div>
-                    <% } %>
-                        <div class="text-center"><button class="btn btn-primary" type="button"
-                                style="background-color: tomato;" id="newAddr">+ Add
-                                new address</button></div>
-                        <% } else { %>
-                            <div class="text-center"><button class="btn btn-primary" type="button"
-                                    style="background-color: tomato;" id="newAddr">+ Add
-                                    new address</button></div>
-                            <% } %>
-        </div>
-
-        <div style="display: none ; margin: auto;max-width: 700px;" id="insertAddress">
-            <div style="font-size:1.2em; width: 380px; margin: 0 auto 1rem;display: inline-block;">
-                <label>Address</label>
-                <textarea class="form-control" type="text" id="detail"> </textarea>
-
-                <div class="form-group">
-                    <label>Provinces</label>
-                    <select class="form-control" id="provinces">
-                        <option disabled selected>Select Provinces</option>
-                        <%for(var i=0; i< province.length; i++) {%>
-                            <option value="<%=province[i].name_in_thai%>" data-id="<%=province[i].id%>">
-                                <%=province[i].name_in_thai%>
-                            </option>
-                            <% } %>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label id="dist">District</label>
-                    <select class="form-control" id="district">
-                        <option disabled selected>Select District</option>
-                        <%for(var i=0; i< district.length; i++) {%>
-                            <option value="<%=district[i].name_in_thai%>" data-id="<%=district[i].province_id%>"
-                                data-district-id="<%=district[i].id%>">
-                                <%=district[i].name_in_thai%>
-                            </option>
-                            <% } %>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label id="subd">Subdistrict</label>
-                    <select class="form-control" id="subDistrict">
-                        <option disabled selected>Select SubDistrict</option>
-                    </select>
-                </div>
-                <label id="post">PostalCode</label>
-                <input class="form-control" type="text" readonly id="postID">
-
-                <button type="submit" class="btn btn-primary mb-3" id="userAddress">Save address</button>
-            </div>
-        </div>
-        <div class="form-check">
-            <form id="option_payment">
-                <input type="radio" id="store" name="option" value="store">
-                <label for="store">รับสินค้าที่ร้าน</label>
-                <input type="radio" id="bank" name="option" value="bank">
-                <label for="bank">โอนเงินผ่านธนาคาร</label>
-                <input type="radio" id="omise" name="option" value="bank">
-                <label for="bank">ชำระผ่าน Visa/Mastercard</label>
-            </form>
-        </div>
-        Omise <br>
-        <div>
-            <form id="checkout" action="/users/omise" method="GET">
-                <div id="token_errors"></div>
-
-                <input type="hidden" name="omise_token">
-
-                <div>
-                    Name<br>
-                    <input type="text" data-omise="holder_name">
-                </div>
-
-                <div>
-                    Number<br>
-                    <input type="text" data-omise="number">
-                </div>
-
-                <div>
-                    Date<br>
-                    <input type="text" data-omise="expiration_month" size="4"> /
-                    <input type="text" data-omise="expiration_year" size="8">
-                </div>
-
-                <div>
-                    Security Code<br>
-                    <input type="text" data-omise="security_code" size="8">
-                </div>
-
-                <input type="submit" id="create_token">
-                <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
-            </form>
-        </div>
-        <div>
-            <button type="submit" id="confirm">ยืนยันคำสั่งซื้อ</button>
-        </div>
+       
 
     </body>
     <% include layouts/footer.ejs %>
