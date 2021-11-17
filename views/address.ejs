@@ -8,6 +8,94 @@
 <% include layouts/navbar.ejs %>
 
     <body>
+        <div class="container">
+            <div class="row mx-0 justify-content-xl center">
+                <div class="col-lg-6">
+                    <% if(address.length> 0) {%>
+
+                        <%for(var i=0; i< address.length; i++) {%>
+                            <div class="shipAddress" id="<%=address[i].shipID%>">
+                                <%=address[i].address%>&nbsp;
+                                    <%=address[i].subdistrict%>&nbsp;
+                                        <%=address[i].district%>&nbsp;<br>
+                                            จ.<%=address[i].province%>,&nbsp;
+                                                <%=address[i].postalCode%> <br>
+                                                    <div align="right"><button class="use-Address" id="selectAdr"
+                                                            data-adddressid="<%=address[i].shipID%>">Ship to this
+                                                            address</button></div>
+                            </div>
+                            <% } %>
+                                <div class="text-center"><button class="btn btn-primary" type="button"
+                                        style="background-color: tomato;" id="newAddr">+ Add
+                                        new address</button></div>
+                                <% } else { %>
+                                    <div class="text-center"><button class="btn btn-primary" type="button"
+                                            style="background-color: tomato;" id="newAddr">+ Add
+                                            new address</button></div>
+                                    <% } %>
+                                        <div style="display: none ; margin: auto;max-width: 700px;" id="insertAddress">
+                                            <div
+                                                style="font-size:1.2em; width: 380px; margin: 0 auto 1rem;display: inline-block;">
+                                                <label>Address</label>
+                                                <textarea class="form-control" type="text" id="detail"> </textarea>
+
+                                                <div class="form-group">
+                                                    <label>Provinces</label>
+                                                    <select class="form-control" id="provinces">
+                                                        <option disabled selected>Select Provinces</option>
+                                                        <%for(var i=0; i< province.length; i++) {%>
+                                                            <option value="<%=province[i].name_in_thai%>"
+                                                                data-id="<%=province[i].id%>">
+                                                                <%=province[i].name_in_thai%>
+                                                            </option>
+                                                            <% } %>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label id="dist">District</label>
+                                                    <select class="form-control" id="district">
+                                                        <option disabled selected>Select District</option>
+                                                        <%for(var i=0; i< district.length; i++) {%>
+                                                            <option value="<%=district[i].name_in_thai%>"
+                                                                data-id="<%=district[i].province_id%>"
+                                                                data-district-id="<%=district[i].id%>">
+                                                                <%=district[i].name_in_thai%>
+                                                            </option>
+                                                            <% } %>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label id="subd">Subdistrict</label>
+                                                    <select class="form-control" id="subDistrict">
+                                                        <option disabled selected>Select SubDistrict</option>
+                                                    </select>
+                                                </div>
+                                                <label id="post">PostalCode</label>
+                                                <input class="form-control" type="text" readonly id="postID">
+
+                                                <button type="submit" class="btn btn-primary mb-3" id="userAddress">Save
+                                                    address</button>
+                                            </div>
+                                        </div>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <div class="form-check">
+                        <form id="option_payment">
+                            <input type="radio" id="store" name="option" value="store">
+                            <label for="store">รับสินค้าที่ร้าน</label><br>
+                            <input type="radio" id="bank" name="option" value="bank">
+                            <label for="bank">โอนเงินผ่านธนาคาร</label>
+                        </form>
+                    </div>
+                    <div align="center">
+                        <button class='btn btn-primary' type="submit" id="confirm">ยืนยันคำสั่งซื้อ</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <h3>Address</h3>
         <div class="table-responsive">
             <table class="table table-order">
@@ -214,7 +302,7 @@
                 }
 
                 console.log(shipIDtoSend);
-               
+
                 var form = $(this);
                 form.find("input[type=submit]").prop("disabled", true);
 
