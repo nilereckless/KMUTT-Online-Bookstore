@@ -4,6 +4,11 @@
 <head>
     <title>KMUTT Online Bookstore</title>
 </head>
+<style>
+    body {
+        padding-top: 10px;
+    }
+</style>
 <% include layouts/header.ejs %>
 
     <body>
@@ -22,38 +27,42 @@
                                     <div class="card mt-3">
                                         <div class="product-1 align-items-center p-2 text-center">
                                             <% if(data[i].imageUrl){ %>
-                                                <img src="<%= data[i].imageUrl %>" height="220" width="160" class="rounded">
+                                                <img src="<%= data[i].imageUrl %>" height="220" width="160"
+                                                    class="rounded">
                                                 <%}else{%>
-                                                <img src="https://i.ibb.co/C2KLXwS/image-not-found.png" height="220" width="160" class="rounded">
-                                                <%}%>
-                                            <h6>
-                                                <%= data[i].name %>
-                                            </h6>
-                                            <div align="center">ISBN : <%= data[i].isbn %>
-                                            </div><br>
-                                            <div align="center">Author : <%= data[i].author %>
-                                            </div>
-                                            <!-- card info -->
+                                                    <img src="https://i.ibb.co/C2KLXwS/image-not-found.png" height="220"
+                                                        width="160" class="rounded">
+                                                    <%}%>
+                                                        <h6>
+                                                            <%= data[i].name %>
+                                                        </h6>
+                                                        <div align="center">ISBN : <%= data[i].isbn %>
+                                                        </div><br>
+                                                        <div align="center">Author : <%= data[i].author %>
+                                                        </div>
+                                                        <!-- card info -->
 
-                                            <!-- cost and star -->
-                                            <div class="cost mt-3 text-dark">
-                                                <span>
-                                                    <%=data[i].price%> ฿
-                                                </span>
-                                                <!-- keep comment and stars in to database -->
-                                                <div class="start mt-3 align-items-center">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <button class="btn btn-primary addCart" data-id="<%=data[i].id%>" <%=data[i].stock <= 0? 'disabled' : ''%> >add to cart</button>
-                                                <a href="/books/viewDetail/<%= data[i].id %>"
-                                                    class="btn btn-secondary">read more</a>
-                                            </div>
+                                                        <!-- cost and star -->
+                                                        <div class="cost mt-3 text-dark">
+                                                            <span>
+                                                                <%=data[i].price%> ฿
+                                                            </span>
+                                                            <!-- keep comment and stars in to database -->
+                                                            <div class="start mt-3 align-items-center">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <button class="btn btn-primary addCart"
+                                                                data-id="<%=data[i].id%>" <%=data[i].stock
+                                                                <=0? 'disabled' : '' %> >add to cart</button>
+                                                            <a href="/books/viewDetail/<%= data[i].id %>"
+                                                                class="btn btn-secondary">read more</a>
+                                                        </div>
                                         </div>
 
                                     </div>
@@ -67,7 +76,7 @@
                     <% } %>
     </body>
     <% include layouts/footer.ejs %>
-    <script type="text/javascript" src="/js/cart.js">
-    </script>
+        <script type="text/javascript" src="/js/cart.js">
+        </script>
 
 </html>
