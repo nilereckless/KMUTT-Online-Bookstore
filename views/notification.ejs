@@ -14,7 +14,15 @@
     <body>
         <% include layouts/navbar.ejs %>
 
-      Test Noti
+        Test Noti
+        <% if(notify!=null) { %>
+            <% for(let i=0; i < notify.length; i++) { %>
+              Order Number : <%=notify[i].orderNumber%>
+                <%=notify[i].message%>
+                  <% } %>
+                    <% } else { %>
+                      Empty
+                    <% } %>
            
     </body>
     <% include layouts/footer.ejs %>
