@@ -16,7 +16,7 @@ router.get('/getNoti/(:id)',middleWare.isAuthenticatedCart, async (req, res, nex
    console.log("What refreshclient", req.UserRefreshClient.id) ;
    var noti = await NotificationController.getNotificationsByUserID(req.user.id) ; // req.user.id
    //res.json(noti) ;
-   res.render('notification', {notify : notify, user : req.user, staff: req.staff}) ;
+   res.render('notification', {notify : noti, user : req.user, staff: req.staff}) ;
 })
 
 module.exports = router ;
