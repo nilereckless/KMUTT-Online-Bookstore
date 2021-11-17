@@ -97,7 +97,25 @@
                 font-weight: 300;
             }
 
-            button[class*=btn] {
+            /* button[class*=btn] {
+                width: 30px;
+                height: 30px;
+                background-color: #E1E8EE;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+            } */
+
+            .minus-btn{
+                width: 30px;
+                height: 30px;
+                background-color: #E1E8EE;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .plus-btn{
                 width: 30px;
                 height: 30px;
                 background-color: #E1E8EE;
@@ -173,6 +191,62 @@
                 text-align: center;
                 font-size: 24px;
             }
+
+            .tag {
+                display: inline-block;
+
+                width: auto;
+                height: 38px;
+
+                background-color: lightsalmon;
+                -webkit-border-radius: 3px 4px 4px 3px;
+                -moz-border-radius: 3px 4px 4px 3px;
+                border-radius: 3px 4px 4px 3px;
+
+                border-left: 1px solid lightsalmon;
+
+
+                margin-left: 19px;
+
+                position: relative;
+
+                color: white;
+                font-weight: 300;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 22px;
+                line-height: 38px;
+
+                padding: 0 10px 0 10px;
+            }
+
+            .tag:before {
+                content: "";
+                position: absolute;
+                display: block;
+                left: -19px;
+                width: 0;
+                height: 0;
+                border-top: 19px solid transparent;
+                border-bottom: 19px solid transparent;
+                border-right: 19px solid lightsalmon;
+            }
+
+            .tag:after {
+                content: "";
+                background-color: white;
+                border-radius: 50%;
+                width: 4px;
+                height: 4px;
+                display: block;
+                position: absolute;
+                left: -9px;
+                top: 17px;
+            }
+
+            #bookNameBig {
+                text-align: center;
+                font-size: 20px;
+            }
         </style>
 </head>
 
@@ -187,9 +261,8 @@
                             <%for(var i=0; i<cart.length; i++) {%>
                                 <div class="shopping-cart">
                                     <!--Title-->
-                                    <div class="title">
+                                    <div class="title" id="bookNameBig">
                                         <%= cart[i].bookName %>
-
                                     </div>
                                     <div class="buttons delete-btn" align="right" data-id="<%=cart[i].id%>">
                                         <i class="far fa-times-circle"></i>
@@ -225,10 +298,12 @@
                                                             id="quantity-" <%=cart[i].id%>
                                                         data-id="<%=cart[i].id%>" disabled>
                                                             <%if (cart[i].quantity < cart[i].stock){%>
-                                                                <button class="plus-btn" type="button" name="button">
-                                                                    <i class="fas fa-plus" id="plus-<%=cart[i].id%>"></i>
+                                                                <button class=" plus-btn" type="button" name="button">
+                                                                    <i class="fas fa-plus"
+                                                                        id="plus-<%=cart[i].id%>"></i>
                                                                 </button>
                                                                 &nbsp;&nbsp;piece
+
                                                                 <%}else{%>
                                                                     <button class="plus-btn" type="button"
                                                                         name="button">
@@ -241,13 +316,16 @@
                                                                     </span>
                                                                     <%}%>
                                                     </div>
+                                                    
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="total-price" align="center">
-                                        <br><br>
-                                        total price : <%=cart[i].quantity*cart[i].price%> ฿
+                                        <br>
+                                        <p class="tag" id="priceDetail">฿ <%=cart[i].quantity*cart[i].price%>
+                                        </p>
                                     </div>
                                 </div>
                                 <% } %>
@@ -257,21 +335,19 @@
                     <div class="col-xl-3 col-md-3" id="purchaseOrder">
                         <div class="sticky">
                             <!-- purchase order -->
-
-                            <p align="center">
-                                Total Price : <%=sumPrice%> ฿
-                            </p>
+                            
+                            
 
                             <div align="center">
-
+                                Total :  
+                                <p class="tag" id="priceDetail">฿ <%=sumPrice%></p><br>
                                 <a href="/cart/checkout">
                                     <button type="button" class="btn btn-primary"
-                                        style="background-color: #24a0ed; width: 100px;">Checkout</button>
+                                        ; width: 100px;">Checkout</button>
                                 </a>
-                                <br><br>
+                                <br>
                                 <button type="button" class="btn btn-danger" id="clearCart"
-                                    style="background-color: red; width: 120px;">Clear All
-                                    Cart</button>
+                                    style="background-color: red; width: 120px;">Clear Cart</button>
                             </div>
 
 
