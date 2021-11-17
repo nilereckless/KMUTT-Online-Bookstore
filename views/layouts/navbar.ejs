@@ -135,8 +135,6 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                 <% if (user) { %>
-                  <a class="dropdown-item" href="#">Edit Profile</a>
-                  <a class="dropdown-item" onclick="toNoti()" data-usrId="<%=user.id%>">Notifications1</a>
                   <a class="dropdown-item" href="/notifications">Notifications2</a>
                   <a class="dropdown-item" href="/users/orderHistory">Order History</a>
                   <a class="dropdown-item" href="/logout">Log Out</a>
@@ -216,24 +214,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script>
-
-  function toNoti(){
-    var usrID = parseInt($(this).attr('data-usrId'));
-    console.log("User ID for Noti", usrID) ;
-    var url = "/notifications/getNoti/" + usrID;
-      var request = $.get(url);
-      request.done(function (e) {
-        if (e !== "Unauthorized") {
-          window.location.href = '/notification'
-        } else {
-          $('#loginmodal').modal('toggle')
-        }
-        console.log(e);
-      })
-      request.fail(function () {
-        alert("error");
-      })
-  } 
   
   $(document).ready(function () {
     var url = "/cart/count";
