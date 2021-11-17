@@ -201,6 +201,14 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script>
+    $(window).scroll(function () {
+    if ($(window).scrollTop() > 10) {
+      $('#navBar').addClass('floatingNav');
+    } else {
+      $('#navBar').removeClass('floatingNav');
+    }
+  });
+  
   $(document).ready(function () {
     var url = "/cart/count";
     var request = $.get(url);
@@ -252,12 +260,6 @@
 
   });
 
-  $(window).scroll(function () {
-    if ($(window).scrollTop() > 10) {
-      $('#navBar').addClass('floatingNav');
-    } else {
-      $('#navBar').removeClass('floatingNav');
-    }
-  });
+
 
 </script>
