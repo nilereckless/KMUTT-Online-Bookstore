@@ -7,7 +7,7 @@ const middleWare = require('../middleware/authentication');
 router.get('/',middleWare.isAuthenticatedCart, async (req, res, next) => {
    var noti = await NotificationController.getNotificationsByUserID(req.user.id) ; // req.user.id
    //res.json(noti) ;
-   res.render('notification', {notify : notify}) ;
+   res.render('notification', {notify : noti, user : req.user, staff:req.staff}) ;
 })
 
 router.get('/getNoti/(:id)',middleWare.isAuthenticatedCart, async (req, res, next) => {
