@@ -180,7 +180,7 @@
       </div>
 
       <div class="modal-body">
-        <% if(notify.length!=0) { %>
+        <% if(notify!=null) { %>
           <% for(let i=0; i < notify.length; i++) { %>
             Order Number : <%=notify[i].orderNumber%>
               <%=notify[i].message%>
