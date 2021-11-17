@@ -112,6 +112,21 @@
             </div>
           </li>
           <%if(user!=undefined){%>
+            <!--
+               <li>
+              <a href='/notifications/getNoti/<%=user.id%>' class="nav-link">
+                <i class="fas fa-2x fa-bell Notibell" id="notifyCount"></i>
+              </a>
+  
+             
+                <a href="#" class="nav-link">
+                <i class="fas fa-2x fa-bell Notibell" id="notifyCount" data-toggle="modal"
+                  data-target="#notifyTarget"></i>
+              </a>
+              
+            </li>
+            -->
+
             <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                 data-toggle="dropdown">
@@ -121,6 +136,7 @@
 
                 <% if (user) { %>
                   <a class="dropdown-item" href="#">Edit Profile</a>
+                  <a class="dropdown-item" href='/notifications/getNoti/<%=user.id%>'>Notifications</a>
                   <a class="dropdown-item" href="/users/orderHistory">Order History</a>
                   <a class="dropdown-item" href="/logout">Log Out</a>
                   <% if (staff.length> 0) { %>
