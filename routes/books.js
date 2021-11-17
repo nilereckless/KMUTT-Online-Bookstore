@@ -14,6 +14,7 @@ var shipAddressController = require('../controller/shipAddressController');
 var bookController = require('../controller/bookController');
 let authentication = require('../middleware/authentication');
 const nodemailer = require('nodemailer');
+var notificationController = require('../controller/notificationController') ;
 
 
 // Sending E-mail 
@@ -377,10 +378,10 @@ function search(req, res, next) {
 
 //ISBN
 router.post('/search', search, authentication.checkAdmin, function (req, res, next) {
-    
+    var notify = await notificationController(req.user.id) ;
     var searchResult = req.searchResult;
     console.log(searchResult);
-    res.render('productfilter', { title: 'Express', data: searchResult, user: req.user, staff: req.staff });
+    res.render('productfilter', { title: 'Express', data: searchResult, user: req.user, staff: req.staff , notify : notify});
 });
 
 router.get('/filter', authentication.checkAdmin, (req, res) => {
