@@ -378,10 +378,9 @@ function search(req, res, next) {
 
 //ISBN
 router.post('/search', search, authentication.checkAdmin, async function (req, res, next) {
-    var notify = await notificationController.getNotificationsByUserID(req.user.id) ;
     var searchResult = req.searchResult;
     console.log(searchResult);
-    res.render('productfilter', { title: 'Express', data: searchResult, user: req.user, staff: req.staff , notify : notify});
+    res.render('productfilter', { title: 'Express', data: searchResult, user: req.user, staff: req.staff});
 });
 
 router.get('/filter', authentication.checkAdmin, (req, res) => {

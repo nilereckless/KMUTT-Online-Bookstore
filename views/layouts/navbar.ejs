@@ -106,10 +106,16 @@
             </form>
           </li>
           <li>
-            <a href="#" class="nav-link">
+            <a href="/notifications" class="nav-link">
+              <i class="fas fa-2x fa-bell Notibell" id="notifyCount"></i>
+            </a>
+
+            <!--
+              <a href="#" class="nav-link">
               <i class="fas fa-2x fa-bell Notibell" id="notifyCount" data-toggle="modal"
                 data-target="#notifyTarget"></i>
             </a>
+            -->
           </li>
           <li>
             <div id="cart" class="nav-link">
@@ -148,6 +154,7 @@
     </div>
   </nav>
 </div>
+
 <!-- Modal -->
 
 <div class="modal fade" id="loginmodal" tabindex="-1" aria-hidden="true">
@@ -169,7 +176,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="notifyTarget" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--
+  <div class="modal fade" id="notifyTarget" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -196,6 +204,7 @@
 
     </div>
   </div>
+-->
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -236,7 +245,7 @@
 
     })
 
-    var urlNoti = "/users/notify";
+   /* var urlNoti = "/users/notify";
     var requestNoti = $.get(urlNoti);
     requestNoti.done(function (e) {
       if (e !== "Unauthorized") {
@@ -249,10 +258,10 @@
     })
     request.fail(function () {
       alert("error");
-    });
+    }); */
 
-  });
-</script>
+  }); 
+</script> 
 <script>
    $(window).scroll(function () {
     if ($(window).scrollTop() > 10) {
