@@ -377,7 +377,7 @@ function search(req, res, next) {
 }
 
 //ISBN
-router.post('/search', search, authentication.checkAdmin, function (req, res, next) {
+router.post('/search', search, authentication.checkAdmin, async function (req, res, next) {
     var notify = await notificationController(req.user.id) ;
     var searchResult = req.searchResult;
     console.log(searchResult);
