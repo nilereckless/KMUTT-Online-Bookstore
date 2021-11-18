@@ -3,8 +3,9 @@ let router = express.Router();
 let dbConn = require('../lib/db');
 var NotificationController = require('../controller/notificationController') ;
 const middleWare = require('../middleware/authentication');
+let authentication = require('../middleware/authentication');
 
-router.get('/',middleWare.isAuthenticatedCart, async (req, res, next) => {
+router.get('/',middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
    var noti = await NotificationController.getNotificationsByUserID(req.user.id) ; // req.user.id
    console.log("User id for noti", req.user.id) ;
    //res.json(noti) ;
