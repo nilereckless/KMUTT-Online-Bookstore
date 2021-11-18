@@ -503,7 +503,7 @@
 
             })
 
-            $('#confirm2').on('click', function (e) {
+            $('#confirm2').on('click', async function (e) {
 
                 for (i = 0; i < shipID.length; i++) {
                     var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
@@ -523,7 +523,6 @@
                     var settings = {
                         "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend,
                         "method": "POST",
-                        "timeout": 0,
                         "headers": {
                             "Content-Type": "application/x-www-form-urlencoded",
                         },
@@ -533,7 +532,7 @@
                         }
                     };
 
-                   $.ajax(settings)
+                  await $.ajax(settings)
                         .done(function (response) {
                             window.location.href = `/cart/checkout/complete/${response}`;
 
