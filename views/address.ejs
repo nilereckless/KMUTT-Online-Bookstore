@@ -471,8 +471,9 @@
 
                 // var option = $('div#bank[name=option]:checked', '#option_payment').val()
 
-                 option = $(".Bank").val();
+                 option = document.getElementById('bank').getAttribute('value');
                 //     var option3 = $("#bank").val() ;
+                console.log("Option :", option) ;
 
                 if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
@@ -503,7 +504,7 @@
 
             })
 
-            $('#confirm2').on('click', async function (e) {
+            $('#confirm2').on('click', function (e) {
 
                 for (i = 0; i < shipID.length; i++) {
                     var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
@@ -511,9 +512,9 @@
 
                 console.log(shipIDtoSend);
 
-                option = $("#store").val() ;
+                option = document.getElementById('store').getAttribute('value');
               //   var option = $("#bank").val() ;
-                console.log("Store", option) ;
+                console.log("Option : ", option) ;
 
                 if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
@@ -532,7 +533,7 @@
                         }
                     };
 
-                  await $.ajax(settings)
+                   $.ajax(settings)
                         .done(function (response) {
                             window.location.href = `/cart/checkout/complete/${response}`;
 
