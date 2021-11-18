@@ -532,7 +532,7 @@
                         }
                     };
 
-                    $.ajax(settings)
+                  await $.ajax(settings)
                         .done(function (response) {
                             window.location.href = `/cart/checkout/complete/${response}`;
 
