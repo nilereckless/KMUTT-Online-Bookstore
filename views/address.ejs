@@ -216,7 +216,8 @@
                                                             <h6>Expiration Date</h6>
                                                         </span></label>
                                                     <div class="input-group"> <input type="number" placeholder="MM"
-                                                            name="" class="form-control" required> <input type="number"
+                                
+                                                        name="" class="form-control" required> <input type="number"
                                                             placeholder="YY" name="" class="form-control" required>
                                                     </div>
                                                 </div>
@@ -467,7 +468,10 @@
                 console.log("Test option1", testOption1) ;
                 console.log("Test option2", testOption2) ;
                 */
-                var option = $('div#bank[name=option]:checked', '#option_payment').val()
+
+               // var option = $('div#bank[name=option]:checked', '#option_payment').val()
+               var option = $("div.tab-pane fade pt-3").val() ;
+               console.log("Option", option) ;
               
             
                 if (option === undefined || selectedAddressID === null) {
