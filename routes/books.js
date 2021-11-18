@@ -458,6 +458,10 @@ router.post('/payment', async (req, res) => {
     console.log(address);
     if (orders.affectedRows === 1) {
         if(status === "Approved"){
+            var txt = "Your order : " + paymentID + "was approved by admin" ;
+            console.log("Text", txt) ;
+            notificationController.addNotifications(req.user.id, txt, "Approved", paymentID);
+
             let mailOptions = {
                 from: 'noreplykmuttonlinebookstore@gmail.com', // TODO: email sender
                 to: orderInformation[0].email, // TODO: email receiver
