@@ -148,6 +148,8 @@ router.get('/count', middleWare.isAuthenticatedCart, async (req, res, next) => {
 })
 
 router.get('/checkout', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
+    console.log("Payment_option", req.body.payment_option) ;
+    console.log("PayOpt 2", req.query.payment_option) ;
     var shipAddress = await shipController.getAllShippingAddressByUserID(req.user.id);
     // console.log(shipAddress) ;
     var province = await locationController.getAllProvince();
