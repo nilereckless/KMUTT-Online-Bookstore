@@ -458,7 +458,7 @@
                 }
 
                 console.log(shipIDtoSend);
-              //  var option = $('input[name=option]:checked', '#option_payment').val()
+              /*  var option = $('input[name=option]:checked', '#option_payment').val()
               var testOption1 = $('input[name=option]:checked').val() ;
               var testOption2 = $('input[name=option]:checked', '#bank').val() ;
                 var option2 = $("#bank").val() ;
@@ -466,8 +466,11 @@
                 console.log("Option2", option2) ;
                 console.log("Test option1", testOption1) ;
                 console.log("Test option2", testOption2) ;
+                */
+                var option = $('div#bank[name=option]:checked', '#option_payment').val()
+              
             
-                if (testOption2 === undefined || selectedAddressID === null) {
+                if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
                 } else {
                     alert("โปรดจำหมายเลขคำสั่งซื้อของคุณ !!!")
