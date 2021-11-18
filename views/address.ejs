@@ -521,17 +521,22 @@
                     alert("โปรดจำหมายเลขคำสั่งซื้อของคุณ !!!")
                     //    selectedAddressID 
                     var settings = {
-                        "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend,
+                        "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend + "&&payment_option=" + option,
                         "method": "POST",
                         "timeout": 0,
                         "headers": {
                             "Content-Type": "application/x-www-form-urlencoded",
                         },
                         "data": {
-                            "address": selectedAddressID,
-                            "payment_option": option
+                            "address": selectedAddressID
                         }
                     };
+
+                    /*
+                    "data": {
+                            "address": selectedAddressID,
+                            "payment_option": option
+                        } */
 
                     $.ajax(settings)
                         .done(function (response) {
