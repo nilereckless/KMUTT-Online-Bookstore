@@ -163,8 +163,6 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
      var testNan = parseInt(shipID) ;
      console.log("Nan", testNan) ; */
     var shipID = req.query.shipIDtoSend;
-    console.log("Payment option : ", req.body.paymentOption) ;
-    console.log("All body", req.body) ;
 
     //  var address = await shipController.getShippingAddressByShipID(req.body.address);
     var cart = null;
