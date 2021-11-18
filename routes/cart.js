@@ -208,7 +208,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
         var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.paymentOption, req.body.address, req.user.email, req.user.name);
         if (orderIDState.affectedRows === 1) {
             var txt = "Your cart is ordered" + orderID;
-            notificationController.addNotifications(req.user.id, txt, "pending", orderID);
+            notificationController.addNotifications(req.user.id, txt, "Pending", orderID);
             res.json(orderID);
         } else {
             res.json("error");
