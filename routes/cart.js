@@ -163,7 +163,6 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
      var testNan = parseInt(shipID) ;
      console.log("Nan", testNan) ; */
     var shipID = req.query.shipIDtoSend;
-    var payment_option = req.query.payment_option ;
 
     //  var address = await shipController.getShippingAddressByShipID(req.body.address);
     var cart = null;
@@ -206,7 +205,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
 
     var address = await shipController.getShippingAddressByShipID(req.body.address);
     if (req.user.id == address.userID) {
-        var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, payment_option, req.body.address, req.user.email, req.user.name);
+        var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.paymentOption, req.body.address, req.user.email, req.user.name);
         if (orderIDState.affectedRows === 1) {
             var txt = "Your cart is ordered" + orderID;
             notificationController.addNotifications(req.user.id, txt, "pending", orderID);

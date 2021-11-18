@@ -511,9 +511,8 @@
                 console.log(shipIDtoSend);
 
                 var option = $("#store").val();
-                //     var option3 = $("#bank").val() ;
+              //   var option = $("#bank").val() ;
                 console.log("Store", option) ;
-                console.log("toString", toString(option)) ;
 
                 if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
@@ -521,22 +520,17 @@
                     alert("โปรดจำหมายเลขคำสั่งซื้อของคุณ !!!")
                     //    selectedAddressID 
                     var settings = {
-                        "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend + "&&payment_option=" + option,
+                        "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend,
                         "method": "POST",
                         "timeout": 0,
                         "headers": {
                             "Content-Type": "application/x-www-form-urlencoded",
                         },
                         "data": {
-                            "address": selectedAddressID
+                            "address": selectedAddressID,
+                            "paymentOption" : option
                         }
                     };
-
-                    /*
-                    "data": {
-                            "address": selectedAddressID,
-                            "payment_option": option
-                        } */
 
                     $.ajax(settings)
                         .done(function (response) {
