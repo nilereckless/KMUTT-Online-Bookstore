@@ -236,7 +236,7 @@
                                 </div>
                             </div> <!-- End -->
                             <!-- Paypal info -->
-                            <div class="tab-pane fade pt-3" id="bank" name="option" value="bank">
+                            <div class="tab-pane fade pt-3 Bank" id="bank" name="option" value="bank">
                                 <h6 class="pb-2"> &nbsp; ศูนย์หนังสือพระจอมเกล้าธนบุรี
                                     <img src="https://www.picz.in.th/images/2018/01/03/97D733F2-9991-4311-9ACA-C08F6AE80391.png"
                                         alt="bualuang" style="float:left;width:50px;height:50px;"><br> &nbsp;
@@ -252,7 +252,7 @@
                                 <p class="text-muted"> Note: กรุณาแจ้งชำระเงินที่หน้าเว็บไซต์ </p>
                             </div> <!-- End -->
                             <!-- bank transfer info -->
-                            <div class="tab-pane fade pt-3" id="store" name="option" value="store">
+                            <div class="tab-pane fade pt-3 Store" id="store" name="option" value="store">
                                 <img src="https://www.kmutt.ac.th/wp-content/uploads/2020/09/KMUTT_CI_Semi_Logo-normal-full-1061x1200.png"
                                     alt="university" style="float:left;width:80px;height:80px;">
                                 <h6>ศูนย์หนังสือพระจอมเกล้าธนบุรี <br>126 ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ
@@ -470,8 +470,11 @@
                 */
 
                // var option = $('div#bank[name=option]:checked', '#option_payment').val()
-               var option = $("div.tab-pane fade pt-3").val("bank") ;
+               var option = $("div.Bank").val("bank") ;
+               var option2 = $(".Bank").val() ;
+               var option3 = $("#bank").val() ;
                console.log("Option", option) ;
+               console.log("Option2", option2, "Option3" , option3) ;
               
             
                 if (option === undefined || selectedAddressID === null) {
