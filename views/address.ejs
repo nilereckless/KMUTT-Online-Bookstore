@@ -216,8 +216,7 @@
                                                             <h6>Expiration Date</h6>
                                                         </span></label>
                                                     <div class="input-group"> <input type="number" placeholder="MM"
-                                
-                                                        name="" class="form-control" required> <input type="number"
+                                                            name="" class="form-control" required> <input type="number"
                                                             placeholder="YY" name="" class="form-control" required>
                                                     </div>
                                                 </div>
@@ -451,7 +450,7 @@
                 $('#insertAddress').css('display', 'block');
             })
 
-            //new
+            //new confirm store
             $('#confirm').on('click', function (e) {
 
                 for (i = 0; i < shipID.length; i++) {
@@ -459,21 +458,21 @@
                 }
 
                 console.log(shipIDtoSend);
-              /*  var option = $('input[name=option]:checked', '#option_payment').val()
-              var testOption1 = $('input[name=option]:checked').val() ;
-              var testOption2 = $('input[name=option]:checked', '#bank').val() ;
-                var option2 = $("#bank").val() ;
+                /*  var option = $('input[name=option]:checked', '#option_payment').val()
+                var testOption1 = $('input[name=option]:checked').val() ;
+                var testOption2 = $('input[name=option]:checked', '#bank').val() ;
+                  var option2 = $("#bank").val() ;
+  
+                  console.log("Option2", option2) ;
+                  console.log("Test option1", testOption1) ;
+                  console.log("Test option2", testOption2) ;
+                  */
 
-                console.log("Option2", option2) ;
-                console.log("Test option1", testOption1) ;
-                console.log("Test option2", testOption2) ;
-                */
+                // var option = $('div#bank[name=option]:checked', '#option_payment').val()
 
-               // var option = $('div#bank[name=option]:checked', '#option_payment').val()
+                var option = $(".Bank").val();
+                //     var option3 = $("#bank").val() ;
 
-               var option = $(".Bank").val() ;
-          //     var option3 = $("#bank").val() ;
-            
                 if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
                 } else {
@@ -502,6 +501,48 @@
                 }
 
             })
+
+            $('#confirm2').on('click', function (e) {
+
+                for (i = 0; i < shipID.length; i++) {
+                    var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
+                }
+
+                console.log(shipIDtoSend);
+
+                var option = $("#store").val();
+                //     var option3 = $("#bank").val() ;
+                console.log("Store", option) ;
+
+                if (option === undefined || selectedAddressID === null) {
+                    alert("Please select your option to payment!");
+                } else {
+                    alert("โปรดจำหมายเลขคำสั่งซื้อของคุณ !!!")
+                    //    selectedAddressID 
+                    var settings = {
+                        "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        "data": {
+                            "address": selectedAddressID,
+                            "payment_option": option
+                        }
+                    };
+
+                    $.ajax(settings)
+                        .done(function (response) {
+                            window.location.href = `/cart/checkout/complete/${response}`;
+
+                        });
+
+
+                }
+
+            })
+
 
             //userID', 'district', 'province', 'postalCode', 'address', 'subdistrict'
             $('#userAddress').on('click', function (e) {
