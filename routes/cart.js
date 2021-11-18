@@ -152,6 +152,8 @@ router.get('/checkout', middleWare.isAuthenticatedCart, authentication.checkAdmi
     // console.log(shipAddress) ;
     var province = await locationController.getAllProvince();
     var district = await locationController.getAllDistrict();
+    console.log("G Payment option : ", req.body.paymentOption) ;
+    console.log(" G All body", req.body) ;
     res.render('address', { address: shipAddress, province: province, district: district, user: req.user, staff: req.staff });
 })
 
