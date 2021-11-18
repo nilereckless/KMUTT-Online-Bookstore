@@ -459,6 +459,9 @@
 
                 console.log(shipIDtoSend);
                 var option = $('input[name=option]:checked', '#option_payment').val()
+                var option2 = document.getElementById("bank").val()
+                console.log(option2)
+            
                 if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
                 } else {
