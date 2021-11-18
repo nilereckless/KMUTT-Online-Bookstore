@@ -326,6 +326,7 @@
         </script>
 
         <script>
+            var option = undefined ;
             var shipID = [];
             let selectedAddressID = null;
             $(document).ready(function () {
@@ -470,7 +471,7 @@
 
                 // var option = $('div#bank[name=option]:checked', '#option_payment').val()
 
-                var option = $(".Bank").val();
+                 option = $(".Bank").val();
                 //     var option3 = $("#bank").val() ;
 
                 if (option === undefined || selectedAddressID === null) {
@@ -510,7 +511,7 @@
 
                 console.log(shipIDtoSend);
 
-                var option = $("#store").val() ;
+                option = $("#store").val() ;
               //   var option = $("#bank").val() ;
                 console.log("Store", option) ;
 
