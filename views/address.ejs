@@ -174,12 +174,13 @@
                             <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
                                 <!-- Credit card form tabs -->
                                 <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
-                                    <li class="nav-item"> <a data-toggle="pill" href="#net-banking" class="nav-link " > <i
-                                                class="fas fa-mobile-alt mr-2"></i> รับสินค้าที่ร้าน</a> </li>
+                                    <li class="nav-item"> <a data-toggle="pill" href="#net-banking" class="nav-link ">
+                                            <i class="fas fa-mobile-alt mr-2"></i> รับสินค้าที่ร้าน</a> </li>
                                     <li class="nav-item"> <a data-toggle="pill" href="#paypal" class="nav-link "> <i
                                                 class="fab fa-paypal mr-2"></i>โอนเงินผ่านธนาคาร </a> </li>
                                     <li class="nav-item"> <a data-toggle="pill" href="#credit-card"
-                                            class="nav-link active "> <i class="fas fa-credit-card mr-2"></i>Visa/Mastercard
+                                            class="nav-link active "> <i
+                                                class="fas fa-credit-card mr-2"></i>Visa/Mastercard
                                         </a> </li>
                                 </ul>
                             </div> <!-- End -->
@@ -197,7 +198,8 @@
                                             </label>
                                             <div class="input-group"> <input type="text" name="cardNumber"
                                                     placeholder="Valid card number" class="form-control " required>
-                                                <div class="input-group-append"> <span class="input-group-text text-muted">
+                                                <div class="input-group-append"> <span
+                                                        class="input-group-text text-muted">
                                                         <i class="fab fa-cc-visa mx-1"></i> <i
                                                             class="fab fa-cc-mastercard mx-1"></i> <i
                                                             class="fab fa-cc-amex mx-1"></i> </span> </div>
@@ -208,9 +210,10 @@
                                                 <div class="form-group"> <label><span class="hidden-xs">
                                                             <h6>Expiration Date</h6>
                                                         </span></label>
-                                                    <div class="input-group"> <input type="number" placeholder="MM" name=""
-                                                            class="form-control" required> <input type="number"
-                                                            placeholder="YY" name="" class="form-control" required> </div>
+                                                    <div class="input-group"> <input type="number" placeholder="MM"
+                                                            name="" class="form-control" required> <input type="number"
+                                                            placeholder="YY" name="" class="form-control" required>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
@@ -228,26 +231,33 @@
                             </div> <!-- End -->
                             <!-- Paypal info -->
                             <div id="paypal" class="tab-pane fade pt-3">
-                                <h6 class="pb-2">Select your paypal account type</h6>
-                                <div class="form-group "> <label class="radio-inline"> <input type="radio" name="optradio"
-                                            checked> Domestic </label> <label class="radio-inline"> <input type="radio"
-                                            name="optradio" class="ml-5">International </label></div>
-                                <p> <button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i>ยืนยันคำสั่งซื้อ</button> </p>
-                                <p class="text-muted"> Note: After clicking on the button, you will be directed to a secure
-                                    gateway for payment. After completing the payment process, you will be redirected back
-                                    to the website to view details of your order. </p>
+                                <h6 class="pb-2"> &nbsp; ศูนย์หนังสือพระจอมเกล้าธนบุรี
+                                    <img src="https://www.picz.in.th/images/2018/01/03/97D733F2-9991-4311-9ACA-C08F6AE80391.png"
+                                        alt="bualuang" style="float:left;width:50px;height:50px;"><br> &nbsp;
+                                    ธนาคารกรุงเทพ สาขามหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี <br> &nbsp; เลขที่บัญชี
+                                    024-2-xxxxx-x
+                                </h6>
+                                <div style="text-align: center;">
+                                    <p>
+                                        <button type="submit" class="btn btn-primary" id="confirm"><i
+                                                class="fab fa-paypal"></i>ยืนยันคำสั่งซื้อ</button>
+                                    </p>
+                                </div>
+                                <p class="text-muted"> Note: กรุณาแจ้งชำระเงินที่หน้าเว็บไซต์ </p>
                             </div> <!-- End -->
                             <!-- bank transfer info -->
                             <div id="net-banking" class="tab-pane fade pt-3">
-                                <div class="form-group "> <label for="Select Your Bank">
-                                        <h6>ศูนย์หนังสือพระจอมเกล้าธนบุรี <br>126 ถนนประชาอุทิศ <br> แขวงบางมด เขตทุ่งครุ
-                                            กรุงเทพฯ 10140</h6>
+                                <img src="https://www.kmutt.ac.th/wp-content/uploads/2020/09/KMUTT_CI_Semi_Logo-normal-full-1061x1200.png"
+                                    alt="university" style="float:left;width:80px;height:80px;">
+                                <h6>ศูนย์หนังสือพระจอมเกล้าธนบุรี <br>126 ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ
+                                    10140</h6> <br><br>
+                                <div style="text-align: center;">
+                                    <p> <button type="submit" class="btn btn-primary " id="confirm"><i
+                                                class="fas fa-mobile-alt"></i>ยืนยันคำสั่งซื้อ</button>
+                                    </p>
                                 </div>
-                                <div class="form-group">
-                                    <p> <button type="button" class="btn btn-primary "><i
-                                                class="fas fa-mobile-alt mr-2"></i>ยืนยันคำสั่งซื้อ</button> </p>
-                                </div>
-                                <p class="text-muted">Note: โปรดจำเลขคำสั่งซื้อของคุณเพื่อนำมาแจ้งพนักงานในวันรับสินค้า </p>
+                                <p class="text-muted">Note: โปรดจำเลขคำสั่งซื้อของคุณเพื่อนำมาแจ้งพนักงานในวันรับสินค้า
+                                </p>
                             </div> <!-- End -->
                             <!-- End -->
                         </div>
@@ -301,7 +311,7 @@
             </div>
 
         </div>
-       
+
 
     </body>
     <% include layouts/footer.ejs %>
