@@ -510,7 +510,7 @@
 
                 console.log(shipIDtoSend);
 
-                var option = $("#store").val();
+                var option = String($("#store").val());
               //   var option = $("#bank").val() ;
                 console.log("Store", option) ;
 
@@ -532,7 +532,7 @@
                         }
                     };
 
-                  await $.ajax(settings)
+                   $.ajax(settings)
                         .done(function (response) {
                             window.location.href = `/cart/checkout/complete/${response}`;
 
