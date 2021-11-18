@@ -156,6 +156,10 @@ router.get('/checkout', middleWare.isAuthenticatedCart, authentication.checkAdmi
 })
 
 router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) => {
+    console.log("Payment_option", req.body.payment_option) ;
+    console.log("PayOpt 2", req.query.payment_option) ;
+
+
 
     var orderID = Math.round(Math.floor(Date.now() / 1000))
     //written by arit
