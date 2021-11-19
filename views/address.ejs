@@ -239,11 +239,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input type="submit" id="create_token">
                                             <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
                                             <div class="card-footer"> 
-                                                <button type="button"
-                                                class="subscribe btn btn-primary btn-block shadow-sm" id="omise"> Confirm Payment
+                                                <button type="submit"
+                                                class="subscribe btn btn-primary btn-block shadow-sm" id="create_token"> Confirm Payment
                                                 </button>
                                         </form>
                                     </form>
@@ -414,7 +413,7 @@
                 console.log(shipIDtoSend);
 
                 var form = $(this);
-                form.find("input[type=submit]").prop("disabled", true);
+                form.find("button[type=submit]").prop("disabled", true);
 
                 var card = {
                     "name": form.find("[data-omise=holder_name]").val(),
@@ -432,7 +431,7 @@
                         }
                         $("#token_errors").html(message_text);
 
-                        form.find("input[type=submit]").prop("disabled", false);
+                        form.find("button[type=submit]").prop("disabled", false);
                     } else {
                         form.find("[name=omise_token]").val(response.id);
 
