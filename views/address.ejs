@@ -194,43 +194,58 @@
                                 <!-- credit card info-->
                                 <div id="credit-card" class="tab-pane fade show active pt-3">
                                     <form role="form" onsubmit="event.preventDefault()">
-                                        <div class="form-group"> <label for="username">
-                                                <h6>Card Owner</h6>
-                                            </label> <input type="text" name="username" placeholder="Card Owner Name"
-                                                required class="form-control "> </div>
-                                        <div class="form-group"> <label for="cardNumber">
-                                                <h6>Card number</h6>
-                                            </label>
-                                            <div class="input-group"> <input type="text" name="cardNumber"
-                                                    placeholder="Valid card number" class="form-control " required>
-                                                <div class="input-group-append"> <span
-                                                        class="input-group-text text-muted">
-                                                        <i class="fab fa-cc-visa mx-1"></i> <i
-                                                            class="fab fa-cc-mastercard mx-1"></i> <i
-                                                            class="fab fa-cc-amex mx-1"></i> </span> </div>
+                                        <form id="checkout" action="/users/omise" method="GET">
+                                            <div id="token_errors"></div>
+                                            <input type="hidden" name="omise_token">
+                                            <div class="form-group"> <label for="username">
+                                                    <h6>Card Owner</h6>
+                                                </label> <input type="text" name="username"
+                                                    placeholder="Card Owner Name" required class="form-control "
+                                                    data-omise="holder_name"> </div>
+                                            <div class="form-group"> <label for="cardNumber">
+                                                    <h6>Card number</h6>
+                                                </label>
+                                                <div class="input-group"> <input type="text" name="cardNumber"
+                                                        placeholder="Valid card number" class="form-control "
+                                                        data-omise="number" required>
+                                                    <div class="input-group-append"> <span
+                                                            class="input-group-text text-muted">
+                                                            <i class="fab fa-cc-visa mx-1"></i> <i
+                                                                class="fab fa-cc-mastercard mx-1"></i> <i
+                                                                class="fab fa-cc-amex mx-1"></i> </span> </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <div class="form-group"> <label><span class="hidden-xs">
-                                                            <h6>Expiration Date</h6>
-                                                        </span></label>
-                                                    <div class="input-group"> <input type="number" placeholder="MM"
-                                                            name="" class="form-control" required> <input type="number"
-                                                            placeholder="YY" name="" class="form-control" required>
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <div class="form-group"> <label><span class="hidden-xs">
+                                                                <h6>Expiration Date</h6>
+                                                            </span></label>
+                                                        <div class="input-group">
+                                                            <input type="number" placeholder="MM" name=""
+                                                                class="form-control" data-omise="expiration_month"
+                                                                required>
+                                                            <input type="number" placeholder="YY" name=""
+                                                                class="form-control" data-omise="expiration_year"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group mb-4"> <label data-toggle="tooltip"
+                                                            title="Three digit CV code on the back of your card">
+                                                            <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                                        </label> <input type="text" required class="form-control"
+                                                            data-omise="security_code">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group mb-4"> <label data-toggle="tooltip"
-                                                        title="Three digit CV code on the back of your card">
-                                                        <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
-                                                    </label> <input type="text" required class="form-control"> </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer"> <button type="button"
-                                                class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment
-                                            </button>
+                                            <input type="submit" id="create_token">
+                                            <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
+                                            <div class="card-footer"> 
+                                                <button type="button"
+                                                class="subscribe btn btn-primary btn-block shadow-sm" id="omise"> Confirm Payment
+                                                </button>
+                                        </form>
                                     </form>
                                 </div>
                             </div> <!-- End -->
@@ -277,6 +292,7 @@
                             <label for="bank">ชำระผ่าน Visa/Mastercard</label>
                         </form>
                     </div> -->
+
                     <!-- Omise <br>
                     <div>
                         <form id="checkout" action="/users/omise" method="GET">
@@ -326,7 +342,7 @@
         </script>
 
         <script>
-            var option = undefined ;
+            var option = undefined;
             var shipID = [];
             let selectedAddressID = null;
             $(document).ready(function () {
@@ -460,9 +476,9 @@
 
                 console.log(shipIDtoSend);
 
-                 option = document.getElementById('bank').getAttribute('value');
+                option = document.getElementById('bank').getAttribute('value');
                 //     var option3 = $("#bank").val() ;
-                console.log("Option :", option) ;
+                console.log("Option :", option);
 
                 if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
@@ -502,8 +518,8 @@
                 console.log(shipIDtoSend);
 
                 option = document.getElementById('store').getAttribute('value');
-              //   var option = $("#bank").val() ;
-                console.log("Option : ", option) ;
+                //   var option = $("#bank").val() ;
+                console.log("Option : ", option);
 
                 if (option === undefined || selectedAddressID === null) {
                     alert("Please select your option to payment!");
@@ -518,11 +534,11 @@
                         },
                         "data": {
                             "address": selectedAddressID,
-                            "paymentOption" : option
+                            "paymentOption": option
                         }
                     };
 
-                   $.ajax(settings)
+                    $.ajax(settings)
                         .done(function (response) {
                             window.location.href = `/cart/checkout/complete/${response}`;
 
