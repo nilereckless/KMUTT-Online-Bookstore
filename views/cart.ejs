@@ -5,6 +5,11 @@
     <% include layouts/header.ejs %>
         <title>Shopping Cart</title>
         <style>
+            body {
+                padding: 0 ;
+                height:100%;
+            }
+
             .shopping-cart {
                 width: 550px;
                 height: 450px;
@@ -106,7 +111,7 @@
                 cursor: pointer;
             } */
 
-            .minus-btn{
+            .minus-btn {
                 width: 30px;
                 height: 30px;
                 background-color: #E1E8EE;
@@ -115,7 +120,7 @@
                 cursor: pointer;
             }
 
-            .plus-btn{
+            .plus-btn {
                 width: 30px;
                 height: 30px;
                 background-color: #E1E8EE;
@@ -170,7 +175,7 @@
                 display: flex;
                 flex-direction: column;
 
-            } 
+            }
 
             #image1 {
                 padding: 5px;
@@ -317,7 +322,7 @@
                                                                     </span>
                                                                     <%}%>
                                                     </div>
-                                                    
+
                                                     </p>
                                                 </div>
                                             </div>
@@ -336,15 +341,15 @@
                     <div class="col-xl-3 col-md-3" id="purchaseOrder">
                         <div class="sticky">
                             <!-- purchase order -->
-                            
-                            
+
+
 
                             <div align="center">
-                                Total :  
-                                <p class="tag" id="priceDetail">฿ <%=sumPrice%></p><br>
+                                Total :
+                                <p class="tag" id="priceDetail">฿ <%=sumPrice%>
+                                </p><br>
                                 <a href="/cart/checkout">
-                                    <button type="button" class="btn btn-primary"
-                                        ; width: 100px;">Checkout</button>
+                                    <button type="button" class="btn btn-primary" ; width: 100px;">Checkout</button>
                                 </a>
                                 <br>
                                 <button type="button" class="btn btn-danger" id="clearCart"
