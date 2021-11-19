@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+html,body{
+  height: 100vh;
+}
+
 /* #google-signin, #google-signin-modal{
     width: 380px;
     border: 0px;
