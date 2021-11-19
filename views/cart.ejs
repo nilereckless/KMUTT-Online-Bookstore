@@ -6,8 +6,8 @@
         <title>Shopping Cart</title>
         <style>
             body {
-                padding: 0 ;
-                height:100%;
+                padding: 0;
+                height: 100%;
                 width: 100%;
             }
 
@@ -261,7 +261,7 @@
         <div class="row mx-0 justify-content-xl center">
             <div class="col-lg-10 col-md-12 px-0">
                 <div class="row">
-            
+
                     <div class="col-lg-9 col-md-9">
                         <!-- shop item -->
                         <% if(cart.length> 0){ %>
@@ -323,7 +323,6 @@
                                                                     </span>
                                                                     <%}%>
                                                     </div>
-
                                                     </p>
                                                 </div>
                                             </div>
@@ -358,113 +357,110 @@
                             </div>
                         </div>
                     </div>
-                    </div>
-                    </div>
-                    </div>
-                        </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+
         <% } else{ %>
             <div id="noBook">
                 No book in cart
             </div>
+        </div>
+    </div>
             <% } %>
 
-            <% include layouts/footer.ejs %>
+                <% include layouts/footer.ejs %>
 </body>
 
-    <script>
+<script>
 
-        $('[id^=minusIt-]').click(function (e) {
-            e.preventDefault();
-            var minusId = e.target.id;
-            var minusItem = minusId.split("-")[1];
-            $.ajax({
-                type: "GET",
-                url: "/cart/remove/" + minusItem,
-                success: function (data) {
-                    console.log("success");
-                    window.location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("fail");
-                },
-            });
+    $('[id^=minusIt-]').click(function (e) {
+        e.preventDefault();
+        var minusId = e.target.id;
+        var minusItem = minusId.split("-")[1];
+        $.ajax({
+            type: "GET",
+            url: "/cart/remove/" + minusItem,
+            success: function (data) {
+                console.log("success");
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("fail");
+            },
         });
+    });
 
-        $('[id^=plus-]').click(function (e) {
-            e.preventDefault();
-            var plusId = e.target.id;
-            var plusItem = plusId.split("-")[1];
-            $.ajax({
-                type: "GET",
-                url: "/cart/add/" + plusItem,
-                success: function (data) {
-                    console.log("success");
-                    window.location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("fail");
-                },
-            });
+    $('[id^=plus-]').click(function (e) {
+        e.preventDefault();
+        var plusId = e.target.id;
+        var plusItem = plusId.split("-")[1];
+        $.ajax({
+            type: "GET",
+            url: "/cart/add/" + plusItem,
+            success: function (data) {
+                console.log("success");
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("fail");
+            },
         });
-    </script>
+    });
+</script>
 
-    <script>
-        $('.delete-btn').click(function (e) {
-            e.preventDefault();
-            var bookId = $(this).attr('data-id');
-            $.ajax({
-                type: "GET",
-                url: "/cart/clear/" + bookId,
-                success: function (data) {
-                    console.log("success");
-                    window.location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("fail");
-                },
-            });
+<script>
+    $('.delete-btn').click(function (e) {
+        e.preventDefault();
+        var bookId = $(this).attr('data-id');
+        $.ajax({
+            type: "GET",
+            url: "/cart/clear/" + bookId,
+            success: function (data) {
+                console.log("success");
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("fail");
+            },
         });
-    </script>
+    });
+</script>
 
-    <script>
-        $('#clearCart').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: "GET",
-                url: "/cart/clear",
-                success: function (data) {
-                    console.log("success");
-                    window.location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("fail");
-                },
-            });
-        })
-    </script>
-    <script>
-        $('[id^=quantity-]').on("change", function (e) {
-            e.preventDefault();
-            var quantity = e.target.value;
-            var bookId = $(this).attr('data-id');
-            $.ajax({
-                type: "GET",
-                url: "/cart/set/" + quantity + "/" + bookId,
-                success: function (data) {
-                    console.log("success");
-                    window.location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("fail");
-                },
-            });
+<script>
+    $('#clearCart').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: "/cart/clear",
+            success: function (data) {
+                console.log("success");
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("fail");
+            },
         });
-    </script>
+    })
+</script>
+<script>
+    $('[id^=quantity-]').on("change", function (e) {
+        e.preventDefault();
+        var quantity = e.target.value;
+        var bookId = $(this).attr('data-id');
+        $.ajax({
+            type: "GET",
+            url: "/cart/set/" + quantity + "/" + bookId,
+            success: function (data) {
+                console.log("success");
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("fail");
+            },
+        });
+    });
+</script>
 
 
 </html>
