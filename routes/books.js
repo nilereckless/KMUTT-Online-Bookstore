@@ -525,6 +525,21 @@ router.get('/orderDetail/(:id)', isStaffAuthenticated, function (req, res, next)
     });
 })
 
+router.get('/receiveSlip/(:id)', function (req, res, next) {
+    let id = req.params.id;
+
+    dbConn.query(`SELECT * FROM reportorder WHERE orderNumber =  ${id}`, (err, rows, fields) => {
+        if (rows.length <= 0) {
+            req.flash('error', 'order not found')
+            res.redirect('/books/payment');
+        } else {
+            res.render('books/receiveSlip', {
+                data: rows
+            })
+        }
+    });
+})
+
 
 
 
