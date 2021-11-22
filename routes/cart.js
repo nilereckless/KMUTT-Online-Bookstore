@@ -159,7 +159,6 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     var orderID = Math.round(Math.floor(Date.now() / 1000))
     //written by arit
     var shipID = req.query.shipIDtoSend;
-
     //  var address = await shipController.getShippingAddressByShipID(req.body.address);
     var cart = null;
     var shipData = await shipController.getShippingAddressByShipID(shipID);

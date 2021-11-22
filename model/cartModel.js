@@ -20,25 +20,6 @@ module.exports = class Cart {
         }
     }
 
-    // setCartQuantityByBookID(quantity, bookID) {
-    //     // [{ id: '6' },
-    //     // { id: '6' },
-    //     // { id: '5' },
-    //     // { id: '7' },
-    //     // { id: '5' },
-    //     // { id: '5' },
-    //     // { id: '5' }]
-    //     this.cart.map(book => {
-    //         this.cart.splice(book.indexOf(book.id), 1);
-    //     })
-
-    //     for (var i = 0; i < quantity; i++) {
-    //         this.cart.push({ id: books });
-    //     }
-    // }
-
-
-
     getQuantityByBookID(bookID) {
         var quantity = 0;
         this.cart.forEach(book => {

@@ -202,13 +202,13 @@
                                                     <h6>Card Owner</h6>
                                                 </label> <input type="text" name="username"
                                                     placeholder="Card Owner Name" required class="form-control "
-                                                    data-omise="holder_name"> </div>
+                                                    id="holder_name"> </div>
                                             <div class="form-group"> <label for="cardNumber">
                                                     <h6>Card number</h6>
                                                 </label>
                                                 <div class="input-group"> <input type="text" name="cardNumber"
                                                         placeholder="Valid card number" class="form-control "
-                                                        data-omise="number" required>
+                                                        id="number" required>
                                                     <div class="input-group-append"> <span
                                                             class="input-group-text text-muted">
                                                             <i class="fab fa-cc-visa mx-1"></i> <i
@@ -223,10 +223,10 @@
                                                             </span></label>
                                                         <div class="input-group">
                                                             <input type="number" placeholder="MM" name=""
-                                                                class="form-control" data-omise="expiration_month"
+                                                                class="form-control" id="expiration_month"
                                                                 required>
                                                             <input type="number" placeholder="YY" name=""
-                                                                class="form-control" data-omise="expiration_year"
+                                                                class="form-control" id="expiration_year"
                                                                 required>
                                                         </div>
                                                     </div>
@@ -236,7 +236,7 @@
                                                             title="Three digit CV code on the back of your card">
                                                             <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
                                                         </label> <input type="text" required class="form-control"
-                                                            data-omise="security_code">
+                                                            id="security_code">
                                                     </div>
                                                 </div>
                                             </div>
@@ -407,15 +407,23 @@
 
         })
         $("#checkout").submit(function () {
+            for (i = 0; i < shipID.length; i++) {
+                var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
+            }
+
+            console.log(shipIDtoSend);
+          //  <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
+            $("#shipIDOmise").val(shipIDtoSend) ;
+            
             var form = $(this);
             form.find("input[type=submit]").prop("disabled", true);
 
             var card = {
-                "name": form.find("[data-omise=holder_name]").val(),
-                "number": form.find("[data-omise=number]").val(),
-                "expiration_month": form.find("[data-omise=expiration_month]").val(),
-                "expiration_year": form.find("[data-omise=expiration_year]").val(),
-                "security_code": form.find("[data-omise=security_code]").val()
+                "name": $("#holder_name").val(),
+                "number": $("#number").val(),
+                "expiration_month": $("#expiration_month").val(),
+                "expiration_year": $("#expiration_year").val(),
+                "security_code": $("#security_code").val()
             };
 
             Omise.createToken("card", card, function (statusCode, response) {
