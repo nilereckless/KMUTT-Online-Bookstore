@@ -28,9 +28,10 @@ router.get('/payment', (req, res) => {
  router.get('/omise', async (req, res) => {
    var testShipID = req.params ; console.log("testShipID : ", testShipID) ;
    var testShipID2 = req.body ; console.log("test ShipID 2 : ", testShipID2) ;
-
+  
   var shipID = req.query.shipIDToSend;
   console.log("Test shipID", shipID);
+  console.log("Hello world Omise") ;
 
   var cart = null;
 
