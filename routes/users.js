@@ -25,57 +25,6 @@ router.get('/payment', (req, res) => {
   res.render('payment');
 })
 
- router.get('/omise', async (req, res) => {
-   var testShipID = req.params ; console.log("testShipID : ", testShipID) ;
-   var testShipID2 = req.body ; console.log("test ShipID 2 : ", testShipID2) ;
-  
-  var shipID = req.query.shipIDToSend;
-  console.log("Test shipID", shipID);
-  console.log("Hello world Omise") ;
-
-  var cart = null;
-
-  if (cartStorage.cartStorage[req.user.id] === undefined) {
-    cart = new Cart(req.user.id);
-  } else {
-    cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
-  }
-  cartStorage.cartStorage[req.user.id] = cart;
-  var total = 0;
-  const ids = cart.getCart().map(o => o.id)
-  const filtered = cart.getCart().filter(({ id }, index) => !ids.includes(id, index + 1))
-  for (var i = 0; i < filtered.length; i++) {
-    var b = await bookController.getBookByID(filtered[i].id);
-    total = await total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
-  }
-
-  var omise = require('omise')({
-    'secretKey': 'skey_test_5p4rrbsrwo9f2d2ut18'
-  });
-
-  var token = req.query.omise_token;
-
-  omise.charges.create({
-    'amount': total * 100,
-    'currency': 'thb',
-    'card': token
-  }, async function (err, charge) {
-    console.log("To Omise Backend");
-    if (charge["status"] === "successful") {
-      // console.log("Omise fully successful!!");
-      const body = { shipIDtoSend: shipID };
-      console.log(body) ;
-
-      
-      return res.redirect("/") ;
-
-    } else {
-      console.log("Omise payment failed");
-      return res.redirect('/');
-    } 
-  }); 
-}) 
-
 router.get('/address/(:id)', async (req, res) => {
   var id = req.params.id;
   var shipAddress = await shipController.getShippingAddressByShipID(id);
