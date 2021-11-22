@@ -212,10 +212,6 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     }
 })
 
-router.get('/omise', async (req, res) => {
-   console.log("Hello omise") ;
-})
-
 router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
     var orderID = await orderHistoryController.getOrderHistoryByID(req.params.orderID);
     if (orderID.length > 0 && orderID[0].user_id == req.user.id) {

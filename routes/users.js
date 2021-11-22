@@ -25,7 +25,10 @@ router.get('/payment', (req, res) => {
   res.render('payment');
 })
 
-/* router.get('/omise', async (req, res) => {
+ router.get('/omise', async (req, res) => {
+   var testShipID = req.params ; console.log("testShipID : ", testShipID) ;
+   var testShipID2 = req.body ; console.log("test ShipID 2 : ", testShipID2) ;
+
   var shipID = req.query.shipIDToSend;
   console.log("Test shipID", shipID);
 
@@ -62,14 +65,7 @@ router.get('/payment', (req, res) => {
       const body = { shipIDtoSend: shipID };
       console.log(body) ;
 
-      const response = await fetch('https://kmuttonlinebookstore.me/cart/checkout', {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': 'application/json' }
-      });
-
-      const data = await response.json();
-      console.log(data); 
+      
       return res.redirect("/") ;
 
     } else {
@@ -77,7 +73,7 @@ router.get('/payment', (req, res) => {
       return res.redirect('/');
     } 
   }); 
-}) */
+}) 
 
 router.get('/address/(:id)', async (req, res) => {
   var id = req.params.id;

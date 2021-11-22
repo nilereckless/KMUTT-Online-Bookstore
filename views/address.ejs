@@ -194,7 +194,7 @@
                                 <!-- credit card info-->
                                 <div id="credit-card" class="tab-pane fade show active pt-3">
                                     <form role="form" onsubmit="event.preventDefault()">
-                                        <form id="checkout" action="/cart/omise" method="GET">
+                                        <form id="checkout" action="/users/omise" method="GET">
                                             <div id="token_errors"></div>
                                             <input type="hidden" name="omise_token">
                                             <div class="form-group"> <label for="username">
@@ -411,6 +411,8 @@
                 }
 
                 console.log(shipIDtoSend);
+              //  <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
+                $("#shipIDOmise").val(shipIDToSend) ;
 
                 var form = $(this);
                 form.find("button[type=submit]").prop("disabled", true);
