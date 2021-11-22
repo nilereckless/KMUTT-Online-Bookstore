@@ -5,6 +5,7 @@
 
 html,body{
   padding-bottom: 300px;
+  padding-top: 50px;
 }
 
 /* #google-signin, #google-signin-modal{
