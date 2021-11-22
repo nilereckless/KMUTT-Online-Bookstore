@@ -25,7 +25,7 @@ router.get('/payment', (req, res) => {
   res.render('payment');
 })
 
-router.get('/omise', async (req, res) => {
+/* router.get('/omise', async (req, res) => {
   var shipID = req.query.shipIDToSend;
   console.log("Test shipID", shipID);
 
@@ -59,7 +59,7 @@ router.get('/omise', async (req, res) => {
     console.log("To Omise Backend");
     if (charge["status"] === "successful") {
       // console.log("Omise fully successful!!");
-   /*   const body = { shipIDtoSend: shipID };
+      const body = { shipIDtoSend: shipID };
       console.log(body) ;
 
       const response = await fetch('https://kmuttonlinebookstore.me/cart/checkout', {
@@ -69,7 +69,7 @@ router.get('/omise', async (req, res) => {
       });
 
       const data = await response.json();
-      console.log(data); */
+      console.log(data); 
       return res.redirect("/") ;
 
     } else {
@@ -77,7 +77,7 @@ router.get('/omise', async (req, res) => {
       return res.redirect('/');
     } 
   }); 
-})
+}) */
 
 router.get('/address/(:id)', async (req, res) => {
   var id = req.params.id;
