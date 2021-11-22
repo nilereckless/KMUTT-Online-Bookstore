@@ -193,7 +193,7 @@
                             <div class="tab-content">
                                 <!-- credit card info-->
                                 <div id="credit-card" class="tab-pane fade show active pt-3">
-                                    
+                                    <form role="form" onsubmit="event.preventDefault()">
                                         <form id="checkout" action="/users/omise" method="GET">
                                             <div id="token_errors"></div>
                                             <input type="hidden" name="omise_token">
@@ -242,12 +242,12 @@
                                             <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
                                             <div class="card-footer"> 
                                                 <input type="submit"
-                                                class="subscribe btn btn-primary btn-block shadow-sm" id="create_token"> 
-                                               Confirm Payment 
+                                                class="subscribe btn btn-primary btn-block shadow-sm" id="create_token" placeholder="payment"> 
+                                              
                                                 </input>
                                                 </div>
                                         </form>
-                                   
+                                    </form>
                                   </div>
                                 
                                 </div>
