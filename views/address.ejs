@@ -433,8 +433,7 @@
             };
 
             Omise.createToken("card", card, function (statusCode, response) {
-                console.log("Response", response) ;
-                console.log("Object", response.object) ;
+                console.log("oms response", response) ;
                 if (response.object == "error") {
                     var message_text = "Please check your input again.";
                     if (response.object == "error") {
@@ -442,7 +441,7 @@
                         alert("Check your credit card") ;
                         document.getElementById("token_errors").innerHTML(message_text) ;
                     }
-                    alert("Please check your card again") ;
+                    alert("Please check your card again" + response.statusCode) ;
                     document.getElementById("token_errors").innerHTML(message_text) ;
                     //  $("#token_errors").html(message_text);
                     $("#create_token").prop("disabled", false);
