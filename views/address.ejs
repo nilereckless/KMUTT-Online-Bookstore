@@ -436,6 +436,8 @@
             };
 
             Omise.createToken("card", card, function (statusCode, response) {
+                console.log("Response", response) ;
+                console.log("Object", response.object) ;
                 if (response.object == "error") {
                     var message_text = "Please check your input again.";
                     if (response.object == "error") {
