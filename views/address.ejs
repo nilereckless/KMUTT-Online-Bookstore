@@ -408,10 +408,6 @@
         })
       
         $("#create_token").on( "click" , () => {
-         //  $("#checkout").submit( (e) => {
-
-         //  console.log("Event", e) ;
-
             for (i = 0; i < shipID.length; i++) {
                 var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
             }
@@ -420,11 +416,8 @@
             console.log("Holder name : ", $("#holder_name").val() ) ;
             console.log("Number : ", $("#number").val() ) ;
             console.log("Expiration month : ", $("#expiration_month").val() ) ;
-          //  <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
             $("#shipIDOmise").val(shipIDtoSend) ;
             
-           //  var form = $(this);
-         //   form.find("input[type=submit]").prop("disabled", true);
             $("#create_token").prop("disabled", true) ;
 
             var card = {
@@ -444,21 +437,8 @@
                         message_text = response.message;
                     }
                     $("#token_errors").html(message_text);
-                  //  form.find("input[type=submit]").prop("disabled", false);
                     $("#create_token").prop("disabled", false);
                 } else {
-                  /*  form.find("[name=omise_token]").val(response.id);
-
-                    form.find("[data-omise=number]").val("");
-                    form.find("[data-omise=security_code]").val("");
-
-                    form.get(0).submit();
-                    console.log("Omise response", response);
-                    console.log("Omise id", response.id); */
-
-                    /*
-                       sent payment_option, shipIDTosend
-                    */
 
                     var settings = {
                     "url": "/cart/omise",
@@ -478,14 +458,12 @@
                     .done(function (response) {
                         console.log("Ajax success") ;
                         console.log("Response ajax", response) ;
-                       // window.location.href("/cart/checkout/complete/" + response) ;
                          window.location.href = `/cart/checkout/complete/${response}`;
                     });
 
                     $(".omise_token").val(response.id) ;
                     $("#number").val("") ;
                     $("#security_code").val("") ;
-                 //   form.get(0).submit() ;
 
                 };
             });
@@ -565,7 +543,7 @@
             //   var option = $("#bank").val() ;
             console.log("Option : ", option);
 
-            if (option === undefined || selectedAddressID === null) {
+            if (option === undefined) {
                 alert("Please select your option to payment!");
             } else {
                 alert("โปรดจำหมายเลขคำสั่งซื้อของคุณ !!!")
