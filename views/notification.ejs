@@ -5,17 +5,17 @@
     <title>KMUTT Online Bookstore</title>
 </head>
 <style>
-    body {
-        padding-top: 50px;
-        margin-top: 50px;
-    }
+   .noti{
+     padding-top: 50px;
+   }
 </style>
 <% include layouts/header.ejs %>
  
     <body>
         <% include layouts/navbar.ejs %>
 
-        <% if(notify!=null) { %>
+        <div name="noti">
+          <% if(notify!=null) { %>
             <% for(let i=0; i < notify.length; i++) { %>
               Order Number : <%=notify[i].orderNumber%> <br>
                 <%=notify[i].message%> <br>
@@ -23,6 +23,7 @@
                     <% } else { %>
                       Empty
                     <% } %>
+          </div>
         
         <br>
            
