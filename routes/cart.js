@@ -353,7 +353,7 @@ router.post('/store', middleWare.isAuthenticatedCart, async (req, res, next) => 
     }
 
     for (var j = 0; j < cartInfo.length; j++) {
-        var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, 0, "-", "-", "-", "-", "-") ;
+        var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, 0, "null", "null", "null", "null", "null") ;
     }
 
     var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, option, 0 , req.user.email, req.user.name);
