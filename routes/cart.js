@@ -233,55 +233,77 @@ router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authen
 
 
 router.get('/omise', middleWare.isAuthenticatedCart, async (req, res, next) => {
-    console.log("Ship id omise", req.query.shipIDToSend) ;
-   // console.log("Omi query", req.query.token) ;
-  /*  var testShipID = req.params ; console.log("testShipID : ", testShipID) ;
-    var testShipID2 = req.body ; console.log("test ShipID 2 : ", testShipID2) ;
-   
-   var shipID = req.query.shipIDToSend;
-   console.log("Test shipID", shipID);
-   console.log("Hello world Omise") ; */
- 
-   var cart = null;
- 
-   if (cartStorage.cartStorage[req.user.id] === undefined) {
-     cart = new Cart(req.user.id);
-   } else {
-     cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
-   }
+    console.log("Ship id omise", req.query.shipIDToSend);
 
-   cartStorage.cartStorage[req.user.id] = cart;
-   var total = 0;
-   const ids = cart.getCart().map(o => o.id)
-   const filtered = cart.getCart().filter(({ id }, index) => !ids.includes(id, index + 1))
-   for (var i = 0; i < filtered.length; i++) {
-     var b = await bookController.getBookByID(filtered[i].id);
-     total = await total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
-   }
- 
-   var omise = require('omise')({
-     'secretKey': 'skey_test_5p4rrbsrwo9f2d2ut18'
-   });
- 
-   var token = req.query.token;
- 
-   omise.charges.create({
-     'amount': total * 100,
-     'currency': 'thb',
-     'card': token
-   }, async function (err, charge) {
-     console.log("To Omise Backend");
-     if (charge["status"] === "successful") {
-       console.log("Omise successful") ;
-       return res.redirect("/") ;
- 
-     } else {
-       console.log("Omise payment failed");
-       return res.redirect('/');
-     } 
-   }); 
+    var shipID = req.query.shipIDToSend;
+    var orderID = Math.round(Math.floor(Date.now() / 1000));
+    var shipData = await shipController.getShippingAddressByShipID(shipID);
+    var cart = null;
+    var token = req.query.token;
+    var total = 0;
+    var cartInfo = [];
 
-}) 
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
+    } else {
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
+    }
+
+    cartStorage.cartStorage[req.user.id] = cart;
+
+    const ids = cart.getCart().map(o => o.id)
+    const filtered = cart.getCart().filter(({ id }, index) => !ids.includes(id, index + 1))
+    for (var i = 0; i < filtered.length; i++) {
+        var b = await bookController.getBookByID(filtered[i].id);
+        var data = {
+            bookName: b[0].name,
+            quantity: cart.getQuantityByBookID(filtered[i].id),
+            price: b[0].price,
+            img: b[0].imageUrl,
+            author: b[0].author,
+            id: b[0].id,
+            stock: b[0].stock
+        }
+        cartInfo.push(data);
+        total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
+    }
+
+    var omise = require('omise')({
+        'secretKey': 'skey_test_5p4rrbsrwo9f2d2ut18'
+    });
+
+
+    omise.charges.create({
+        'amount': total * 100,
+        'currency': 'thb',
+        'card': token
+    }, async function (err, charge) {
+        console.log("To Omise Backend");
+        if (charge["status"] === "successful") {
+
+            for (var j = 0; j < cartInfo.length; j++) {
+                var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, shipData.shipID, shipData.district, shipData.province, shipData.postalCode, shipData.address, shipData.subdistrict);
+            }
+
+            var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.query.paymentOption, req.query.shipIDToSend, req.user.email, req.user.name);
+            if (orderIDState.affectedRows === 1) {
+                var txt = "Your cart" + orderID + " is ordered";
+                notificationController.addNotifications(req.user.id, txt, "Pending", orderID);
+                res.json(orderID);
+            } else {
+                res.json("error");
+            }
+
+            console.log("Omise successful");
+            return res.redirect("/");
+
+        } else {
+            console.log("Omise payment failed");
+            return res.redirect('/');
+        }
+    });
+
+})
 
 router.get('/subdistrict/:id', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var subDist = await locationController.getSubdistrictByDistrictID(req.params.id);
