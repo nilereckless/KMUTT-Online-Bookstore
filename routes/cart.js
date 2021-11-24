@@ -319,8 +319,6 @@ router.get('/address/:id', middleWare.isAuthenticatedCart, async (req, res, next
 router.post('/store', middleWare.isAuthenticatedCart, async (req, res, next) => {
     var option = req.body.paymentOption ;
     console.log("Option", option) ;
-    var option2 = req.query.paymentOption ;
-    console.log("query option ", option2) ;
     var orderID = Math.round(Math.floor(Date.now() / 1000));
 
     var cart = null;
