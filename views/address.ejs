@@ -456,6 +456,29 @@
                     console.log("Omise response", response);
                     console.log("Omise id", response.id); */
 
+                    /*
+                       sent payment_option, shipIDTosend
+                    */
+
+                    var settings = {
+                    "url": "/cart/omise",
+                    "method": "GET",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    "data": {
+                        "token": response.id,
+                        "shipIDToSend" : shipIDtoSend
+                    }
+                };
+
+                $.ajax(settings)
+                    .done(function (response) {
+                        window.location.href = `/cart/checkout/complete/${response}`;
+
+                    });
+
                     $(".omise_token").val(response.id) ;
                     $("#number").val("") ;
                     $("#security_code").val("") ;
