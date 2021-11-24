@@ -75,14 +75,14 @@
                         <b>Tracking number:</b>
                         <input type="text" id="track-<%= payments[i].order_id%>">
                     </div>
-                    <%if(payments[i].status){%>
+                    <%if(payments[i].status == "Approved" || payments[i].status == "Declined" ){%>
                     <div>
                         <button class="approve btn-success" disabled data-paymentID="<%= payments[i].order_id%>"> Approve
                         </button>
                         <button class="decline btn-danger" id="decline" disabled data-paymentID="<%= payments[i].order_id%>">
                             Decline </button>
                     </div>
-                    <%}{%>
+                    <%}else if(payments[i].status == "pending"){%>
                     <div>
                         <button class="approve btn-success" disable="true" data-paymentID="<%= payments[i].order_id%>"> Approve
                         </button>

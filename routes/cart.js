@@ -299,7 +299,8 @@ router.get('/omise', middleWare.isAuthenticatedCart, async (req, res, next) => {
 
         } else {
             console.log("Omise payment failed");
-            return res.redirect('/cart/checkout');
+            return res.json("Credit card fail charges") ;
+           // return res.redirect('/cart/checkout');
         }
     });
 
