@@ -233,8 +233,9 @@ router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authen
 
 
 router.get('/omise', middleWare.isAuthenticatedCart, async (req, res, next) => {
-    console.log("Omise params", req.params) ;
-    console.log("Omise body", req.body) ;
+    console.log("Omise params", req.params.token) ;
+    console.log("Omise body", req.body.token) ;
+    console.log("Omi query", req.query.token) ;
   /*  var testShipID = req.params ; console.log("testShipID : ", testShipID) ;
     var testShipID2 = req.body ; console.log("test ShipID 2 : ", testShipID2) ;
    
