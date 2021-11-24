@@ -356,7 +356,7 @@ router.post('/store', middleWare.isAuthenticatedCart, async (req, res, next) => 
         var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, "-", "-", "-", "-", "-", "-") ;
     }
 
-    var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, option, "-", req.user.email, req.user.name);
+    var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, option, 0 , req.user.email, req.user.name);
 
     if(orderIDState.affectedRows === 1){
        var txt = "Your cart" + orderID + " is ordered" ;
