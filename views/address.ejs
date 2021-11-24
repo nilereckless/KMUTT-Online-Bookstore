@@ -412,7 +412,6 @@
                 alert("Please select your address");
             } else {
                 
-            
             for (i = 0; i < shipID.length; i++) {
                 var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
             }
@@ -444,12 +443,10 @@
                     $("#token_errors").html(message_text);
                     $("#create_token").prop("disabled", false);
                 } else {
-
-                 
                     var settings = {
                     "url": "/cart/omise",
                     "method": "GET",
-                    "timeout": 0,
+                    "timeout": 60,
                     "headers": {
                         "Content-Type": "application/x-www-form-urlencoded",
                     },
@@ -510,7 +507,7 @@
             console.log("Option :", option);
 
             if (option === undefined || selectedAddressID === null) {
-                alert("Please select your option to payment!");
+                alert("Please select your address");
             } else {
                 alert("โปรดจำหมายเลขคำสั่งซื้อของคุณ !!!")
                 //    selectedAddressID 
@@ -530,9 +527,7 @@
                 $.ajax(settings)
                     .done(function (response) {
                         window.location.href = `/cart/checkout/complete/${response}`;
-
                     });
-
 
             }
 
