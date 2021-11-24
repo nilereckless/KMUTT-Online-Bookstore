@@ -439,9 +439,12 @@
                     var message_text = "Please check your input again.";
                     if (response.object == "error") {
                         message_text = response.message;
+                        alert("Check your credit card") ;
+                        document.getElementById("token_errors").innerHTML(message_text) ;
                     }
                     alert("Please check your card again") ;
                     document.getElementById("token_errors").innerHTML(message_text) ;
+                    //  $("#token_errors").html(message_text);
                     $("#create_token").prop("disabled", false);
                 } else {
                     var settings = {
