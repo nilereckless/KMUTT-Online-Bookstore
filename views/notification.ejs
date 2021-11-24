@@ -6,7 +6,7 @@
 </head>
 <style>
     body {
-        padding-top: 10px;
+        padding-top: 30px;
     }
 </style>
 <% include layouts/header.ejs %>
@@ -14,11 +14,10 @@
     <body>
         <% include layouts/navbar.ejs %>
 
-        Test Noti
         <% if(notify!=null) { %>
             <% for(let i=0; i < notify.length; i++) { %>
-              Order Number : <%=notify[i].orderNumber%>
-                <%=notify[i].message%>
+              Order Number : <%=notify[i].orderNumber%> <br>
+                <%=notify[i].message%> <br>
                   <% } %>
                     <% } else { %>
                       Empty
