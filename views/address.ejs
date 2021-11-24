@@ -420,7 +420,7 @@
           //  <input type="hidden" id="shipIDOmise" value="" name="shipIDToSend">
             $("#shipIDOmise").val(shipIDtoSend) ;
             
-            var form = $(this);
+           //  var form = $(this);
          //   form.find("input[type=submit]").prop("disabled", true);
             $("#create_token").prop("disabled", true) ;
 
@@ -454,7 +454,7 @@
                     $(".omise_token").val(response.id) ;
                     $("#number").val("") ;
                     $("#security_code").val("") ;
-                    form.get(0).submit() ;
+                 //   form.get(0).submit() ;
 
                 };
             });

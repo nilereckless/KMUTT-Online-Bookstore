@@ -270,7 +270,7 @@ router.get('/omise', middleWare.isAuthenticatedCart, async (req, res, next) => {
    }, async function (err, charge) {
      console.log("To Omise Backend");
      if (charge["status"] === "successful") {
-       
+       console.log("Omise successful") ;
        return res.redirect("/") ;
  
      } else {
