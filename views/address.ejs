@@ -533,11 +533,11 @@
 
         $('#confirm2').on('click', function (e) {
 
-            for (i = 0; i < shipID.length; i++) {
+        /*    for (i = 0; i < shipID.length; i++) {
                 var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
             }
 
-            console.log(shipIDtoSend);
+            console.log(shipIDtoSend); */
 
             option = document.getElementById('store').getAttribute('value');
             //   var option = $("#bank").val() ;
@@ -549,13 +549,12 @@
                 alert("โปรดจำหมายเลขคำสั่งซื้อของคุณ !!!")
                 //    selectedAddressID 
                 var settings = {
-                    "url": "/cart/checkout?shipIDtoSend=" + shipIDtoSend,
+                    "url": "/cart/checkout" ,
                     "method": "POST",
                     "headers": {
                         "Content-Type": "application/x-www-form-urlencoded",
                     },
                     "data": {
-                        "address": selectedAddressID,
                         "paymentOption": option
                     }
                 };
