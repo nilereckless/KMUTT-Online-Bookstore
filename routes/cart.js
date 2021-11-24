@@ -316,6 +316,58 @@ router.get('/address/:id', middleWare.isAuthenticatedCart, async (req, res, next
     res.json(addr);
 })
 
+router.post('/store', middleWare.isAuthenticatedCart, async (req, res, next) => {
+    var option = req.body.paymentOption ;
+    console.log("Option", option) ;
+    var option2 = req.query.paymentOption ;
+    console.log("query option ", option2) ;
+    var orderID = Math.round(Math.floor(Date.now() / 1000));
+
+    var cart = null;
+    var total = 0;
+    var cartInfo = [];
+
+    if (cartStorage.cartStorage[req.user.id] === undefined) {
+        cart = new Cart(req.user.id);
+    } else {
+        cart = new Cart(req.user.id, cartStorage.cartStorage[req.user.id].cart);
+    }
+
+    cartStorage.cartStorage[req.user.id] = cart;
+
+    const ids = cart.getCart().map(o => o.id)
+    const filtered = cart.getCart().filter(({ id }, index) => !ids.includes(id, index + 1))
+    for (var i = 0; i < filtered.length; i++) {
+        var b = await bookController.getBookByID(filtered[i].id);
+        var data = {
+            bookName: b[0].name,
+            quantity: cart.getQuantityByBookID(filtered[i].id),
+            price: b[0].price,
+            img: b[0].imageUrl,
+            author: b[0].author,
+            id: b[0].id,
+            stock: b[0].stock
+        }
+        cartInfo.push(data);
+        total = total + (b[0].price * cart.getQuantityByBookID(filtered[i].id));
+    }
+
+    for (var j = 0; j < cartInfo.length; j++) {
+        var allorder = await orderHistoryController.addAllOrderByID(req.user.id, orderID, cartInfo[j].bookName, cartInfo[j].quantity, total, cartInfo[j].id, "-", "-", "-", "-", "-", "-") ;
+    }
+
+    var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, option, "-", req.user.email, req.user.name);
+
+    if(orderIDState.affectedRows === 1){
+       var txt = "Your cart" + orderID + " is ordered" ;
+       notificationController.addNotifications(req.user.id, txt, 'Pending', orderID) ;
+       res.json(orderID) ;
+    } else {
+        res.json("error") ;
+    }
+
+})
+
 module.exports = router;
 
 // req.user.id แทนเลข 1 ทุกอัน

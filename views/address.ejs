@@ -543,19 +543,20 @@
             //   var option = $("#bank").val() ;
             console.log("Option : ", option);
 
-            if (option === undefined) {
+       /*     if (option === undefined) {
                 alert("Please select your option to payment!");
             } else {
                 alert("โปรดจำหมายเลขคำสั่งซื้อของคุณ !!!")
                 //    selectedAddressID 
                 var settings = {
-                    "url": "/cart/checkout" ,
+                    "url": "/cart/store" ,
                     "method": "POST",
                     "headers": {
                         "Content-Type": "application/x-www-form-urlencoded",
                     },
                     "data": {
-                        "paymentOption": option
+                        "paymentOption": option,
+                        "shipID" : "-"
                     }
                 };
 
@@ -566,7 +567,25 @@
                     });
 
 
-            }
+            } */
+
+            var settings = {
+                    "url": "/cart/store" ,
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    "data": {
+                        "paymentOption": option,
+                        "shipID" : "-"
+                    }
+                };
+
+                $.ajax(settings)
+                    .done(function (response) {
+                        window.location.href = `/cart/checkout/complete/${response}`;
+
+                    });
 
         })
 
