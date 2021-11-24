@@ -77,9 +77,9 @@
                     </div>
                     <%if(payments[i].status == "Approved" || payments[i].status == "Declined" ){%>
                     <div>
-                        <button class="approve btn-success" disabled data-paymentID="<%= payments[i].order_id%>"> Approve
+                        <button class="approve btn-success" disabled data-paymentID="<%= payments[i].order_id%>" style="background-color:grey;"> Approve
                         </button>
-                        <button class="decline btn-danger" id="decline" disabled data-paymentID="<%= payments[i].order_id%>">
+                        <button class="decline btn-danger" id="decline" disabled data-paymentID="<%= payments[i].order_id%>" style="background-color:grey;">
                             Decline </button>
                     </div>
                     <%}else if(payments[i].status == "pending"){%>
