@@ -22,10 +22,11 @@
  
     <body>
         <% include layouts/navbar.ejs %>
+        <h4 align>Notification</h4>
 
           <% if(notify!=null) { %>
             <% for(let i=0; i < notify.length; i++) { %>
-              Order Number : <%=notify[i].orderNumber%> <br>
+              <b>Order Number</b> : <%=notify[i].orderNumber%> <br>
                 <%=notify[i].message%> <br>
                   <% } %>
                     <% } else { %>
