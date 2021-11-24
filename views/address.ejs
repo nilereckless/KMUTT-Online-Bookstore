@@ -478,8 +478,8 @@
                     .done(function (response) {
                         console.log("Ajax success") ;
                         console.log("Response ajax", response) ;
-                        window.location.href("/cart/checkout/complete/" + response) ;
-                        // window.location.href = `/cart/checkout/complete/${response}`;
+                       // window.location.href("/cart/checkout/complete/" + response) ;
+                         window.location.href = `/cart/checkout/complete/${response}`;
                     });
 
                     $(".omise_token").val(response.id) ;
