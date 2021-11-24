@@ -408,6 +408,11 @@
         })
       
         $("#create_token").on( "click" , () => {
+            if (option === undefined || selectedAddressID === null) {
+                alert("Please select your option to payment!");
+            } else {
+                
+            
             for (i = 0; i < shipID.length; i++) {
                 var shipIDtoSend = parseInt(shipID[shipID.length - 1]);
             }
@@ -440,6 +445,7 @@
                     $("#create_token").prop("disabled", false);
                 } else {
 
+                 
                     var settings = {
                     "url": "/cart/omise",
                     "method": "GET",
@@ -469,6 +475,7 @@
             });
 
             return false;
+        }
         }) ;
 
         //new
