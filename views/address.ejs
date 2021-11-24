@@ -441,7 +441,7 @@
                         message_text = response.message;
                     }
                     alert("Please check your card again") ;
-                    $("#token_errors").html(message_text);
+                    document.getElementById("token_errors").innerHTML(message_text) ;
                     $("#create_token").prop("disabled", false);
                 } else {
                     var settings = {
