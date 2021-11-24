@@ -233,9 +233,8 @@ router.get('/checkout/complete/:orderID', middleWare.isAuthenticatedCart, authen
 
 
 router.get('/omise', middleWare.isAuthenticatedCart, async (req, res, next) => {
-    console.log("Omise params", req.params.token) ;
-    console.log("Omise body", req.body.token) ;
-    console.log("Omi query", req.query.token) ;
+    console.log("Ship id omise", req.query.shipIDToSend) ;
+   // console.log("Omi query", req.query.token) ;
   /*  var testShipID = req.params ; console.log("testShipID : ", testShipID) ;
     var testShipID2 = req.body ; console.log("test ShipID 2 : ", testShipID2) ;
    
@@ -264,7 +263,7 @@ router.get('/omise', middleWare.isAuthenticatedCart, async (req, res, next) => {
      'secretKey': 'skey_test_5p4rrbsrwo9f2d2ut18'
    });
  
-   var token = req.query.omise_token;
+   var token = req.query.token;
  
    omise.charges.create({
      'amount': total * 100,
