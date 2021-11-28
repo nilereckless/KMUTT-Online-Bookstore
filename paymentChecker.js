@@ -14,7 +14,7 @@ async function paymentChecker() {
             var minutes = a.diff(b, 'minutes') // 44700
             // console.log(a.diff(b, 'hours')) // 745
 
-            if (minutes >= 2 && order.status === "pending") {
+            if (minutes >= 4 && order.status === "pending") {
                 console.log("expired payment", order.order_id);
                 orderHistoryController.updateOrderStatusByID(order.order_id, "Declined")
             }
@@ -25,4 +25,4 @@ async function paymentChecker() {
 
 
 
-setInterval(paymentChecker, 3000);
+setInterval(paymentChecker, 3000); // ทำทุกกี่วิ หน่วยเป็น มิลลิ อยากเช็คมากเช็คน้อยเปลี่ยนเลขตรงนี้
