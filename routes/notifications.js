@@ -28,7 +28,6 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
       console.log("orderNum Z", orderNum[z]) ;
       var testPrice = await orderBookController.getBookOrderByOrderID(orderNum[z]);
        console.log("Test price ", testPrice) ;
-       console.log("total_price for noti ", testPrice[0][z].total_price) ;
        console.log("Total price",  testPrice.total_price ) ;
        console.log("Price", testPrice[total_price]) ;
        console.log("Price ja", testPrice[0].total_price) ;
