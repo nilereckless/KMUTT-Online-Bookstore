@@ -19,7 +19,7 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
          count+=1 ;
       }
    //   var orderNum = await orderBookController.getBookOrderByOrderID(noti[i].orderNumber);
-      
+      console.log("Ordernum for noti ", orderNum) ;
    }
 
    console.log("count ", count) ;
