@@ -13,7 +13,7 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
 
    for(var i = 0 ; i < noti.length; i++){
    //   var orderNum = await orderBookController.getBookOrderByOrderID(noti[i].orderNumber);
-      count += await orderBookController.getBookOrderByOrderID(noti[i].orderNumber).length ;
+      count += await orderBookController.getBookOrderByOrderID(noti[i].orderNumber) ;
    }
 
    console.log("count ", count) ;
