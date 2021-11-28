@@ -12,8 +12,8 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
    var total = [];
 
    for(var i = 0 ; i < noti.length; i++){
-      var orderNum = await orderBookController.getBookOrderByOrderID(noti[i].orderNumber);
-      count = orderNum.length ;
+   //   var orderNum = await orderBookController.getBookOrderByOrderID(noti[i].orderNumber);
+      count += await orderBookController.getBookOrderByOrderID(noti[i].orderNumber).length ;
    }
 
    console.log("count ", count) ;
