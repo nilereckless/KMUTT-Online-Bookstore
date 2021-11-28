@@ -25,9 +25,9 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
    console.log("count ", count) ;
 
    for(var z = 0 ; z < count ; z++){
-      console.log("count Z", count[z]) ;
-     // var testPrice = await orderBookController.getBookOrderByOrderID(count[z]);
-     //  console.log("Test price ", testPrice) ;
+      console.log("orderNum Z", orderNum[z]) ;
+      var testPrice = await orderBookController.getBookOrderByOrderID(orderNum[z]);
+       console.log("Test price ", testPrice) ;
    }
 
   /* for(var j = 0 ; j < count ; j++){
