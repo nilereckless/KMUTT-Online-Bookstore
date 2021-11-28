@@ -1,21 +1,26 @@
 let express = require('express');
 let router = express.Router();
 let dbConn = require('../lib/db');
-var NotificationController = require('../controller/notificationController') ;
+var NotificationController = require('../controller/notificationController');
 const middleWare = require('../middleware/authentication');
 let authentication = require('../middleware/authentication');
-var orderBookController = require('../controller/orderHistoryController') ;
+var orderBookController = require('../controller/orderHistoryController');
 
-router.get('/',middleWare.isAuthenticatedCart, authentication.checkAdmin,  async (req, res, next) => {
-   var noti = await NotificationController.getNotificationsByUserID(req.user.id) ; // req.user.id
-   var total = 0 ;
- //  console.log("User id for noti", req.user.id) ;
-   console.log("Noti orderNum ", noti[0].orderNumber) ;
-   var orderNum = await orderBookController.getBookOrderByOrderID(noti[0].orderNumber) ;
-   console.log("Order in noti ", orderNum) ;
-   console.log("Total price in noti ", orderNum[0].total_price) ;
-   //res.json(noti) ;
-   res.render('notification', {notify : noti, user : req.user, staff: req.staff, sumPrice : orderNum[0].total_price}) ;
+router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
+   var noti = await NotificationController.getNotificationsByUserID(req.user.id); // req.user.id
+   var total = [];
+
+   for (var i = 0; i < noti.length; i++){
+      var orderNum = await orderBookController.getBookOrderByOrderID(noti[i].orderNumber);
+   }
+
+   for(var j = 0 ; j < orderNum; j++){
+     total = orderNum[j].total_price ;
+   }
+
+   console.log("Total in noti ", total) ;
+ 
+   res.render('notification', { notify: noti, user: req.user, staff: req.staff, sumPrice: total });
 })
 
-module.exports = router ;
+module.exports = router;
