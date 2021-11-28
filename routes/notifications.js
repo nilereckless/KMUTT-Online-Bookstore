@@ -10,7 +10,7 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
    var noti = await NotificationController.getNotificationsByUserID(req.user.id); // req.user.id
    var orderNum = [] ;
    var count = 0 ;
-   var total = [];
+   var total = 0;
 
    for(var i = 0 ; i < noti.length; i++){
       if(noti[i].status === "pending" || noti[i].status === "Pending"){
@@ -28,8 +28,8 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
       console.log("orderNum Z", orderNum[z]) ;
       var testPrice = await orderBookController.getBookOrderByOrderID(orderNum[z]);
        console.log("Test price ", testPrice) ;
-       console.log("Total price",  testPrice.total_price ) ;
        console.log("Price ja", testPrice[0].total_price) ;
+       total = testPrice[0].total_price ;
    }
  
    res.render('notification', { notify: noti, user: req.user, staff: req.staff, sumPrice: total });
