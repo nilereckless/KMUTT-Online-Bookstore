@@ -15,7 +15,7 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
    }
 
    for(var j = 0 ; j < orderNum; j++){
-     total = orderNum[j].total_price ;
+     total.push(orderNum[j].total_price) ;
    }
 
    console.log("Total in noti ", total) ;
