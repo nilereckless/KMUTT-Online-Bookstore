@@ -11,7 +11,7 @@ router.get('/',middleWare.isAuthenticatedCart, authentication.checkAdmin,  async
    var total = 0 ;
  //  console.log("User id for noti", req.user.id) ;
    console.log("Noti orderNum ", noti[0].orderNumber) ;
-   var orderNum = orderBookController.getBookOrderByOrderID(noti[0].orderNumber) ;
+   var orderNum = await orderBookController.getBookOrderByOrderID(noti[0].orderNumber) ;
    console.log("Order in noti ", orderNum) ;
    console.log("Total price in noti ", orderNum.total_price) ;
    //res.json(noti) ;
