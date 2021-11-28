@@ -228,7 +228,7 @@ router.post('/checkout', middleWare.isAuthenticatedCart, async (req, res, next) 
     if (req.user.id == address.userID) {
         var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.body.paymentOption, req.body.address, req.user.email, req.user.name);
         if (orderIDState.affectedRows === 1) {
-            var txt = "Your cart" + orderID + " is ordered";
+            var txt = "Your cart " + orderID + " is ordered";
             notificationController.addNotifications(req.user.id, txt, "Pending", orderID);
             res.json(orderID);
         } else {
@@ -316,7 +316,7 @@ router.get('/omise', middleWare.isAuthenticatedCart, async (req, res, next) => {
 
             var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, req.query.paymentOption, req.query.shipIDToSend, req.user.email, req.user.name);
             if (orderIDState.affectedRows === 1) {
-                var txt = "Your cart" + orderID + " is ordered";
+                var txt = "Your cart " + orderID + " is ordered";
                 notificationController.addNotifications(req.user.id, txt, "Pending", orderID);
                 res.json(orderID);
             } else {
@@ -387,7 +387,7 @@ router.post('/store', middleWare.isAuthenticatedCart, async (req, res, next) => 
     var orderIDState = await orderHistoryController.addOrderHistoryByID(req.user.id, orderID, option, 0 , req.user.email, req.user.name);
 
     if(orderIDState.affectedRows === 1){
-       var txt = "Your cart" + orderID + " is ordered" ;
+       var txt = "Your cart " + orderID + " is ordered" ;
        notificationController.addNotifications(req.user.id, txt, 'Pending', orderID) ;
        res.json(orderID) ;
     } else {
