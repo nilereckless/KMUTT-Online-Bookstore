@@ -8,13 +8,17 @@ var orderBookController = require('../controller/orderHistoryController');
 
 router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async (req, res, next) => {
    var noti = await NotificationController.getNotificationsByUserID(req.user.id); // req.user.id
+   var count = 0 ;
    var total = [];
 
-   for (var i = 0; i < noti.length; i++){
+   for(var i = 0 ; i < noti.this.length; i++){
       var orderNum = await orderBookController.getBookOrderByOrderID(noti[i].orderNumber);
+      count = orderNum.length ;
    }
 
-   for(var j = 0 ; j < orderNum; j++){
+   console.log("count ", count) ;
+
+   for(var j = 0 ; j < count ; j++){
       console.log("Get total price from order ", orderNum) ;
       console.log("ordernum 0 j total price", orderNum[0][j].total_price , "or j 0 total price", orderNum[j][0].total_price) ;
      total.push(orderNum[j].total_price) ;
