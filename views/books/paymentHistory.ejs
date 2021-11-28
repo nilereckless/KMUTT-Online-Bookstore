@@ -72,7 +72,7 @@
                         <%= payments[i].created_at%>
                     </div>
                     <div>
-                        <b>Tracking number:</b>
+                        <b>Note:</b>
                         <input type="text" id="track-<%= payments[i].order_id%>">
                     </div>
                     <%if(payments[i].status == "Approved" || payments[i].status == "Declined" ){%>
