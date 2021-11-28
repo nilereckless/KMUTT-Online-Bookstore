@@ -20,7 +20,7 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
 
    for(var j = 0 ; j < count ; j++){
       console.log("Get total price from order ", orderNum) ;
-      
+      console.log("orerNum[j]", orderNum[j]) ;
    }
 
    console.log("Total in noti ", total) ;
