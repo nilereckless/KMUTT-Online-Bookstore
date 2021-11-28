@@ -91,6 +91,33 @@
         border-width: 2px;
         ;
     }
+
+    .tag {
+                display: inline-block;
+
+                width: auto;
+                height: 38px;
+
+                background-color: lightsalmon;
+                -webkit-border-radius: 3px 4px 4px 3px;
+                -moz-border-radius: 3px 4px 4px 3px;
+                border-radius: 3px 4px 4px 3px;
+
+                border-left: 1px solid lightsalmon;
+
+
+                margin-left: 19px;
+
+                position: relative;
+
+                color: white;
+                font-weight: 300;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 22px;
+                line-height: 38px;
+
+                padding: 0 10px 0 10px;
+            }
 </style>
 <% include layouts/navbar.ejs %>
 
@@ -167,6 +194,11 @@
                                                     address</button>
                                             </div>
                                         </div>
+                                        <div>
+                                            <h4><b>Total price</b></h4><br>
+                                          <p class="tag"> Amount to paid : <%=sumPrice%></p> 
+                                        </div>
+                                        
                 </div>
                 <div class="col-lg-6" align="center">
                     <h4><b>Select your Payment</b></h4>
@@ -283,7 +315,6 @@
                             </div> <!-- End -->
                             <!-- End -->
                         </div>
-                        Sumprice : <%=sumPrice%>
                     </div>
                     <!-- <div class="form-check">
                         <form id="option_payment">
