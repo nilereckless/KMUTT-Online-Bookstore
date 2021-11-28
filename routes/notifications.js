@@ -12,8 +12,12 @@ router.get('/', middleWare.isAuthenticatedCart, authentication.checkAdmin, async
    var total = [];
 
    for(var i = 0 ; i < noti.length; i++){
+      if(noti[i].status === "pending" || noti[i].status === "Pending"){
+         var orderNum = await orderBookController.getBookOrderByOrderID(noti[i].orderNumber);
+         count+=1 ;
+      }
    //   var orderNum = await orderBookController.getBookOrderByOrderID(noti[i].orderNumber);
-      count += await orderBookController.getBookOrderByOrderID(noti[i].orderNumber) ;
+      
    }
 
    console.log("count ", count) ;
