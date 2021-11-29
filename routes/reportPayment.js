@@ -8,7 +8,7 @@ const CryptoJS = require("crypto-js");
 let helpers = require('../lib/helpers');
 
 router.post('/upload', async (req, res, next) => {
-    console.log("nile1", req.user.id);
+   // console.log("nile1", req.user.id);
     // let userID = 1
     let fullName = req.body.customerName;
     let eMail = req.body.customerEmail;
@@ -18,14 +18,20 @@ router.post('/upload', async (req, res, next) => {
     let date = req.body.dateTime;
     let amount = req.body.amount;
     let note = req.body.customerNote;
-    console.log("req files" + req.files);
+  //  console.log("req files" + req.files);
     try {
         var path = null;
         var slipImg = null;
         if (!req.files) {
             path = imageUrl
         } else {
-            console.log("aek" + req.files);
+
+            if (date > Date.now()) {
+                alert("The Date must be less than today") ;
+                return false ;
+            } 
+
+          //  console.log("aek" + req.files);
             slipImg = req.files.slip;
             let filename = CryptoJS.MD5(Math.floor(Date.now() / 1000) + slipImg.name).toString();
             var trimmedString = filename.substring(0, 12);
