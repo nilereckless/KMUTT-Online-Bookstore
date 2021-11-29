@@ -19,17 +19,14 @@ router.post('/upload', async (req, res, next) => {
     let amount = req.body.amount;
     let note = req.body.customerNote;
   //  console.log("req files" + req.files);
+  console.log("Date input ", date) ;
+  console.log("Date now ", Date.now()) ;
     try {
         var path = null;
         var slipImg = null;
         if (!req.files) {
             path = imageUrl
         } else {
-
-            if (date > Date.now()) {
-                alert("The Date must be less than today") ;
-                return false ;
-            } 
 
           //  console.log("aek" + req.files);
             slipImg = req.files.slip;
