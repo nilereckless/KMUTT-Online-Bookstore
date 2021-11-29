@@ -27,7 +27,6 @@ router.post('/upload', async (req, res, next) => {
         if (!req.files) {
             path = imageUrl
         } else {
-
           //  console.log("aek" + req.files);
             slipImg = req.files.slip;
             let filename = CryptoJS.MD5(Math.floor(Date.now() / 1000) + slipImg.name).toString();
